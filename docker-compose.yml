@@ -1,0 +1,11 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: reservaMentor
+      POSTGRES_DB: reservamentor_db
+    ports:
+      -5433:5432
