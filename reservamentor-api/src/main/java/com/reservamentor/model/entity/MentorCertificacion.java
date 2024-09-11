@@ -15,10 +15,10 @@ public class MentorCertificacion {
     @EmbeddedId
     private MentorCertificacionId id;
 
-    @MapsId("mentorMentorid")
+    @MapsId("mentorid")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "mentor_mentorid", nullable = false)
-    private Mentor mentorMentorid;
+    @JoinColumn(name = "mentorid", nullable = false)
+    private Mentor mentorid;
 
     @MapsId("certificacionid")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

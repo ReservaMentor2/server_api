@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Entity
-@Table(name = "evento")
+@Table(name = "eventos")
 public class Evento {
     @Id
     @Column(name = "evento_id", nullable = false)
@@ -25,9 +25,14 @@ public class Evento {
     @Column(name = "titulo", nullable = false, length = 100)
     private String titulo;
 
+    @Size(max = 500)
     @NotNull
-    @Column(name = "fechahora", nullable = false)
-    private LocalDate fechahora;
+    @Column(name = "descripcion", nullable = false, length = 500)
+    private String descripcion;
+
+    @NotNull
+    @Column(name = "fecha", nullable = false)
+    private LocalDate fecha;
 
     @NotNull
     @Column(name = "esvirtual", nullable = false)
@@ -35,7 +40,7 @@ public class Evento {
 
     @Size(max = 200)
     @NotNull
-    @Column(name = "enlace", nullable = false, length = 200)
-    private String enlace;
+    @Column(name = "ubicacion", nullable = false, length = 200)
+    private String ubicacion;
 
 }

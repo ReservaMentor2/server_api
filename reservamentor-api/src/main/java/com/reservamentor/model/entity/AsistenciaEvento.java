@@ -8,20 +8,20 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "participacion_evento")
-public class ParticipacionEvento {
+@Table(name = "asistencia_evento")
+public class AsistenciaEvento {
     @EmbeddedId
-    private ParticipacionEventoId id;
+    private AsistenciaEventoId id;
 
     @MapsId("mentorid")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "mentorid", nullable = false)
-    private Mentor mentorid;
+    private com.reservamentor.model.entity.Mentor mentorid;
 
-    @MapsId("eventoId")
+    @MapsId("eventoid")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "evento_id", nullable = false)
-    private Evento evento;
+    @JoinColumn(name = "eventoid", nullable = false)
+    private com.reservamentor.model.entity.Evento eventoid;
 
     @NotNull
     @Column(name = "asistenciaconfirmada", nullable = false)

@@ -13,10 +13,10 @@ import java.util.Objects;
 @Setter
 @Embeddable
 public class MentorCertificacionId implements java.io.Serializable {
-    private static final long serialVersionUID = -7155848038896921130L;
+    private static final long serialVersionUID = -9184476791412633847L;
     @NotNull
-    @Column(name = "mentor_mentorid", nullable = false)
-    private Integer mentorMentorid;
+    @Column(name = "mentorid", nullable = false)
+    private Integer mentorid;
 
     @NotNull
     @Column(name = "certificacionid", nullable = false)
@@ -28,12 +28,12 @@ public class MentorCertificacionId implements java.io.Serializable {
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         MentorCertificacionId entity = (MentorCertificacionId) o;
         return Objects.equals(this.certificacionid, entity.certificacionid) &&
-                Objects.equals(this.mentorMentorid, entity.mentorMentorid);
+                Objects.equals(this.mentorid, entity.mentorid);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(certificacionid, mentorMentorid);
+        return Objects.hash(certificacionid, mentorid);
     }
 
 }
