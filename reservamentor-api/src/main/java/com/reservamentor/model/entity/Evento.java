@@ -43,5 +43,4 @@ public class Evento {
     @Column(name = "ubicacion", nullable = false, length = 200)
     private String ubicacion;
 
-
 }
