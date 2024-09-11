@@ -9,15 +9,13 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
-
 @Getter
 @Setter
 @Entity
-@Table(name = "eventos")
-public class Evento {
+@Table(name = "oportunidad_laboral")
+public class OportunidadLaboral {
     @Id
-    @Column(name = "evento_id", nullable = false)
+    @Column(name = "oportunidadlaboralid", nullable = false)
     private Integer id;
 
     @Size(max = 100)
@@ -30,18 +28,9 @@ public class Evento {
     @Column(name = "descripcion", nullable = false, length = 500)
     private String descripcion;
 
+    @Size(max = 100)
     @NotNull
-    @Column(name = "fecha", nullable = false)
-    private LocalDate fecha;
-
-    @NotNull
-    @Column(name = "esvirtual", nullable = false)
-    private Boolean esvirtual = false;
-
-    @Size(max = 200)
-    @NotNull
-    @Column(name = "ubicacion", nullable = false, length = 200)
-    private String ubicacion;
-
+    @Column(name = "empresa", nullable = false, length = 100)
+    private String empresa;
 
 }

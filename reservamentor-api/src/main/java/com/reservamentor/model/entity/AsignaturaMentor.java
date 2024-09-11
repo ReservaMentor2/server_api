@@ -20,6 +20,4 @@ public class AsignaturaMentor {
     @MapsId("mentorid")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "mentorid", nullable = false)
-    private com.reservamentor.model.entity.Mentor mentorid;
-
 }
