@@ -22,6 +22,6 @@ public class Favorito {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "mentorid", nullable = false)
-    private Mentor mentorid;
+    private com.reservamentor.model.entity.Mentor mentorid;
 
 }

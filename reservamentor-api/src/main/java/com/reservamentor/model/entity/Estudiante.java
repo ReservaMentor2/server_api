@@ -1,17 +1,22 @@
 package com.reservamentor.model.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @Entity
-@Table(name = "Estudiante")
+@Table(name = "estudiante")
 public class Estudiante {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "estudianteid", nullable = false)
     private Integer id;
 
-    @OneToOne
-    @JoinColumn(name = "usuarioID", referencedColumnName = "id", foreignKey = @ForeignKey(name = "usuarioID"))
-    private Usuario usuario;
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "usuarioid", nullable = false)
+    private com.reservamentor.model.entity.Usuario usuarioid;
+
 }

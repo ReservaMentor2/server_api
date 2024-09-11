@@ -13,7 +13,7 @@ import java.util.Objects;
 @Setter
 @Embeddable
 public class AsignaturaMentorId implements java.io.Serializable {
-    private static final long serialVersionUID = -4739587989400311955L;
+    private static final long serialVersionUID = 5857209816069276515L;
     @NotNull
     @Column(name = "asignaturaid", nullable = false)
     private Integer asignaturaid;

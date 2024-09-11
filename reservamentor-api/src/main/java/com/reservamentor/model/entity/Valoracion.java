@@ -25,11 +25,6 @@ public class Valoracion {
     @JoinColumn(name = "mentorid", nullable = false)
     private Mentor mentorid;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "sesionmentoriaid", nullable = false)
-    private SesionMentoria sesionmentoriaid;
-
     @Size(max = 200)
     @NotNull
     @Column(name = "comentario", nullable = false, length = 200)

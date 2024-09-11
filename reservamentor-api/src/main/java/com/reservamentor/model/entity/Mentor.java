@@ -1,20 +1,38 @@
 package com.reservamentor.model.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Generated;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+import java.math.BigDecimal;
+
+@Getter
+@Setter
 @Entity
-@Table(name = "Mentor")
+@Table(name = "mentor")
 public class Mentor {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "mentorid", nullable = false)
     private Integer id;
-    @Column(name = "valoracionPromedio", nullable = false)
-    private Float valoracionPromedio;
 
-    @OneToOne
-    @JoinColumn(name = "usuarioID", referencedColumnName = "id", foreignKey = @ForeignKey(name = "usuarioID"))
-    private Usuario usuario;
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "usuarioid", nullable = false)
+    private com.reservamentor.model.entity.Usuario usuarioid;
+
+    @NotNull
+    @Column(name = "valoracionpromedio", nullable = false, precision = 4, scale = 2)
+    private BigDecimal valoracionpromedio;
+
+    @NotNull
+    @Column(name = "tarifahora", nullable = false)
+    private Integer tarifahora;
+
+    @Size(max = 500)
+    @NotNull
+    @Column(name = "biografia", nullable = false, length = 500)
+    private String biografia;
+
 }
