@@ -15,7 +15,7 @@ public class Estudiante {
     private Integer id;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne
     @JoinColumn(name = "usuarioid", nullable = false)
     private com.reservamentor.model.entity.Usuario usuarioid;
 

@@ -28,22 +28,28 @@ public class AdminSesionMentoriaController {
         return new ResponseEntity<Sesionmentoria>(HttpStatus.NO_CONTENT);
     }
 
-    @PostMapping("/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Sesionmentoria> getSesionMentoriaByID(@PathVariable("id") Integer id){
-        Sesionmentoria newSesionMentoria = adminMentoriaService.findById(id);
-        return new ResponseEntity<Sesionmentoria>(newSesionMentoria, HttpStatus.OK);
+        Sesionmentoria sesionMentoria = adminMentoriaService.findById(id);
+        return new ResponseEntity<>(sesionMentoria, HttpStatus.OK);
     }
+
+
+    /*
 
     @PostMapping("/{id}")
-    public ResponseEntity<Sesionmentoria> updateSesionMentoria(@PathVariable("id") Integer id, @RequestBody Sesionmentoria sesionmentoria){
-        Sesionmentoria newSesionMentoria = adminMentoriaService.update(id, sesionmentoria);
+    public ResponseEntity<Sesionmentoria> updateSesionMentoria(@PathVariable("id") Integer id, @RequestBody Sesionmentoria inputSesionmentoria){
+        Sesionmentoria newSesionMentoria = adminMentoriaService.update(id, inputSesionmentoria);
         return new ResponseEntity<Sesionmentoria>(newSesionMentoria, HttpStatus.OK);
     }
 
-    @PostMapping("/{id}")
-    public ResponseEntity<Sesionmentoria> reprogramarSesionMentoria(@PathVariable("id") Integer id, @RequestBody Sesionmentoria sesionmentoria){
-        Sesionmentoria newSesionMentoria = adminMentoriaService.reprogramarMentoria(id, sesionmentoria);
+    @PostMapping("/reprogramarMentoria/{id}")
+    public ResponseEntity<Sesionmentoria> reprogramarSesionMentoria(@PathVariable("id") Integer id, @RequestBody Sesionmentoria inputSesionmentoria){
+        Sesionmentoria newSesionMentoria = adminMentoriaService.reprogramarMentoria(id, inputSesionmentoria);
         return new ResponseEntity<Sesionmentoria>(newSesionMentoria, HttpStatus.OK);
-
     }
+        */
+
+
+
 }

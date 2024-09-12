@@ -20,17 +20,17 @@ public class Sesionmentoria {
     private Integer id;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne
     @JoinColumn(name = "mentorid", nullable = false)
     private Mentor mentorid;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne
     @JoinColumn(name = "estudianteid", nullable = false)
     private Estudiante estudianteid;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne
     @JoinColumn(name = "asignaturaid", nullable = false)
     private Asignatura asignaturaid;
 
@@ -52,7 +52,7 @@ public class Sesionmentoria {
     private String weblink;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne
     @JoinColumn(name = "turnoid", nullable = false)
     private com.reservamentor.model.entity.Turno turnoid;
 

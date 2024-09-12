@@ -10,4 +10,5 @@ public interface AdminMentoriaService {
     Sesionmentoria delete (Integer id);
     Sesionmentoria findById(Integer id);
     Sesionmentoria reprogramarMentoria(Integer id, Sesionmentoria updateSesionMentoria);
+
 }
