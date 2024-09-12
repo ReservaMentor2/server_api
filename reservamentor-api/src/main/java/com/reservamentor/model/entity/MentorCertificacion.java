@@ -16,12 +16,12 @@ public class MentorCertificacion {
     private MentorCertificacionId id;
 
     @MapsId("mentorid")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "mentorid", nullable = false)
     private Mentor mentorid;
 
     @MapsId("certificacionid")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "certificacionid", nullable = false)
     private Certificacion certificacionid;
 
