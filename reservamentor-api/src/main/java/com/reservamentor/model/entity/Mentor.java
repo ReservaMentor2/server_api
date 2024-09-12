@@ -1,5 +1,6 @@
 package com.reservamentor.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -7,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Getter
 @Setter
@@ -20,6 +22,7 @@ public class Mentor {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "usuarioid", nullable = false)
+    @JsonIgnore
     private com.reservamentor.model.entity.Usuario usuarioid;
 
     @NotNull
@@ -35,4 +38,7 @@ public class Mentor {
     @Column(name = "biografia", nullable = false, length = 500)
     private String biografia;
 
+    @OneToMany(mappedBy = "mentor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Disponibilidad> horarioDisponible;
 }
