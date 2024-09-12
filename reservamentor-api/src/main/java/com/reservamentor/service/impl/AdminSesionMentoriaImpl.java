@@ -40,7 +40,7 @@ public class AdminSesionMentoriaImpl implements AdminMentoriaService {
 
     @Transactional
     @Override
-    public Sesionmentoria delete(Integer id, Sesionmentoria sesionmentoria) {
+    public Sesionmentoria delete(Integer id) {
         Sesionmentoria mentoriaFromDB = findById(id);
         mentoriaRepository.delete(mentoriaFromDB);
         return null;
