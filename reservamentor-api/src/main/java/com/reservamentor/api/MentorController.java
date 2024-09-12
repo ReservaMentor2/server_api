@@ -17,7 +17,7 @@ import com.reservamentor.model.entity.Mentor;
 import com.reservamentor.service.MentorService;
 
 @RestController
-@RequestMapping("/api/v1/mentors")
+@RequestMapping("/mentors")
 public class MentorController {
 
     private final MentorService mentorService;
@@ -29,7 +29,7 @@ public class MentorController {
     // Obtener todos los mentores
     @GetMapping
     public List<Mentor> getAllMentors() {
-        return mentorService.getAllMentors();
+        return mentorService.getAllMentores();
     }
 
     // Obtener un mentor por ID
@@ -47,16 +47,16 @@ public class MentorController {
     }
 
     // Actualizar un mentor existente
-    @PutMapping("/{id}")
-    public ResponseEntity<Mentor> updateMentor(@PathVariable Integer id, @RequestBody Mentor mentor) {
-        Mentor updatedMentor = mentorService.updateMentor(id, mentor);
-        return updatedMentor != null ? ResponseEntity.ok(updatedMentor) : ResponseEntity.notFound().build();
-    }
+    //@PutMapping("/{id}")
+    //public ResponseEntity<Mentor> updateMentor(@PathVariable Integer id, @RequestBody Mentor mentor) {
+    //    Mentor updatedMentor = mentorService.updateMentor(id, mentor);
+    //    return updatedMentor != null ? ResponseEntity.ok(updatedMentor) : ResponseEntity.notFound().build();
+    //}
 
     // Eliminar un mentor por ID
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteMentor(@PathVariable Integer id) {
-        boolean deleted = mentorService.deleteMentor(id);
-        return deleted ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
-    }
+    //@DeleteMapping("/{id}")
+    //public ResponseEntity<Void> deleteMentor(@PathVariable Integer id) {
+    //    boolean deleted = mentorService.deleteMentor(id);
+    //    return deleted ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
+    //}
 }
