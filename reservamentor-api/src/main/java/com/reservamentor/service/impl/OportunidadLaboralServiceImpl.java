@@ -20,6 +20,7 @@ public class OportunidadLaboralServiceImpl implements OportunidadLaboralService 
     public List<OportunidadLaboral> getAllOportunidades() {
         return oportunidadLaboralRepository.findAll();
     }
+<<<<<<< HEAD
 
     @Override
     public OportunidadLaboral getOportunidadLaboralById(Integer id) {
@@ -49,4 +50,6 @@ public class OportunidadLaboralServiceImpl implements OportunidadLaboralService 
         }
         return false;
     }
+=======
+>>>>>>> 477368f6a6b49f8c098c0968217bca63362aa5c0
 }

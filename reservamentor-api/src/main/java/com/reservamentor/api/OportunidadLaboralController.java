@@ -2,9 +2,16 @@ package com.reservamentor.api;
 
 import com.reservamentor.model.entity.OportunidadLaboral;
 import com.reservamentor.service.OportunidadLaboralService;
+<<<<<<< HEAD
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+=======
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+>>>>>>> 477368f6a6b49f8c098c0968217bca63362aa5c0
 
 import java.util.List;
 
@@ -18,12 +25,16 @@ public class OportunidadLaboralController {
         this.oportunidadLaboralService = oportunidadLaboralService;
     }
 
+<<<<<<< HEAD
     // Obtener todas las oportunidades laborales
+=======
+>>>>>>> 477368f6a6b49f8c098c0968217bca63362aa5c0
     @GetMapping
     public ResponseEntity<List<OportunidadLaboral>> getAllOportunidades() {
         List<OportunidadLaboral> oportunidades = oportunidadLaboralService.getAllOportunidades();
         return ResponseEntity.ok(oportunidades);
     }
+<<<<<<< HEAD
 
     // Obtener una oportunidad laboral por ID
     @GetMapping("/{id}")
@@ -52,4 +63,6 @@ public class OportunidadLaboralController {
         boolean deleted = oportunidadLaboralService.deleteOportunidadLaboral(id);
         return deleted ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
     }
+=======
+>>>>>>> 477368f6a6b49f8c098c0968217bca63362aa5c0
 }
