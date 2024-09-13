@@ -23,7 +23,7 @@ public class MentorController {
     // Obtener todos los mentores
     @GetMapping
     public ResponseEntity<List<Mentor>> getAllMentors() {
-        List<Mentor> mentors = mentorService.getAllMentors();
+        List<Mentor> mentors = mentorService.getAllMentores();
         return new ResponseEntity<>(mentors, HttpStatus.OK);
     }
 
@@ -41,12 +41,15 @@ public class MentorController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdMentor);
     }
 
+    /*
     // Actualizar un mentor existente
     @PutMapping("/{id}")
     public ResponseEntity<Mentor> updateMentor(@PathVariable Integer id, @RequestBody Mentor mentor) {
         Mentor updatedMentor = mentorService.updateMentor(id, mentor);
         return updatedMentor != null ? ResponseEntity.ok(updatedMentor) : ResponseEntity.notFound().build();
     }
+
+     */
 
     // Eliminar un mentor por ID
     //@DeleteMapping("/{id}")

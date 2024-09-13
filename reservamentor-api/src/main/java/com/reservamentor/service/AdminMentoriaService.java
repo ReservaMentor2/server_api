@@ -1,14 +1,12 @@
 package com.reservamentor.service;
 
-import com.reservamentor.model.entity.Sesionmentoria;
-
-import java.util.List;
+import com.reservamentor.model.entity.SesionMentoria;
 
 public interface AdminMentoriaService {
-    Sesionmentoria create(Sesionmentoria sesionmentoria);
-    Sesionmentoria update(Integer id, Sesionmentoria updateSesionMentoria);
-    Sesionmentoria delete (Integer id);
-    Sesionmentoria findById(Integer id);
-    Sesionmentoria reprogramarMentoria(Integer id, Sesionmentoria updateSesionMentoria);
+    SesionMentoria create(SesionMentoria sesionmentoria);
+    SesionMentoria update(Integer id, SesionMentoria updateSesionMentoria);
+    SesionMentoria delete (Integer id);
+    SesionMentoria findById(Integer id);
+    SesionMentoria reprogramarMentoria(Integer id, SesionMentoria updateSesionMentoria);
 
 }

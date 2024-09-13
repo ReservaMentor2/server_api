@@ -15,7 +15,7 @@ import java.time.LocalTime;
 @Setter
 @Entity
 @Table(name = "sesionmentoria")
-public class Sesionmentoria {
+public class SesionMentoria {
     @Id
     @Column(name = "sesionmentoriaid", nullable = false)
     private Integer id;

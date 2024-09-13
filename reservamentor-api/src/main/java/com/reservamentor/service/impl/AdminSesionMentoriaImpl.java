@@ -1,12 +1,10 @@
 package com.reservamentor.service.impl;
 
-import com.reservamentor.model.entity.Sesionmentoria;
+import com.reservamentor.model.entity.SesionMentoria;
 import com.reservamentor.repository.MentoriaRepository;
 import com.reservamentor.service.AdminMentoriaService;
-import org.springframework.transaction.annotation.Transactional;import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class AdminSesionMentoriaImpl implements AdminMentoriaService {
@@ -18,14 +16,14 @@ public class AdminSesionMentoriaImpl implements AdminMentoriaService {
 
     @Transactional
     @Override
-    public Sesionmentoria create(Sesionmentoria sesionmentoria) {
+    public SesionMentoria create(SesionMentoria sesionmentoria) {
         return mentoriaRepository.save(sesionmentoria);
     }
 
     @Transactional()
     @Override
-    public Sesionmentoria update(Integer id, Sesionmentoria updateSesionMentoria) {
-        Sesionmentoria mentoriaFromDB = findById(id);
+    public SesionMentoria update(Integer id, SesionMentoria updateSesionMentoria) {
+        SesionMentoria mentoriaFromDB = findById(id);
         mentoriaFromDB.setPrecio(updateSesionMentoria.getPrecio());
         mentoriaFromDB.setDia(updateSesionMentoria.getDia());
         mentoriaFromDB.setWeblink(updateSesionMentoria.getWeblink());
@@ -40,22 +38,22 @@ public class AdminSesionMentoriaImpl implements AdminMentoriaService {
 
     @Transactional
     @Override
-    public Sesionmentoria delete(Integer id) {
-        Sesionmentoria mentoriaFromDB = findById(id);
+    public SesionMentoria delete(Integer id) {
+        SesionMentoria mentoriaFromDB = findById(id);
         mentoriaRepository.delete(mentoriaFromDB);
         return null;
     }
 
     @Transactional(readOnly = true)
     @Override
-    public Sesionmentoria findById(Integer id){
+    public SesionMentoria findById(Integer id){
         return mentoriaRepository.findById(id).orElseThrow( () -> new RuntimeException("Sesion de mentoria not found"));
     }
 
     @Transactional
     @Override
-    public Sesionmentoria reprogramarMentoria(Integer id, Sesionmentoria updateSesionMentoria) {
-        Sesionmentoria mentoriaFromDB = findById(id);
+    public SesionMentoria reprogramarMentoria(Integer id, SesionMentoria updateSesionMentoria) {
+        SesionMentoria mentoriaFromDB = findById(id);
         mentoriaFromDB.setHorainicio(updateSesionMentoria.getHorainicio());
         mentoriaFromDB.setHorainicio(updateSesionMentoria.getHorafinal());
         return mentoriaRepository.save(mentoriaFromDB);
