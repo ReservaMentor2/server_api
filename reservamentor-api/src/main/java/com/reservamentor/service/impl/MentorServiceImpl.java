@@ -1,9 +1,10 @@
 package com.reservamentor.service.impl;
 
+import com.reservamentor.dto.MentorPerfilDTO;
 import com.reservamentor.model.entity.Mentor;
+import com.reservamentor.model.entity.Usuario;
 import com.reservamentor.repository.MentorRepository;
 import com.reservamentor.service.MentorService;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,13 +18,12 @@ public class MentorServiceImpl implements MentorService {
 
     @Override
     public Mentor createMentor(Mentor mentor) {
-        //TODO ADD
         return mentorRepository.save(mentor);
     }
 
     @Override
     public List<Mentor> getAllMentores() {
-        return mentorRepository.findAll();
+        return mentorRepository.findAll(); // Verifica si hay un error aquí
     }
 
     @Override
@@ -32,11 +32,22 @@ public class MentorServiceImpl implements MentorService {
                 .orElseThrow(() -> new RuntimeException("Mentor not found"));
     }
 
-    //@Override
-    //@Transactional
-    //public Mentor updateMentor(Integer mentorId, Mentor mentor) {
-        //TODO
-        //ACCESS THE USER TABLE
-    //}
+    @Override
+    public MentorPerfilDTO getMentorPerfil(Integer mentorId) {
+        Mentor mentor = mentorRepository.findById(mentorId)
+                .orElseThrow(() -> new RuntimeException("Mentor not found"));
 
+        Usuario usuario = mentor.getUsuario(); // Obtener el usuario asociado
+
+        return new MentorPerfilDTO(
+                usuario.getNombre(),
+                usuario.getApellido(),
+                usuario.getCorreo(),
+                usuario.getNacionalidad(),
+                usuario.getTelefono(),
+                mentor.getValoracionpromedio().doubleValue(), // Convertir BigDecimal a Double
+                mentor.getTarifahora(),
+                mentor.getBiografia()
+        );
+    }
 }
