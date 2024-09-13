@@ -28,4 +28,11 @@ public class MentorValoracionController {
         List<Valoracion> valoraciones = mentorValoracionService.filterValoracionesByEstrellas(estrellas);
         return ResponseEntity.ok(valoraciones);
     }
+
+    //Calificación promedio del profesor en escala de 5 estrellas
+    @GetMapping("/average/{mentorId}")
+    public ResponseEntity<Double> getAverageRating(@PathVariable Integer mentorId) {
+        Double averageRating = mentorValoracionService.calculateAverageRating(mentorId);
+        return ResponseEntity.ok(averageRating);
+    }
 }
