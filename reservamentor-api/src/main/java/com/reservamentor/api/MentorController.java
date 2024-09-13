@@ -1,13 +1,13 @@
 package com.reservamentor.api;
 
-import java.util.List;
-
+import com.reservamentor.dto.MentorPerfilDTO;
+import com.reservamentor.model.entity.Mentor;
+import com.reservamentor.service.MentorService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.reservamentor.model.entity.Mentor;
-import com.reservamentor.service.MentorService;
+import java.util.List;
 
 @RestController
 @RequestMapping("/mentors")
@@ -39,6 +39,17 @@ public class MentorController {
     public ResponseEntity<Mentor> createMentor(@RequestBody Mentor mentor) {
         Mentor createdMentor = mentorService.createMentor(mentor);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdMentor);
+    }
+
+
+    @GetMapping("/{id}/perfil")
+    public ResponseEntity<MentorPerfilDTO> getMentorPerfil(@PathVariable Integer id) {
+        try {
+            MentorPerfilDTO mentorPerfil = mentorService.getMentorPerfil(id);
+            return ResponseEntity.ok(mentorPerfil);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     /*
