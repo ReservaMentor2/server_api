@@ -13,12 +13,12 @@ public class AsignaturaMentor {
     private AsignaturaMentorId id;
 
     @MapsId("asignaturaid")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "asignaturaid", nullable = false)
     private Asignatura asignaturaid;
 
     @MapsId("mentorid")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "mentorid", nullable = false)
     private com.reservamentor.model.entity.Mentor mentorid;
 
