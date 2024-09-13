@@ -19,7 +19,7 @@ public class Mentor {
     @Column(name = "mentorid", nullable = false)
     private Integer id;
     @NotNull
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)  // Cambia a EAGER para cargar usuarioid automáticamente
     @JoinColumn(name = "usuarioid", nullable = false)
     @JsonIgnore
     private com.reservamentor.model.entity.Usuario usuarioid;
@@ -34,7 +34,6 @@ public class Mentor {
     @NotNull
     @Column(name = "biografia", nullable = false, length = 500)
     private String biografia;
-
     @OneToMany(mappedBy = "mentor", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<Disponibilidad> horarioDisponible;
