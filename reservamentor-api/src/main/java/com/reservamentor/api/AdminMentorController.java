@@ -46,6 +46,28 @@ public class AdminMentorController {
         return new ResponseEntity<List<Mentor>>(mentors, HttpStatus.OK);
     }
 
+    @GetMapping("/by-dia")
+    public ResponseEntity<List<Mentor>> getMentorsByDia(@RequestParam("dia") String dia) {
+        List<Mentor> mentors = adminMentorService.getMentorsByDia(dia);
+        return new ResponseEntity<>(mentors, HttpStatus.OK);
+    }
+
+    @GetMapping("/by-hora")
+    public ResponseEntity<List<Mentor>> getMentorsByHora(@RequestParam("horaInicio") String horaInicioStr, @RequestParam("horaFin") String horaFinStr) {
+        LocalTime horaInicio = LocalTime.parse(horaInicioStr);
+        LocalTime horaFin = LocalTime.parse(horaFinStr);
+        List<Mentor> mentors = adminMentorService.getMentorsByHora(horaInicio, horaFin);
+        return new ResponseEntity<>(mentors, HttpStatus.OK);
+    }
+
+    @GetMapping("/by-dia-y-hora")
+    public ResponseEntity<List<Mentor>> getMentorsByDiaAndHora(@RequestParam("dia") String dia, @RequestParam("horaInicio") String horaInicioStr, @RequestParam("horaFin") String horaFinStr) {
+        LocalTime horaInicio = LocalTime.parse(horaInicioStr);
+        LocalTime horaFin = LocalTime.parse(horaFinStr);
+        List<Mentor> mentors = adminMentorService.getMentorsByDiaAndHora(dia, horaInicio, horaFin);
+        return new ResponseEntity<>(mentors, HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<Mentor> createMentor(@RequestBody Mentor mentor) {
         Mentor newMentor = adminMentorService.create(mentor);
@@ -63,4 +85,6 @@ public class AdminMentorController {
         adminMentorService.delete(id);
         return new ResponseEntity<Mentor>(HttpStatus.NO_CONTENT);
     }
+
 }
+

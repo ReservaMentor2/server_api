@@ -15,4 +15,7 @@ public interface AdminMentorService {
     void delete(Integer id);
     Mentor findById(Integer id);
     List<Mentor> getAllSortedByRating();
+    List<Mentor> getMentorsByDia(String dia);
+    List<Mentor> getMentorsByHora(LocalTime horaInicio, LocalTime horaFin);
+    List<Mentor> getMentorsByDiaAndHora(String dia, LocalTime horaInicio, LocalTime horaFin);
 }

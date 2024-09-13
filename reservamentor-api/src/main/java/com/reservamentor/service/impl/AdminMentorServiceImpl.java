@@ -1,6 +1,8 @@
 package com.reservamentor.service.impl;
 
 import com.reservamentor.model.entity.Mentor;
+import com.reservamentor.repository.DisponibilidadRepository;
+
 import com.reservamentor.repository.MentorRepository;
 import com.reservamentor.service.AdminMentorService;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +20,7 @@ import java.util.List;
 public class AdminMentorServiceImpl implements AdminMentorService {
     @Autowired
     private MentorRepository mentorRepository;
-
+    private DisponibilidadRepository disponibilidadRepository;
 
     @Transactional(readOnly = true)
     @Override
@@ -67,4 +69,21 @@ public class AdminMentorServiceImpl implements AdminMentorService {
         return mentorRepository.findAllOrderByValoracionpromedio();
     }
 
+    @Transactional(readOnly = true)
+    @Override
+    public List<Mentor> getMentorsByDia(String dia) {
+        return disponibilidadRepository.findMentorsByDia(dia);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<Mentor> getMentorsByHora(LocalTime horaInicio, LocalTime horaFin) {
+        return disponibilidadRepository.findMentorsByHora(horaInicio, horaFin);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<Mentor> getMentorsByDiaAndHora(String dia, LocalTime horaInicio, LocalTime horaFin) {
+        return disponibilidadRepository.findMentorsByDiaAndHora(dia, horaInicio, horaFin);
+    }
 }

@@ -19,7 +19,7 @@ public class Mentor {
     @Column(name = "mentorid", nullable = false)
     private Integer id;
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "usuarioid", nullable = false)
     @JsonIgnore
     private com.reservamentor.model.entity.Usuario usuarioid;

@@ -1,5 +1,6 @@
 package com.reservamentor.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -20,18 +21,21 @@ public class Sesionmentoria {
     private Integer id;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "mentorid", nullable = false)
+    @JsonIgnore
     private Mentor mentorid;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "estudianteid", nullable = false)
+    @JsonIgnore
     private Estudiante estudianteid;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "asignaturaid", nullable = false)
+    @JsonIgnore
     private Asignatura asignaturaid;
 
     @NotNull
@@ -52,8 +56,9 @@ public class Sesionmentoria {
     private String weblink;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "turnoid", nullable = false)
+    @JsonIgnore
     private com.reservamentor.model.entity.Turno turnoid;
 
     @NotNull
