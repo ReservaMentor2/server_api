@@ -42,7 +42,7 @@ public class MentorController {
     }
 
 
-    @GetMapping("/{id}/perfil")
+    @GetMapping("/profile/{id}")
     public ResponseEntity<MentorPerfilDTO> getMentorPerfil(@PathVariable Integer id) {
         try {
             MentorPerfilDTO mentorPerfil = mentorService.getMentorPerfil(id);

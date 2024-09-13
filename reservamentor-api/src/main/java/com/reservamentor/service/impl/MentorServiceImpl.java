@@ -23,7 +23,7 @@ public class MentorServiceImpl implements MentorService {
 
     @Override
     public List<Mentor> getAllMentores() {
-        return mentorRepository.findAll(); // Verifica si hay un error aquí
+        return mentorRepository.findAll();
     }
 
     @Override
@@ -37,7 +37,7 @@ public class MentorServiceImpl implements MentorService {
         Mentor mentor = mentorRepository.findById(mentorId)
                 .orElseThrow(() -> new RuntimeException("Mentor not found"));
 
-        Usuario usuario = mentor.getUsuario(); // Obtener el usuario asociado
+        Usuario usuario = mentor.getUsuario();
 
         return new MentorPerfilDTO(
                 usuario.getNombre(),
@@ -45,7 +45,7 @@ public class MentorServiceImpl implements MentorService {
                 usuario.getCorreo(),
                 usuario.getNacionalidad(),
                 usuario.getTelefono(),
-                mentor.getValoracionpromedio().doubleValue(), // Convertir BigDecimal a Double
+                mentor.getValoracionpromedio().doubleValue(),
                 mentor.getTarifahora(),
                 mentor.getBiografia()
         );
