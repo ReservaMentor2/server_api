@@ -18,7 +18,7 @@ public class Mentor {
     private Integer id;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)  // Cambia a EAGER para cargar usuarioid automáticamente
     @JoinColumn(name = "usuarioid", nullable = false)
     private com.reservamentor.model.entity.Usuario usuarioid;
 
@@ -34,5 +34,4 @@ public class Mentor {
     @NotNull
     @Column(name = "biografia", nullable = false, length = 500)
     private String biografia;
-
 }
