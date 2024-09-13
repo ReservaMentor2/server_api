@@ -23,4 +23,8 @@ public class MentorValoracionServiceImpl implements MentorValoracionService {
                 .orElseThrow(() -> new RuntimeException("Mentor not found"));
         return mentorValoracionRepository.findValoracionByMentor(mentor);
     }
+    @Override
+    public List<Valoracion> filterValoracionesByEstrellas(Integer estrellas) {
+        return mentorValoracionRepository.findValoracionesByEstrellas(estrellas);
+    }
 }
