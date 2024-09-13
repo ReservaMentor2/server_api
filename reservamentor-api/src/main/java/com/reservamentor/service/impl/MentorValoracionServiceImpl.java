@@ -27,4 +27,11 @@ public class MentorValoracionServiceImpl implements MentorValoracionService {
     public List<Valoracion> filterValoracionesByEstrellas(Integer estrellas) {
         return mentorValoracionRepository.findValoracionesByEstrellas(estrellas);
     }
+
+    @Override
+    public Double calculateAverageRating(Integer mentorId) {
+        Mentor mentor = mentorRepository.findById(mentorId)
+                .orElseThrow(() -> new RuntimeException("Mentor not found"));
+        return mentorValoracionRepository.calculateAverageRating(mentor);
+    }
 }
