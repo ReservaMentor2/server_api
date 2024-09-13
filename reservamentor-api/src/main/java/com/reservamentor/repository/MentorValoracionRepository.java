@@ -12,4 +12,7 @@ public interface MentorValoracionRepository extends JpaRepository<Valoracion, In
 
     @Query(value = "SELECT val FROM Valoracion val WHERE val.mentorid = :mentor")
     List<Valoracion> findValoracionByMentor(@Param("mentor") Mentor mentor);
+
+    @Query("SELECT val FROM Valoracion val WHERE val.estrellas = :estrellas")
+    List<Valoracion> findValoracionesByEstrellas(@Param("estrellas") Integer estrellas);
 }

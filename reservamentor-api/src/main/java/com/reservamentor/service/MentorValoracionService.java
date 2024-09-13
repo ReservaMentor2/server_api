@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface MentorValoracionService {
     List<Valoracion> findValoracionesByMentor(Integer mentorId);
+    List<Valoracion> filterValoracionesByEstrellas(Integer estrellas);
 }
