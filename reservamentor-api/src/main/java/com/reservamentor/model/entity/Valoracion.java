@@ -16,12 +16,12 @@ public class Valoracion {
     private Integer id;
 
     @NotNull
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "estudianteid", nullable = false)
     private Estudiante estudianteid;
 
     @NotNull
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "mentorid", nullable = false)
     private Mentor mentorid;
 
