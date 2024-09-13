@@ -14,12 +14,12 @@ public class AsistenciaEvento {
     private AsistenciaEventoId id;
 
     @MapsId("mentorid")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "mentorid", nullable = false)
     private com.reservamentor.model.entity.Mentor mentorid;
 
     @MapsId("eventoid")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "eventoid", nullable = false)
     private com.reservamentor.model.entity.Evento eventoid;
 

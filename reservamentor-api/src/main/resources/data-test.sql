@@ -1,64 +1,67 @@
-INSERT INTO usuario (usuarioid, nombre, apellido, correo, contrasenia, nacionalidad, telefono, rol)
-VALUES (1, 'Carlos', 'López', 'carlos.lopez@mail.com', 'password123', 'Mexicana', '123456789', 'ESTUDIANTE'),
-       (2, 'Ana', 'Martínez', 'ana.martinez@mail.com', 'password456', 'Argentina', '987654321', 'MENTOR');
+-- Fake Data for Asignatura
+INSERT INTO Asignatura (asignaturaID, nombre, descripcion) VALUES
+                                                               (1, 'Mathematics', 'Basic and advanced concepts in Mathematics'),
+                                                               (2, 'Physics', 'Introduction to mechanics, thermodynamics, and quantum physics'),
+                                                               (3, 'Chemistry', 'Study of elements, compounds, and chemical reactions');
 
--- Inserciones en la tabla Estudiante
-INSERT INTO estudiante (estudianteid, usuarioid)
-VALUES (1, 1),
-       (2, 2);
+-- Fake Data for turno
+INSERT INTO turno (turnoID, turno) VALUES
+                                       (1, 1),
+                                       (2, 2);
 
--- Inserciones en la tabla Mentor
-INSERT INTO mentor (mentorid, usuarioid, valoracionPromedio, tarifaHora, biografia)
-VALUES (1, 2, 4.5, 200, 'Mentor de programación con 5 años de experiencia.'),
-       (2, 1, 4.8, 150, 'Mentor especializado en bases de datos.');
+-- Fake Data for Usuario
+INSERT INTO Usuario (usuarioID, nombre, apellido, correo, contrasenia, nacionalidad, telefono, rol) VALUES
+                                                                                                        (1, 'John', 'Doe', 'john.doe@example.com', 'password123', 'USA', '123456789', 'M'),
+                                                                                                        (2, 'Jane', 'Smith', 'jane.smith@example.com', 'securepass', 'Canada', '987654321', 'E'),
+                                                                                                        (3, 'Carlos', 'Garcia', 'carlos.garcia@example.com', 'passCarlos', 'Spain', '123123123', 'M');
 
--- Inserciones en la tabla Asignatura
-INSERT INTO asignatura (asignaturaid, nombre, descripcion)
-VALUES (1, 'Programación', 'Introducción a la programación en Python.'),
-       (2, 'Bases de datos', 'Fundamentos de diseño de bases de datos relacionales.');
+-- Fake Data for Mentor
+INSERT INTO Mentor (mentorID, usuarioID, valoracionPromedio, tarifaHora, biografia) VALUES
+                                                                                        (1, 1, 4.8, 30, 'Experienced Math tutor with 5 years of experience.'),
+                                                                                        (2, 3, 4.6, 25, 'Physics teacher with a passion for explaining complex concepts.');
 
--- Inserciones en la tabla Asignatura_Mentor
-INSERT INTO asignatura_Mentor (asignaturaid, mentorid)
-VALUES (1, 1),
-       (2, 2);
+-- Fake Data for Estudiante
+INSERT INTO Estudiante (estudianteID, usuarioID) VALUES
+    (1, 2);
 
--- Inserciones en la tabla Certificacion
-INSERT INTO certificacion (certificacionid, nombre, organizacion, descripcion, duracionMeses)
-VALUES (1, 'Certificación en Python', 'Udemy', 'Curso avanzado de Python.', 3),
-       (2, 'Certificación en SQL', 'Coursera', 'Fundamentos de SQL y bases de datos.', 2);
+-- Fake Data for Certificacion
+INSERT INTO Certificacion (certificacionID, nombre, organizacion, descripcion, duracionMeses) VALUES
+                                                                                                  (1, 'Data Science Professional', 'Coursera', 'Certification for Data Science specialization', 12),
+                                                                                                  (2, 'Advanced Physics', 'MIT', 'Certification for advanced topics in physics', 18);
 
--- Inserciones en la tabla Mentor_Certificacion
-INSERT INTO mentor_Certificacion (mentorid, certificacionid, fechaObtencion)
-VALUES (1, 1, '2021-05-10'),
-       (2, 2, '2022-03-20');
+-- Fake Data for Eventos
+INSERT INTO Eventos (evento_ID, titulo, descripcion, fecha, esVirtual, ubicacion) VALUES
+                                                                                      (1, 'Math Workshop', 'A workshop for advanced calculus', '2024-10-10', true, 'Online'),
+                                                                                      (2, 'Physics Seminar', 'Introduction to quantum mechanics', '2024-11-05', false, 'MIT Campus');
 
--- Inserciones en la tabla Eventos
-INSERT INTO eventos (evento_id, titulo, descripcion, fecha, esVirtual, ubicacion)
-VALUES (1, 'Taller de Programación', 'Taller introductorio de programación en Python.', '2024-09-25', true, 'Zoom'),
-       (2, 'Conferencia de Bases de Datos', 'Discusión sobre las últimas tendencias en bases de datos.', '2024-10-10', false, 'Universidad Nacional');
+-- Fake Data for SesionMentoria
+INSERT INTO SesionMentoria (sesionMentoriaID, mentorID, estudianteID, asignaturaID, dia, horaInicio, horaFinal, webLink, turnoID, precio) VALUES
+                                                                                                                                              (1, 1, 1, 1, '2024-09-15', '10:00', '11:00', 'https://zoom.com/session1', 1, 20),
+                                                                                                                                              (2, 2, 1, 2, '2024-09-16', '14:00', '15:00', 'https://zoom.com/session2', 2, 25);
 
--- Inserciones en la tabla Asistencia_Evento
-INSERT INTO asistencia_Evento (mentorid, eventoid, asistenciaConfirmada)
-VALUES (1, 1, true),
-       (2, 2, false);
+-- Fake Data for Valoracion
+INSERT INTO Valoracion (valoracionID, estudianteID, mentorID, comentario, estrellas) VALUES
+                                                                                         (1, 1, 1, 'Great session, very helpful!', 5),
+                                                                                         (2, 1, 2, 'Clear explanations, would recommend.', 4);
+
+-- Fake Data for Asignatura_Mentor
+INSERT INTO Asignatura_Mentor (asignaturaID, mentorID) VALUES
+                                                           (1, 1),
+                                                           (2, 2);
+
+-- Fake Data for Asistencia_Evento
+INSERT INTO Asistencia_Evento (mentorID, eventoID, asistenciaConfirmada) VALUES
+                                                                             (1, 1, true),
+                                                                             (2, 2, true);
+
+-- Fake Data for Favorito
+INSERT INTO Favorito (favoritoID, estudianteID, mentorID) VALUES
+    (1, 1, 1);
+
+-- Fake Data for Mentor_Certificacion
+INSERT INTO Mentor_Certificacion (mentorID, certificacionID, fechaObtencion) VALUES
+                                                                                 (1, 1, '2023-01-15'),
+                                                                                 (2, 2, '2022-08-10');
 
 
--- Inserciones en la tabla turno
-INSERT INTO turno (turnoid, turno)
-VALUES (1, 1),
-       (2, 2);
 
--- Inserciones en la tabla SesionMentoria
-INSERT INTO sesionMentoria (sesionMentoriaid, mentorid, estudianteid, asignaturaid, dia, horaInicio, horaFinal, webLink, turnoid, precio)
-VALUES (1, 1, 1, 1, '2024-09-15', '10:00:00', '11:00:00', 'https://zoom.us/meeting/123', 1, 100.00),
-       (2, 2, 2, 2, '2024-09-20', '12:00:00', '13:00:00', 'https://zoom.us/meeting/456', 2, 120.00);
-
--- Inserciones en la tabla Favorito
-INSERT INTO favorito (favoritoid, estudianteid, mentorid)
-VALUES (1, 1, 1),
-       (2, 2, 2);
-
--- Inserciones en la tabla Valoracion
-INSERT INTO valoracion (valoracionid, estudianteid, mentorid, comentario, estrellas)
-VALUES (1, 1, 1, 'Excelente mentor, muy claro en sus explicaciones.', 5),
-       (2, 2, 2, 'Buen mentor, aunque puede mejorar su puntualidad.',4);
