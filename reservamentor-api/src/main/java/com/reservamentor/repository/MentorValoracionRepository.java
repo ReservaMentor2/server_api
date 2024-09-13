@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface MentorValoracionRepository extends JpaRepository<Valoracion, Integer> {
 
-    @Query(value = "SELECT val FROM Valoracion val WHERE val.mentorid = :mentorId")
-    List<Valoracion> findValoracionByMentor(@Param("mentorId") Mentor mentor);
+    @Query(value = "SELECT val FROM Valoracion val WHERE val.mentorid = :mentor")
+    List<Valoracion> findValoracionByMentor(@Param("mentor") Mentor mentor);
 }

@@ -20,7 +20,7 @@ public class MentorValoracionServiceImpl implements MentorValoracionService {
     @Override
     public List<Valoracion> findValoracionesByMentor(Integer mentorId) {
         Mentor mentor = mentorRepository.findById(mentorId)
-                .orElseThrow(() -> new RuntimeException("Collection not found"));
+                .orElseThrow(() -> new RuntimeException("Mentor not found"));
         return mentorValoracionRepository.findValoracionByMentor(mentor);
     }
 }
