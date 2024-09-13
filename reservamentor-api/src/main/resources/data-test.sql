@@ -64,3 +64,4 @@ INSERT INTO Mentor_Certificacion (mentorID, certificacionID, fechaObtencion) VAL
                                                                                  (2, 2, '2022-08-10');
 
 
+
