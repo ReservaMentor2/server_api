@@ -18,7 +18,6 @@ public class Mentor {
     @Id
     @Column(name = "mentorid", nullable = false)
     private Integer id;
-
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "usuarioid", nullable = false)
@@ -28,11 +27,9 @@ public class Mentor {
     @NotNull
     @Column(name = "valoracionpromedio", nullable = false, precision = 4, scale = 2)
     private BigDecimal valoracionpromedio;
-
     @NotNull
     @Column(name = "tarifahora", nullable = false)
     private Integer tarifahora;
-
     @Size(max = 500)
     @NotNull
     @Column(name = "biografia", nullable = false, length = 500)

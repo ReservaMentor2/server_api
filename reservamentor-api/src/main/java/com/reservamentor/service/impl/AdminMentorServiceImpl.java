@@ -2,6 +2,7 @@ package com.reservamentor.service.impl;
 
 import com.reservamentor.model.entity.Mentor;
 import com.reservamentor.repository.DisponibilidadRepository;
+
 import com.reservamentor.repository.MentorRepository;
 import com.reservamentor.service.AdminMentorService;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +20,6 @@ import java.util.List;
 public class AdminMentorServiceImpl implements AdminMentorService {
     @Autowired
     private MentorRepository mentorRepository;
-
-    @Autowired
     private DisponibilidadRepository disponibilidadRepository;
 
     @Transactional(readOnly = true)
