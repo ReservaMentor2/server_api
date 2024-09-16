@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -24,12 +25,6 @@ public class MentorServiceImpl implements MentorService {
     @Override
     public List<Mentor> getAllMentores() {
         return mentorRepository.findAll();
-    }
-
-    @Override
-    public Mentor getMentorById(Integer mentorId) {
-        return mentorRepository.findById(mentorId)
-                .orElseThrow(() -> new RuntimeException("Mentor not found"));
     }
 
     @Override
@@ -49,5 +44,9 @@ public class MentorServiceImpl implements MentorService {
                 mentor.getTarifahora(),
                 mentor.getBiografia()
         );
+    }
+    @Override
+    public Optional<Mentor> getMentorById(Integer id) {
+        return mentorRepository.findById(id);
     }
 }
