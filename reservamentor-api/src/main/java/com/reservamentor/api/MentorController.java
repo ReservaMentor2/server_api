@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/mentors")
@@ -30,8 +31,9 @@ public class MentorController {
     // Obtener un mentor por ID
     @GetMapping("/{id}")
     public ResponseEntity<Mentor> getMentorById(@PathVariable Integer id) {
-        Mentor mentor = mentorService.getMentorById(id);
-        return mentor != null ? ResponseEntity.ok(mentor) : ResponseEntity.notFound().build();
+        Optional<Mentor> mentorOpt = mentorService.getMentorById(id);
+        return mentorOpt.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     // Crear un nuevo mentor
