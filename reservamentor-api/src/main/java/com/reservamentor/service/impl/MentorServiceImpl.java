@@ -40,7 +40,7 @@ public class MentorServiceImpl implements MentorService {
                 usuario.getCorreo(),
                 usuario.getNacionalidad(),
                 usuario.getTelefono(),
-                mentor.getValoracionpromedio().doubleValue(),
+                mentor.getValoracionpromedio(),
                 mentor.getTarifahora(),
                 mentor.getBiografia()
         );
