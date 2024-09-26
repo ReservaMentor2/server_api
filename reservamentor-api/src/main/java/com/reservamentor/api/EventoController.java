@@ -5,7 +5,9 @@ import com.reservamentor.model.entity.AsistenciaEvento;
 import com.reservamentor.model.entity.Mentor;
 import com.reservamentor.service.EventoService;
 import com.reservamentor.service.MentorService;
+import jdk.jfr.Event;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,6 +40,13 @@ public class EventoController {
     public ResponseEntity<Evento> getEventoById(@PathVariable Integer id) {
         Optional<Evento> evento = eventoService.getEventoById(id);
         return evento.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    // Crear evento
+    @PostMapping
+    public ResponseEntity<Evento> createEvento(@RequestBody Evento inputEvento){
+        Evento newEvento = eventoService.create(inputEvento);
+        return new ResponseEntity<Evento>(newEvento, HttpStatus.CREATED);
     }
 
     // Confirmar o cancelar asistencia a un evento
