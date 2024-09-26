@@ -1,7 +1,14 @@
 package com.reservamentor.config;
 
+import org.modelmapper.ModelMapper;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
 public class ModelMapperConfig {
-    void hello(){
-        System.out.println("Hello World");
+
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
     }
 }
