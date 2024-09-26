@@ -3,6 +3,8 @@ package com.reservamentor.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 @Data
 @AllArgsConstructor
 public class MentorPerfilDTO {
@@ -11,7 +13,7 @@ public class MentorPerfilDTO {
     private String correo;
     private String nacionalidad;
     private String telefono;
-    private Double valoracionPromedio;
+    private BigDecimal valoracionPromedio;
     private Integer tarifaHora;
     private String biografia;
 }
