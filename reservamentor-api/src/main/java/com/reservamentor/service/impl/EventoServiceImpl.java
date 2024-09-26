@@ -10,6 +10,7 @@ import com.reservamentor.repository.MentorRepository;
 import com.reservamentor.service.EventoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,6 +35,12 @@ public class EventoServiceImpl implements EventoService {
     @Override
     public Optional<Evento> getEventoById(Integer id) {
         return eventoRepository.findById(id);
+    }
+
+    @Transactional
+    @Override
+    public Evento create(Evento evento){
+        return eventoRepository.save(evento);
     }
 
     @Override
