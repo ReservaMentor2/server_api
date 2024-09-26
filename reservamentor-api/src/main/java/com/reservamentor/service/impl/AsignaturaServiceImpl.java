@@ -1,6 +1,7 @@
 package com.reservamentor.service.impl;
 
 import com.reservamentor.dto.InformacionMentorDTO;
+import com.reservamentor.exception.ResourceNotFoundException;
 import com.reservamentor.model.entity.Asignatura;
 import com.reservamentor.model.entity.Mentor;
 import com.reservamentor.repository.AsignaturaRepository;
@@ -22,7 +23,7 @@ public class AsignaturaServiceImpl implements AsignaturaService {
 
     public List<InformacionMentorDTO> getMentoresByAsignaturaId(Integer id) {
         Asignatura asignatura = asignaturaRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Asignatura not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Asignatura not found"));
         return asignaturaRepository.findMentoresByAsignaturaId(asignatura.getId());
     }
 
