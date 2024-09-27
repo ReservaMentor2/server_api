@@ -13,24 +13,24 @@ import java.time.LocalTime;
 @Setter
 @Entity
 @Table(name = "sesionmentoria")
-public class Sesionmentoria {
+public class SesionMentoria {
     @Id
     @Column(name = "sesionmentoriaid", nullable = false)
     private Integer id;
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "mentorid", nullable = false)
     @JsonIgnore
     private Mentor mentorid;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "estudianteid", nullable = false)
     @JsonIgnore
     private Estudiante estudianteid;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "asignaturaid", nullable = false)
     @JsonIgnore
     private Asignatura asignaturaid;
@@ -49,7 +49,7 @@ public class Sesionmentoria {
     @Column(name = "weblink", nullable = false, length = 200)
     private String weblink;
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "turnoid", nullable = false)
     @JsonIgnore
     private com.reservamentor.model.entity.Turno turnoid;
