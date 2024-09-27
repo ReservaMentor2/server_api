@@ -1,5 +1,6 @@
 package com.reservamentor.service.impl;
 
+import com.reservamentor.exception.ResourceNotFoundException;
 import com.reservamentor.model.entity.AsistenciaEvento;
 import com.reservamentor.model.entity.Evento;
 import com.reservamentor.model.entity.Mentor;
@@ -10,6 +11,7 @@ import com.reservamentor.repository.MentorRepository;
 import com.reservamentor.service.EventoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -36,6 +38,12 @@ public class EventoServiceImpl implements EventoService {
         return eventoRepository.findById(id);
     }
 
+    @Transactional
+    @Override
+    public Evento create(Evento evento){
+        return eventoRepository.save(evento);
+    }
+
     @Override
     public AsistenciaEvento actualizarAsistencia(Mentor mentor, Evento evento, boolean confirmada) {
         AsistenciaEventoId id = new AsistenciaEventoId();
@@ -43,7 +51,7 @@ public class EventoServiceImpl implements EventoService {
         id.setEventoid(evento.getId());
 
         AsistenciaEvento asistenciaEvento = asistenciaEventoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Asistencia no encontrada"));
+                .orElseThrow(() -> new ResourceNotFoundException("Asistencia no encontrada"));
 
         asistenciaEvento.setAsistenciaconfirmada(confirmada);
         return asistenciaEventoRepository.save(asistenciaEvento);
