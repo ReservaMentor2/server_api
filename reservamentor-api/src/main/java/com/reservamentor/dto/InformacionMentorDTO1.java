@@ -1,17 +1,17 @@
 package com.reservamentor.dto;
 
-import com.reservamentor.model.entity.Disponibilidad;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class InformacionMentorDTO {
+public class InformacionMentorDTO1 {
   private Integer idMentor;
 
   @NotBlank(message = "El nombre es obligatorio")
@@ -27,6 +27,4 @@ public class InformacionMentorDTO {
   @NotBlank(message = "La biografia es obligatoria")
   @Size(max = 250, message = "La biografia debe tener 250 caracteres o menos")
   private String biografia;
-
-  private List<DisponibilidadDTO> horariosDisponibles;
 }

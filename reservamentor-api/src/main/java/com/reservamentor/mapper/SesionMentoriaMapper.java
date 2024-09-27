@@ -1,22 +1,22 @@
 package com.reservamentor.mapper;
 
-import com.reservamentor.dto.SesionmentoriaDTO;
-import com.reservamentor.model.entity.Sesionmentoria;
+import com.reservamentor.dto.SesionMentoriaDTO;
+import com.reservamentor.model.entity.SesionMentoria;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SesionmentoriaMapper {
+public class SesionMentoriaMapper {
 
     @Autowired
     private ModelMapper modelMapper;
 
-    public SesionmentoriaDTO toDTO(Sesionmentoria sesionmentoria) {
-        return modelMapper.map(sesionmentoria, SesionmentoriaDTO.class);
+    public SesionMentoriaDTO toDTO(SesionMentoria sesionmentoria) {
+        return modelMapper.map(sesionmentoria, SesionMentoriaDTO.class);
     }
 
-    public Sesionmentoria toEntity(SesionmentoriaDTO dto) {
-        return modelMapper.map(dto, Sesionmentoria.class);
+    public SesionMentoria toEntity(SesionMentoriaDTO dto) {
+        return modelMapper.map(dto, SesionMentoria.class);
     }
 }

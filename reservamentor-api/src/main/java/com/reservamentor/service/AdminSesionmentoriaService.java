@@ -1,18 +1,17 @@
 package com.reservamentor.service;
 
 
-import com.reservamentor.dto.SesionmentoriaDTO;
-import com.reservamentor.model.entity.Sesionmentoria;
+import com.reservamentor.model.entity.SesionMentoria;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
-public interface AdminSesionmentoriaService {
-    List<SesionmentoriaDTO> getAll();
-    Page<SesionmentoriaDTO> paginate(Pageable pageable);
-    SesionmentoriaDTO create(SesionmentoriaDTO sesionmentoriaDTO);
-    SesionmentoriaDTO update(Integer id, SesionmentoriaDTO sesionmentoriaDTO);
+public interface AdminSesionMentoriaService {
+    List<SesionMentoria> getAll();
+    Page<SesionMentoria> paginate(Pageable pageable);
+    SesionMentoria create(SesionMentoria sesionmentoria);
+    SesionMentoria update(Integer id, SesionMentoria sesionmentoria);
     void delete(Integer id);
-    SesionmentoriaDTO findById(Integer id);
+    SesionMentoria findById(Integer id);
 }

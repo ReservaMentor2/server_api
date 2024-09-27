@@ -1,12 +1,9 @@
 package com.reservamentor.service.impl;
 
-import com.reservamentor.exception.BadRequestException;
-import com.reservamentor.mapper.SesionmentoriaMapper;
-import com.reservamentor.dto.SesionmentoriaDTO;
-import com.reservamentor.model.entity.Sesionmentoria;
-import com.reservamentor.repository.SesionmentoriaRepository;
-import com.reservamentor.service.AdminSesionmentoriaService;
-
+import com.reservamentor.exception.ResourceNotFoundException;
+import com.reservamentor.model.entity.SesionMentoria;
+import com.reservamentor.repository.SesionMentoriaRepository;
+import com.reservamentor.service.AdminSesionMentoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,84 +13,52 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class AdminSesionmentoriaServiceImpl implements AdminSesionmentoriaService {
+public class AdminSesionMentoriaServiceImpl implements AdminSesionMentoriaService {
     @Autowired
-    private SesionmentoriaRepository sesionmentoriaRepository;
+    private SesionMentoriaRepository sesionmentoriaRepository;
 
-    @Autowired
-    private SesionmentoriaMapper sesionmentoriaMapper;
 
     @Transactional(readOnly = true)
     @Override
-    public List<SesionmentoriaDTO> getAll() {
-        List<Sesionmentoria> sesiones = sesionmentoriaRepository.findAll();
-        return sesiones.stream()
-                .map(sesionmentoriaMapper::toDTO)
-                .toList();
+    public List<SesionMentoria> getAll() {
+        return sesionmentoriaRepository.findAll();
     }
 
     @Transactional(readOnly = true)
     @Override
-    public Page<SesionmentoriaDTO> paginate(Pageable pageable) {
-        Page<Sesionmentoria> sesiones = sesionmentoriaRepository.findAll(pageable);
-        return sesiones.map(sesionmentoriaMapper::toDTO);
+    public Page<SesionMentoria> paginate(Pageable pageable) {
+        return sesionmentoriaRepository.findAll(pageable);
     }
 
     @Transactional
     @Override
-    public SesionmentoriaDTO create(SesionmentoriaDTO sesionmentoriaDTO) {
-        Sesionmentoria sesionmentoria = sesionmentoriaMapper.toEntity(sesionmentoriaDTO);
-        Sesionmentoria savedSesion = sesionmentoriaRepository.save(sesionmentoria);
-        return sesionmentoriaMapper.toDTO(savedSesion);
+    public SesionMentoria create(SesionMentoria sesionmentoria) {
+        return sesionmentoriaRepository.save(sesionmentoria);
     }
 
     @Transactional
     @Override
-    public SesionmentoriaDTO update(Integer id, SesionmentoriaDTO updateSesionmentoriaDTO) {
-        Sesionmentoria sesionmentoriaFromDB = sesionmentoriaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("La sesion con ID " +id+ " no fue encontrada"));
-
-        if (updateSesionmentoriaDTO.getDia() == null) {
-            throw new BadRequestException("El campo dia no puede estar vacío.");
-        }
-
-        if (updateSesionmentoriaDTO.getHorainicio().toString().isEmpty()) {
-            throw new BadRequestException("La hora de inicio no puede estar vacía.");
-        }
-
-        if (updateSesionmentoriaDTO.getHorafinal().toString().isEmpty()) {
-            throw new BadRequestException("La hora final no puede estar vacía.");
-        }
-
-        if (updateSesionmentoriaDTO.getHorainicio().isAfter(updateSesionmentoriaDTO.getHorafinal())) {
-            throw new BadRequestException("La hora de inicio debe ser anterior a la hora final.");
-        }
-
-        if (updateSesionmentoriaDTO.getWeblink() == null || updateSesionmentoriaDTO.getWeblink().isEmpty()) {
-            throw new BadRequestException("El campo weblink no puede estar vacío.");
-        }
-
-        sesionmentoriaFromDB.setDia(updateSesionmentoriaDTO.getDia());
-        sesionmentoriaFromDB.setHorainicio(updateSesionmentoriaDTO.getHorainicio());
-        sesionmentoriaFromDB.setHorafinal(updateSesionmentoriaDTO.getHorafinal());
-        sesionmentoriaFromDB.setWeblink(updateSesionmentoriaDTO.getWeblink());
-        sesionmentoriaFromDB = sesionmentoriaRepository.save(sesionmentoriaFromDB);
-        return sesionmentoriaMapper.toDTO(sesionmentoriaFromDB);
+    public SesionMentoria update(Integer id, SesionMentoria updateSesionMentoria) {
+        SesionMentoria sesionMentoriaFromDB = findById(id);
+        sesionMentoriaFromDB.setDia(updateSesionMentoria.getDia());
+        sesionMentoriaFromDB.setHorainicio(updateSesionMentoria.getHorainicio());
+        sesionMentoriaFromDB.setHorafinal(updateSesionMentoria.getHorafinal());
+        sesionMentoriaFromDB.setWeblink(updateSesionMentoria.getWeblink());
+        return sesionmentoriaRepository.save(sesionMentoriaFromDB);
     }
 
     @Transactional(readOnly = true)
     @Override
-    public SesionmentoriaDTO findById(Integer id) {
-        Sesionmentoria sesionmentoria = sesionmentoriaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Sesion no encontrada"));
-        return sesionmentoriaMapper.toDTO(sesionmentoria);
+    public SesionMentoria findById(Integer id) {
+        return sesionmentoriaRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Sesion not found"));
     }
 
     @Transactional
     @Override
     public void delete(Integer id) {
-        Sesionmentoria sesionmentoria = sesionmentoriaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Sesion no encontrada"));
+        SesionMentoria sesionmentoria = findById(id);
         sesionmentoriaRepository.delete(sesionmentoria);
+
     }
 }
