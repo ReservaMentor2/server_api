@@ -1,5 +1,6 @@
 package com.reservamentor.service.impl;
 
+import com.reservamentor.exception.ResourceNotFoundException;
 import com.reservamentor.model.entity.Mentor;
 import com.reservamentor.repository.DisponibilidadRepository;
 
@@ -52,7 +53,7 @@ public class AdminMentorServiceImpl implements AdminMentorService {
     @Override
     public Mentor findById(Integer id) {
         return mentorRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Mentor not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Mentor not found"));
     }
 
     @Transactional

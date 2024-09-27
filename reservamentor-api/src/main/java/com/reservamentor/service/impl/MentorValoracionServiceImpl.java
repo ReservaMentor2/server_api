@@ -1,5 +1,6 @@
 package com.reservamentor.service.impl;
 
+import com.reservamentor.exception.ResourceNotFoundException;
 import com.reservamentor.model.entity.Mentor;
 import com.reservamentor.model.entity.Valoracion;
 import com.reservamentor.repository.MentorRepository;
@@ -20,7 +21,7 @@ public class MentorValoracionServiceImpl implements MentorValoracionService {
     @Override
     public List<Valoracion> findValoracionesByMentor(Integer mentorId) {
         Mentor mentor = mentorRepository.findById(mentorId)
-                .orElseThrow(() -> new RuntimeException("Mentor not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Mentor not found"));
         return mentorValoracionRepository.findValoracionByMentor(mentor);
     }
     @Override
@@ -31,7 +32,7 @@ public class MentorValoracionServiceImpl implements MentorValoracionService {
     @Override
     public Double calculateAverageRating(Integer mentorId) {
         Mentor mentor = mentorRepository.findById(mentorId)
-                .orElseThrow(() -> new RuntimeException("Mentor not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Mentor not found"));
         return mentorValoracionRepository.calculateAverageRating(mentor);
     }
 }
