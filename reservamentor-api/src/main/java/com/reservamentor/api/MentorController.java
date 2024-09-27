@@ -1,6 +1,6 @@
 package com.reservamentor.api;
 
-import com.reservamentor.dto.InformacionMentorDTO;
+import com.reservamentor.dto.InformacionMentorDTO1;
 import com.reservamentor.model.entity.Asignatura;
 import com.reservamentor.service.AsignaturaService;
 
@@ -92,8 +92,8 @@ public class MentorController {
 
     //Obtiene todos los mentores por el area de conocimiento
     @GetMapping("/asignatura/{id}")
-    public ResponseEntity<List<InformacionMentorDTO>> getMentoresByAssignaturaId(@PathVariable Integer id) {
-        List<InformacionMentorDTO> informacionMentores = asignaturaService.getMentoresByAsignaturaId(id);
+    public ResponseEntity<List<InformacionMentorDTO1>> getMentoresByAssignaturaId(@PathVariable Integer id) {
+        List<InformacionMentorDTO1> informacionMentores = asignaturaService.getMentoresByAsignaturaId(id);
         return new ResponseEntity<>(informacionMentores, HttpStatus.OK);
     }
 

@@ -24,20 +24,20 @@ public class AdminDisponibilidadController {
 
     @GetMapping
     public ResponseEntity<List<Disponibilidad>> getAllDisponibilidades() {
-        List<Disponibilidad> disponibilidads = adminDisponibilidadService.getAll();
-        return new ResponseEntity<List<Disponibilidad>>(disponibilidads, HttpStatus.OK);
+        List<Disponibilidad> disponibilidades = adminDisponibilidadService.getAll();
+        return new ResponseEntity<List<Disponibilidad>>(disponibilidades, HttpStatus.OK);
     }
 
     @GetMapping("/page")
     public ResponseEntity<Page<Disponibilidad>> paginateDisponibilidades(@PageableDefault(size = 5, sort = "name") Pageable pageable) {
-        Page<Disponibilidad> disponibilidads = adminDisponibilidadService.paginate(pageable);
-        return new ResponseEntity<Page<Disponibilidad>>(disponibilidads, HttpStatus.OK);
+        Page<Disponibilidad> disponibilidades = adminDisponibilidadService.paginate(pageable);
+        return new ResponseEntity<Page<Disponibilidad>>(disponibilidades, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Disponibilidad> getDisponibilidadById(@PathVariable("id") Integer id) {
-        Disponibilidad disponibility = adminDisponibilidadService.findById(id);
-        return new ResponseEntity<Disponibilidad>(disponibility, HttpStatus.OK);
+        Disponibilidad disponibilidad = adminDisponibilidadService.findById(id);
+        return new ResponseEntity<Disponibilidad>(disponibilidad, HttpStatus.OK);
     }
 
 

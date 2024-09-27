@@ -1,7 +1,9 @@
 package com.reservamentor.api;
 
+import com.reservamentor.dto.InformacionMentorDTO;
 import com.reservamentor.model.entity.Mentor;
 import com.reservamentor.service.AdminMentorService;
+import jakarta.validation.Valid;
 import jdk.jfr.Category;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -22,68 +24,68 @@ public class AdminMentorController {
     private final AdminMentorService adminMentorService;
 
     @GetMapping
-    public ResponseEntity<List<Mentor>> getAllMentors() {
-        List<Mentor> mentors = adminMentorService.getAll();
-        return new ResponseEntity<List<Mentor>>(mentors, HttpStatus.OK);
+    public ResponseEntity<List<InformacionMentorDTO>> getAllMentors() {
+        List<InformacionMentorDTO> mentors = adminMentorService.getAll();
+        return new ResponseEntity<>(mentors, HttpStatus.OK);
     }
 
     @GetMapping("/page")
-    public ResponseEntity<Page<Mentor>> paginateMentors(@PageableDefault(size = 5, sort = "name") Pageable pageable) {
-        Page<Mentor> mentors = adminMentorService.paginate(pageable);
-        return new ResponseEntity<Page<Mentor>>(mentors, HttpStatus.OK);
+    public ResponseEntity<Page<InformacionMentorDTO>> paginateMentors(@PageableDefault(size = 5, sort = "name") Pageable pageable) {
+        Page<InformacionMentorDTO> mentors = adminMentorService.paginate(pageable);
+        return new ResponseEntity<>(mentors, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Mentor> getMentorById(@PathVariable("id") Integer id) {
-        Mentor mentor = adminMentorService.findById(id);
-        return new ResponseEntity<Mentor>(mentor, HttpStatus.OK);
+    public ResponseEntity<InformacionMentorDTO> getMentorById(@PathVariable("id") Integer id) {
+        InformacionMentorDTO mentor = adminMentorService.findById(id);
+        return new ResponseEntity<>(mentor, HttpStatus.OK);
     }
 
 
     @GetMapping("/sorted-by-rating")
-    public ResponseEntity<List<Mentor>> getMentorsSortedByRating() {
-        List<Mentor> mentors = adminMentorService.getAllSortedByRating();
-        return new ResponseEntity<List<Mentor>>(mentors, HttpStatus.OK);
+    public ResponseEntity<List<InformacionMentorDTO>> getMentorsSortedByRating() {
+        List<InformacionMentorDTO> mentors = adminMentorService.getAllSortedByRating();
+        return new ResponseEntity<>(mentors, HttpStatus.OK);
     }
 
     @GetMapping("/by-dia")
-    public ResponseEntity<List<Mentor>> getMentorsByDia(@RequestParam("dia") String dia) {
-        List<Mentor> mentors = adminMentorService.getMentorsByDia(dia);
+    public ResponseEntity<List<InformacionMentorDTO>> getMentorsByDia(@RequestParam("dia") String dia) {
+        List<InformacionMentorDTO> mentors = adminMentorService.getMentorsByDia(dia);
         return new ResponseEntity<>(mentors, HttpStatus.OK);
     }
 
     @GetMapping("/by-hora")
-    public ResponseEntity<List<Mentor>> getMentorsByHora(@RequestParam("horaInicio") String horaInicioStr, @RequestParam("horaFin") String horaFinStr) {
+    public ResponseEntity<List<InformacionMentorDTO>> getMentorsByHora(@RequestParam("horaInicio") String horaInicioStr, @RequestParam("horaFin") String horaFinStr) {
         LocalTime horaInicio = LocalTime.parse(horaInicioStr);
         LocalTime horaFin = LocalTime.parse(horaFinStr);
-        List<Mentor> mentors = adminMentorService.getMentorsByHora(horaInicio, horaFin);
+        List<InformacionMentorDTO> mentors = adminMentorService.getMentorsByHora(horaInicio, horaFin);
         return new ResponseEntity<>(mentors, HttpStatus.OK);
     }
 
     @GetMapping("/by-dia-y-hora")
-    public ResponseEntity<List<Mentor>> getMentorsByDiaAndHora(@RequestParam("dia") String dia, @RequestParam("horaInicio") String horaInicioStr, @RequestParam("horaFin") String horaFinStr) {
+    public ResponseEntity<List<InformacionMentorDTO>> getMentorsByDiaAndHora(@RequestParam("dia") String dia, @RequestParam("horaInicio") String horaInicioStr, @RequestParam("horaFin") String horaFinStr) {
         LocalTime horaInicio = LocalTime.parse(horaInicioStr);
         LocalTime horaFin = LocalTime.parse(horaFinStr);
-        List<Mentor> mentors = adminMentorService.getMentorsByDiaAndHora(dia, horaInicio, horaFin);
+        List<InformacionMentorDTO> mentors = adminMentorService.getMentorsByDiaAndHora(dia, horaInicio, horaFin);
         return new ResponseEntity<>(mentors, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<Mentor> createMentor(@RequestBody Mentor mentor) {
-        Mentor newMentor = adminMentorService.create(mentor);
-        return new ResponseEntity<Mentor>(newMentor, HttpStatus.CREATED);
+    public ResponseEntity<InformacionMentorDTO> createMentor(@Valid @RequestBody InformacionMentorDTO informacionMentorDTO) {
+        InformacionMentorDTO newMentor = adminMentorService.create(informacionMentorDTO);
+        return new ResponseEntity<>(newMentor, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Mentor> updateMentor(@PathVariable("id") Integer id, @RequestBody Mentor mentor) {
-        Mentor updateMentor = adminMentorService.update(id, mentor);
-        return new ResponseEntity<Mentor>(updateMentor, HttpStatus.OK);
+    public ResponseEntity<InformacionMentorDTO> updateMentor(@PathVariable("id") Integer id, @Valid @RequestBody InformacionMentorDTO informacionMentorDTO) {
+        InformacionMentorDTO updateMentor = adminMentorService.update(id, informacionMentorDTO);
+        return new ResponseEntity<>(updateMentor, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Mentor> deleteMentor(@PathVariable("id") Integer id) {
+    public ResponseEntity<Void> deleteMentor(@PathVariable("id") Integer id) {
         adminMentorService.delete(id);
-        return new ResponseEntity<Mentor>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }
