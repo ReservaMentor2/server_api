@@ -59,9 +59,9 @@ VALUES (1, 1, 1),
        (2, 2, 2);
 
 -- Inserciones en la tabla Valoracion
-INSERT INTO valoracion (valoracionid, estudianteid, mentorid, comentario, estrellas)
-VALUES (1, 1, 1, 'Excelente mentor, muy claro en sus explicaciones.', 5),
-       (2, 2, 2, 'Buen mentor, aunque puede mejorar su puntualidad.',4);
+INSERT INTO valoracion (valoracionid, estudianteid, mentorid, comentario, estrellas, valoracion_de_mentor)
+VALUES (1, 1, 1, 'Excelente mentor, muy claro en sus explicaciones.', 5, false),
+       (2, 2, 2, 'Buen mentor, aunque puede mejorar su puntualidad.',4, false);
 
 -- Datos para la tabla 'disponibilidad'
 INSERT INTO disponibilidad (id, dia, horainit, horafin, mentorid) VALUES

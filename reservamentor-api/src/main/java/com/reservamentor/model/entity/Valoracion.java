@@ -18,12 +18,12 @@ public class Valoracion {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "estudianteid", nullable = false)
-    private Estudiante estudianteid;
+    private Estudiante estudiante;  // Cambiar a 'estudiante'
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "mentorid", nullable = false)
-    private Mentor mentorid;
+    private Mentor mentor;  // Cambiar a 'mentor'
 
     @Size(max = 200)
     @NotNull
@@ -33,5 +33,9 @@ public class Valoracion {
     @NotNull
     @Column(name = "estrellas", nullable = false)
     private Integer estrellas;
+
+    @NotNull
+    @Column(name = "valoracionDeMentor", nullable = false)
+    private Boolean valoracionDeMentor;
 
 }
