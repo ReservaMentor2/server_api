@@ -1,5 +1,6 @@
 package com.reservamentor.service.impl;
 
+import com.reservamentor.exception.ResourceNotFoundException;
 import com.reservamentor.model.entity.SesionMentoria;
 import com.reservamentor.repository.SesionMentoriaRepository;
 import com.reservamentor.service.AdminSesionMentoriaService;
@@ -50,7 +51,7 @@ public class AdminSesionMentoriaServiceImpl implements AdminSesionMentoriaServic
     @Override
     public SesionMentoria findById(Integer id) {
         return sesionmentoriaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Sesion not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Sesion not found"));
     }
 
     @Transactional
