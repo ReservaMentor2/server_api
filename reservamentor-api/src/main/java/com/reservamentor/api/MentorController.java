@@ -1,14 +1,8 @@
 package com.reservamentor.api;
 
-import com.reservamentor.dto.InformacionMentorDTO;
-import com.reservamentor.model.entity.Asignatura;
-import com.reservamentor.service.AsignaturaService;
-
+import com.reservamentor.dto.MentorPerfilDTO;
 import com.reservamentor.model.entity.Mentor;
 import com.reservamentor.service.MentorService;
-
-import com.reservamentor.dto.MentorPerfilDTO;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,18 +10,15 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-
 @RestController
 @RequestMapping("/mentors")
 public class MentorController {
 
     private final MentorService mentorService;
-    private final AsignaturaService asignaturaService;
 
     // Constructor con inyección de dependencia
-    public MentorController(MentorService mentorService, AsignaturaService asignaturaService) {
+    public MentorController(MentorService mentorService) {
         this.mentorService = mentorService;
-        this.asignaturaService = asignaturaService;
     }
 
     // Obtener todos los mentores
@@ -79,22 +70,4 @@ public class MentorController {
     //    boolean deleted = mentorService.deleteMentor(id);
     //    return deleted ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
     //}
-
-
-    //Obtener mentores por area de conocimento
-
-    //Obtiene todas las areas de conocimiento de la plataforma
-    @GetMapping("/asignatura")
-    public ResponseEntity<List<Asignatura>> getAllAsignaturas() {
-        List<Asignatura> asignaturas = asignaturaService.getAllAsignaturas();
-        return new ResponseEntity<>(asignaturas, HttpStatus.OK);
-    }
-
-    //Obtiene todos los mentores por el area de conocimiento
-    @GetMapping("/asignatura/{id}")
-    public ResponseEntity<List<InformacionMentorDTO>> getMentoresByAssignaturaId(@PathVariable Integer id) {
-        List<InformacionMentorDTO> informacionMentores = asignaturaService.getMentoresByAsignaturaId(id);
-        return new ResponseEntity<>(informacionMentores, HttpStatus.OK);
-    }
-
 }

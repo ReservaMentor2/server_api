@@ -25,9 +25,9 @@ INSERT INTO Estudiante (estudianteID, usuarioID) VALUES
     (1, 2);
 
 -- Fake Data for Certificacion
-INSERT INTO Certificacion (certificacionID, nombre, organizacion, descripcion, reconocidainternacionalmente ,duracionMeses) VALUES
-                                                                                                  (1, 'Data Science Professional', 'Coursera', 'Certification for Data Science specialization', true,12),
-                                                                                                  (2, 'Advanced Physics', 'MIT', 'Certification for advanced topics in physics',false ,18);
+INSERT INTO Certificacion (certificacionID, nombre, organizacion, descripcion, duracionMeses) VALUES
+                                                                                                  (1, 'Data Science Professional', 'Coursera', 'Certification for Data Science specialization', 12),
+                                                                                                  (2, 'Advanced Physics', 'MIT', 'Certification for advanced topics in physics', 18);
 
 -- Fake Data for Eventos
 INSERT INTO Eventos (evento_ID, titulo, descripcion, fecha, esVirtual, ubicacion) VALUES
