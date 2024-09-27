@@ -1,7 +1,6 @@
 package com.reservamentor.service.impl;
 
 import com.reservamentor.dto.MentorPerfilDTO;
-import com.reservamentor.exception.ResourceNotFoundException;
 import com.reservamentor.model.entity.Mentor;
 import com.reservamentor.model.entity.Usuario;
 import com.reservamentor.repository.MentorRepository;
@@ -31,7 +30,7 @@ public class MentorServiceImpl implements MentorService {
     @Override
     public MentorPerfilDTO getMentorPerfil(Integer mentorId) {
         Mentor mentor = mentorRepository.findById(mentorId)
-                .orElseThrow(() -> new ResourceNotFoundException("Mentor not found"));
+                .orElseThrow(() -> new RuntimeException("Mentor not found"));
 
         Usuario usuario = mentor.getUsuario();
 
@@ -41,7 +40,7 @@ public class MentorServiceImpl implements MentorService {
                 usuario.getCorreo(),
                 usuario.getNacionalidad(),
                 usuario.getTelefono(),
-                mentor.getValoracionpromedio(),
+                mentor.getValoracionpromedio().doubleValue(),
                 mentor.getTarifahora(),
                 mentor.getBiografia()
         );

@@ -31,7 +31,6 @@ CREATE TABLE Certificacion (
                                nombre varchar(100)  NOT NULL,
                                organizacion varchar(100)  NOT NULL,
                                descripcion varchar(500)  NOT NULL,
-                               reconocidainternacionalmente boolean NOT NULL,
                                duracionMeses int  NOT NULL,
                                CONSTRAINT Certificacion_pk PRIMARY KEY (certificacionID)
 );

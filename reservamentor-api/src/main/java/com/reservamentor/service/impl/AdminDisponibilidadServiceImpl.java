@@ -1,10 +1,8 @@
 package com.reservamentor.service.impl;
 
-import com.reservamentor.exception.ResourceNotFoundException;
 import com.reservamentor.model.entity.Disponibilidad;
 import com.reservamentor.repository.DisponibilidadRepository;
 import com.reservamentor.service.AdminDisponibilidadService;
-import jakarta.annotation.Resource;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -52,7 +50,7 @@ public class AdminDisponibilidadServiceImpl implements AdminDisponibilidadServic
     @Override
     public Disponibilidad findById(Integer id) {
         return disponibilidadRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Mentor not found"));
+                .orElseThrow(() -> new RuntimeException("Mentor not found"));
     }
 
     @Transactional

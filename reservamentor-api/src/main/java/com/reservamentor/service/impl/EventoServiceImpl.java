@@ -1,6 +1,5 @@
 package com.reservamentor.service.impl;
 
-import com.reservamentor.exception.ResourceNotFoundException;
 import com.reservamentor.model.entity.AsistenciaEvento;
 import com.reservamentor.model.entity.Evento;
 import com.reservamentor.model.entity.Mentor;
@@ -51,7 +50,7 @@ public class EventoServiceImpl implements EventoService {
         id.setEventoid(evento.getId());
 
         AsistenciaEvento asistenciaEvento = asistenciaEventoRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Asistencia no encontrada"));
+                .orElseThrow(() -> new RuntimeException("Asistencia no encontrada"));
 
         asistenciaEvento.setAsistenciaconfirmada(confirmada);
         return asistenciaEventoRepository.save(asistenciaEvento);
