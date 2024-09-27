@@ -10,7 +10,9 @@ import lombok.Setter;
 @Entity
 @Table(name = "favorito")
 public class Favorito {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "favoritoid", nullable = false)
     private Integer id;
 

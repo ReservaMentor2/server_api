@@ -34,6 +34,10 @@ public class Certificacion {
     private String descripcion;
 
     @NotNull
+    @Column(name = "reconocidainternacionalmente")
+    private boolean reconocidainternacionalmente;
+
+    @NotNull
     @Column(name = "duracionmeses", nullable = false)
     private Integer duracionmeses;
 
