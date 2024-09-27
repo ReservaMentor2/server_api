@@ -3,10 +3,15 @@ package com.reservamentor.dto;
 import java.time.LocalTime;
 
 public class MentorDisponibilidadDTO {
+
     private String dia;
+
     private LocalTime horaInicio;
+
     private LocalTime horaFin;
+
     private Integer mentorId;
+
     private String mentorNombre;
 
     // Getters and Setters
