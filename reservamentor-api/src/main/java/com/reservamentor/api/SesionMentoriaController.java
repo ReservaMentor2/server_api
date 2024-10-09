@@ -16,7 +16,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/admin/sesionmentoria")
+@RequestMapping("/sesionmentoria")
 public class SesionMentoriaController {
     private final MentoriaService mentoriaService;
     private final SesionMentoriaService sesionMentoriaService;

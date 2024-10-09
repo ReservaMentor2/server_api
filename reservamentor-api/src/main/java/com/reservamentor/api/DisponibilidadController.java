@@ -14,7 +14,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/admin/disponibilidad")
+@RequestMapping("/disponibilidad")
 public class DisponibilidadController {
     private final DisponibilidadService disponibilidadService;
 
