@@ -3,15 +3,15 @@ package com.reservamentor.service.impl;
 import com.reservamentor.exception.ResourceNotFoundException;
 import com.reservamentor.model.entity.SesionMentoria;
 import com.reservamentor.repository.MentoriaRepository;
-import com.reservamentor.service.AdminMentoriaService;
+import com.reservamentor.service.MentoriaService;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AdminSesionMentoriaImpl implements AdminMentoriaService {
+public class SesionMentoriaImpl implements MentoriaService {
 
     private final MentoriaRepository mentoriaRepository;
-    public AdminSesionMentoriaImpl(MentoriaRepository mentoriaRepository){
+    public SesionMentoriaImpl(MentoriaRepository mentoriaRepository){
         this.mentoriaRepository = mentoriaRepository;
     }
 

@@ -1,13 +1,13 @@
 package com.reservamentor.api;
 
 import com.reservamentor.model.entity.SesionMentoria;
-import com.reservamentor.service.AdminMentoriaService;
+import com.reservamentor.service.MentoriaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.reservamentor.service.AdminSesionMentoriaService;
+import com.reservamentor.service.SesionMentoriaService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -17,14 +17,14 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/admin/sesionmentoria")
-public class AdminSesionMentoriaController {
-    private final AdminMentoriaService adminMentoriaService;
-    private final AdminSesionMentoriaService adminSesionMentoriaService;
+public class SesionMentoriaController {
+    private final MentoriaService mentoriaService;
+    private final SesionMentoriaService sesionMentoriaService;
 
 
     @PostMapping
     public ResponseEntity<SesionMentoria> createSesionMentoria(@RequestBody SesionMentoria inputSesionMentoria){
-        SesionMentoria newSesionMentoria = adminMentoriaService.create(inputSesionMentoria);
+        SesionMentoria newSesionMentoria = mentoriaService.create(inputSesionMentoria);
         return new ResponseEntity<SesionMentoria>(newSesionMentoria, HttpStatus.CREATED);
     }
 /*
@@ -38,7 +38,7 @@ public class AdminSesionMentoriaController {
 
     @GetMapping("/{id}")
     public ResponseEntity<SesionMentoria> getSesionMentoriaByID(@PathVariable("id") Integer id){
-        SesionMentoria sesionMentoria = adminMentoriaService.findById(id);
+        SesionMentoria sesionMentoria = mentoriaService.findById(id);
         return new ResponseEntity<>(sesionMentoria, HttpStatus.OK);
     }
 
@@ -60,13 +60,13 @@ public class AdminSesionMentoriaController {
 
     @GetMapping
     public ResponseEntity<List<SesionMentoria>> getAllSesions() {
-        List<SesionMentoria> mentors = adminSesionMentoriaService.getAll();
+        List<SesionMentoria> mentors = sesionMentoriaService.getAll();
         return new ResponseEntity<List<SesionMentoria>>(mentors, HttpStatus.OK);
     }
 
     @GetMapping("/page")
     public ResponseEntity<Page<SesionMentoria>> paginateSesions(@PageableDefault(size = 5, sort = "name") Pageable pageable) {
-        Page<SesionMentoria> mentors = adminSesionMentoriaService.paginate(pageable);
+        Page<SesionMentoria> mentors = sesionMentoriaService.paginate(pageable);
         return new ResponseEntity<Page<SesionMentoria>>(mentors, HttpStatus.OK);
     }
 /*
@@ -88,13 +88,13 @@ public class AdminSesionMentoriaController {
 
     @PutMapping("/{id}")
     public ResponseEntity<SesionMentoria> updateSesion(@PathVariable("id") Integer id, @RequestBody SesionMentoria mentor) {
-        SesionMentoria updateMentor = adminSesionMentoriaService.update(id, mentor);
+        SesionMentoria updateMentor = sesionMentoriaService.update(id, mentor);
         return new ResponseEntity<SesionMentoria>(updateMentor, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<SesionMentoria> deleteSesion(@PathVariable("id") Integer id) {
-        adminSesionMentoriaService.delete(id);
+        sesionMentoriaService.delete(id);
         return new ResponseEntity<SesionMentoria>(HttpStatus.NO_CONTENT);
     }
 }

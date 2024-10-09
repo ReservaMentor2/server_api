@@ -2,7 +2,7 @@ package com.reservamentor.service;
 
 import com.reservamentor.model.entity.SesionMentoria;
 
-public interface AdminMentoriaService {
+public interface MentoriaService {
     SesionMentoria create(SesionMentoria sesionmentoria);
     SesionMentoria update(Integer id, SesionMentoria updateSesionMentoria);
     SesionMentoria delete (Integer id);

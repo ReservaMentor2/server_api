@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
-public interface AdminSesionMentoriaService {
+public interface SesionMentoriaService {
     List<SesionMentoria> getAll();
     Page<SesionMentoria> paginate(Pageable pageable);
     SesionMentoria create(SesionMentoria sesionmentoria);

@@ -3,7 +3,7 @@ package com.reservamentor.service.impl;
 import com.reservamentor.exception.ResourceNotFoundException;
 import com.reservamentor.model.entity.SesionMentoria;
 import com.reservamentor.repository.SesionMentoriaRepository;
-import com.reservamentor.service.AdminSesionMentoriaService;
+import com.reservamentor.service.SesionMentoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class AdminSesionMentoriaServiceImpl implements AdminSesionMentoriaService {
+public class SesionMentoriaServiceImpl implements SesionMentoriaService {
     @Autowired
     private SesionMentoriaRepository sesionmentoriaRepository;
 
