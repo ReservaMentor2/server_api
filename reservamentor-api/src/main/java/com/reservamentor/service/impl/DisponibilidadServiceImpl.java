@@ -3,20 +3,17 @@ package com.reservamentor.service.impl;
 import com.reservamentor.exception.ResourceNotFoundException;
 import com.reservamentor.model.entity.Disponibilidad;
 import com.reservamentor.repository.DisponibilidadRepository;
-import com.reservamentor.service.AdminDisponibilidadService;
-import jakarta.annotation.Resource;
-import lombok.RequiredArgsConstructor;
+import com.reservamentor.service.DisponibilidadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
-public class AdminDisponibilidadServiceImpl implements AdminDisponibilidadService {
+public class DisponibilidadServiceImpl implements DisponibilidadService {
     @Autowired
     private DisponibilidadRepository disponibilidadRepository;
 

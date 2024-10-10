@@ -8,18 +8,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-public class RecomendacionMentorService {
 
-    @Autowired
-    private MentorRepository mentorRepository;
+public interface RecomendacionMentorService {
 
-    public List<Mentor> recomendarMentores(PreferenciasMentorDTO preferencias) {
-        return mentorRepository.findMentoresRecomendados(
-                preferencias.getTarifaMaxima(),
-                preferencias.getValoracionMinima(),
-                preferencias.getHoraInicioPreferida(),
-                preferencias.getHoraFinPreferida()
-        );
-    }
+    public List<Mentor> recomendarMentores(PreferenciasMentorDTO preferencias);
+
 }

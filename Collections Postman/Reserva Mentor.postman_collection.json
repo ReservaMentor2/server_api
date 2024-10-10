@@ -1,0 +1,37 @@
+{
+	"info": {
+		"_postman_id": "420bec11-7306-49dd-b994-623f89b21964",
+		"name": "Reserva Mentor",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38748188"
+	},
+	"item": [
+		{
+			"name": "Sesion Mentoria",
+			"item": [
+				{
+					"name": "Buscar mentoria por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/sesionmentoria/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"sesionmentoria",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

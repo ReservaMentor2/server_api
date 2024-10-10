@@ -8,4 +8,5 @@ public interface MentorValoracionService {
     List<Valoracion> findValoracionesByMentor(Integer mentorId);
     List<Valoracion> filterValoracionesByEstrellas(Integer estrellas);
     Double calculateAverageRating(Integer mentorId);
+
 }

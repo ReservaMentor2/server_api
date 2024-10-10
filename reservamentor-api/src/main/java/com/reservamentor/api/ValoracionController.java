@@ -11,7 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/reviews")
 @RequiredArgsConstructor
-public class MentorValoracionController {
+public class ValoracionController {
 
     private final MentorValoracionService mentorValoracionService;
 
