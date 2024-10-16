@@ -23,7 +23,7 @@ public class Mentor {
   private Usuario usuario;
 
   @NotNull
-  @Column(name = "valoracionpromedio", nullable = false, precision = 4,
+  @Column(name = "valoracionpromedio", nullable = false, precision = 2,
           scale = 2)
   private BigDecimal valoracionpromedio;
   @NotNull

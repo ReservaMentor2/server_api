@@ -11,5 +11,5 @@ public interface EventoService {
     List<Evento> getAllEventos();
     Optional<Evento> getEventoById(Integer id);
     Evento create(Evento evento);
-    AsistenciaEvento actualizarAsistencia(Mentor mentor, Evento evento, boolean confirmada);
+    AsistenciaEvento actualizarAsistencia(Integer mentorId, Integer eventoId, boolean confirmada);
 }
