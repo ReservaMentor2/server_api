@@ -16,7 +16,7 @@ public interface AsignaturaRepository extends JpaRepository<Asignatura, Integer>
     @Query("SELECT new com.reservamentor.dto.InformacionMentorDTO1(a.id, u.nombre, u.apellido, m.tarifahora, m.biografia)  FROM AsignaturaMentor am " +
             "LEFT JOIN am.mentorid m " +
             "LEFT JOIN am.asignaturaid a " +
-            "LEFT JOIN m.usuario u " +
+            "LEFT JOIN m.usuarioId u " +
             "WHERE a.id = :asignaturaId")
     List<InformacionMentorDTO1> findMentoresByAsignaturaId(@Param("asignaturaId") Integer asignaturaId);
 

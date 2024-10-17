@@ -20,7 +20,7 @@ public class Mentor {
   // Cambia a EAGER para cargar usuario automáticamente
   @JoinColumn(name = "usuarioid", nullable = false)
   @JsonIgnore
-  private Usuario usuario;
+  private Usuario usuarioId;
 
   @NotNull
   @Column(name = "valoracionpromedio", nullable = false, precision = 2,

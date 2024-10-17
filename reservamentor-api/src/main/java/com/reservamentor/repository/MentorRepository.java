@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface MentorRepository extends JpaRepository<Mentor, Integer> {
-  @Query("SELECT m FROM Mentor m JOIN FETCH m.usuario") List<Mentor> findAll();
+  @Query("SELECT m FROM Mentor m JOIN FETCH m.usuarioId") List<Mentor> findAll();
 
   @Query("SELECT m FROM Mentor m ORDER BY m.valoracionpromedio DESC")
   List<Mentor> findAllOrderByValoracionpromedio();
@@ -27,4 +27,5 @@ public interface MentorRepository extends JpaRepository<Mentor, Integer> {
       @Param("valoracionMinima") Double valoracionMinima,
       @Param("horaInicioPreferida") LocalTime horaInicioPreferida,
       @Param("horaFinPreferida") LocalTime horaFinPreferida);
+
 }

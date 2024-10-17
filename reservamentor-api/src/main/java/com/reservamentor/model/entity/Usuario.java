@@ -1,9 +1,6 @@
 package com.reservamentor.model.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -16,6 +13,7 @@ import lombok.Setter;
 public class Usuario {
     @Id
     @Column(name = "usuarioid", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Size(max = 100)
@@ -30,7 +28,7 @@ public class Usuario {
 
     @Size(max = 100)
     @NotNull
-    @Column(name = "correo", nullable = false, length = 100)
+    @Column(name = "correo", nullable = false, length = 100, unique = true)
     private String correo;
 
     @Size(max = 60)
@@ -48,8 +46,8 @@ public class Usuario {
     @Column(name = "telefono", nullable = false, length = 9)
     private String telefono;
 
-    @NotNull
-    @Column(name = "rol", nullable = false, length = Integer.MAX_VALUE)
-    private String rol;
+    @ManyToOne
+    @JoinColumn(name = "role_id", referencedColumnName = "id")
+    private Role rol;
 
 }
