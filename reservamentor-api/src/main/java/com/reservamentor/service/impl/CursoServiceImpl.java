@@ -32,7 +32,7 @@ public class CursoServiceImpl implements CursoService {
                     dto.setHoraInicio(disponibilidad.getHorainicio());
                     dto.setHoraFin(disponibilidad.getHorafin());
                     dto.setMentorId(mentorId);
-                    dto.setMentorNombre(disponibilidad.getMentor().getUsuario().getNombre());
+                    dto.setMentorNombre(disponibilidad.getMentor().getUsuarioId().getNombre());
                     return dto;
                 }).collect(Collectors.toList());
 

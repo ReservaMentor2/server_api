@@ -5,7 +5,7 @@ import com.reservamentor.dto.InformacionMentorDTO;
 import com.reservamentor.dto.MentorPerfilDTO;
 import com.reservamentor.model.entity.Mentor;
 import java.util.List;
-import java.util.stream.Collectors;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
@@ -29,8 +29,8 @@ public class MentorMapper {
   public InformacionMentorDTO IMtoDTO(Mentor mentor) {
     InformacionMentorDTO informacionMentorDTO =
         modelMapper.map(mentor, InformacionMentorDTO.class);
-    informacionMentorDTO.setNombre(mentor.getUsuario().getNombre());
-    informacionMentorDTO.setApellido(mentor.getUsuario().getApellido());
+    informacionMentorDTO.setNombre(mentor.getUsuarioId().getNombre());
+    informacionMentorDTO.setApellido(mentor.getUsuarioId().getApellido());
 
     List<DisponibilidadDTO> disponibilidades =
         mentor.getHorarioDisponible()
