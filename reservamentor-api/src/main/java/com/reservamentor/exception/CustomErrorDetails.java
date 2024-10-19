@@ -1,18 +1,16 @@
 package com.reservamentor.exception;
 
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomErrorResponse {
+public class CustomErrorDetails {
 
-    private LocalDateTime dateTime;
-    private String message;
-    private String details;
-
+  private LocalDateTime dateTime;
+  private String message;
+  private String details;
 }

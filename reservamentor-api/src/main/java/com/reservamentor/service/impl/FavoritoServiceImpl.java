@@ -29,11 +29,11 @@ public class FavoritoServiceImpl implements FavoritoService {
 
     private MentorPerfilDTO convertirAMentorPublicoDTO(Mentor mentor) {
         return new MentorPerfilDTO(
-                mentor.getUsuario().getNombre(),
-                mentor.getUsuario().getApellido(),
-                mentor.getUsuario().getCorreo(),
-                mentor.getUsuario().getNacionalidad(),
-                mentor.getUsuario().getTelefono(),
+                mentor.getUsuarioId().getNombre(),
+                mentor.getUsuarioId().getApellido(),
+                mentor.getUsuarioId().getCorreo(),
+                mentor.getUsuarioId().getNacionalidad(),
+                mentor.getUsuarioId().getTelefono(),
                 mentor.getValoracionpromedio(),
                 mentor.getTarifahora(),
                 mentor.getBiografia()

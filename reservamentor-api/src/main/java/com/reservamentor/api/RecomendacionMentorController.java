@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/mentores")
+@RequestMapping("/recomendaciones")
 public class RecomendacionMentorController {
 
     @Autowired
     private RecomendacionMentorService recomendacionMentorService;
 
-    @PostMapping("/recomendaciones")
+    @PostMapping("/mentor")
     public List<Mentor> recomendarMentores(@RequestBody PreferenciasMentorDTO preferencias) {
         return recomendacionMentorService.recomendarMentores(preferencias);
     }

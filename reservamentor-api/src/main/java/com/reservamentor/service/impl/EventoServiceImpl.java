@@ -1,5 +1,6 @@
 package com.reservamentor.service.impl;
 
+import com.reservamentor.exception.MentorNotFound;
 import com.reservamentor.exception.ResourceNotFoundException;
 import com.reservamentor.model.entity.AsistenciaEvento;
 import com.reservamentor.model.entity.Evento;
@@ -45,7 +46,16 @@ public class EventoServiceImpl implements EventoService {
     }
 
     @Override
-    public AsistenciaEvento actualizarAsistencia(Mentor mentor, Evento evento, boolean confirmada) {
+    public AsistenciaEvento actualizarAsistencia(Integer mentorId, Integer eventoId, boolean confirmada) {
+
+        Mentor mentor = mentorRepository.findById(mentorId).orElseThrow(
+                () -> new MentorNotFound("El mentor con ID " + mentorId + " no fue encontrado")
+        );
+
+        Evento evento = eventoRepository.findById(eventoId).orElseThrow(
+                () -> new ResourceNotFoundException("El evento con ID " + eventoId + " no fue encontrado")
+        );
+
         AsistenciaEventoId id = new AsistenciaEventoId();
         id.setMentorid(mentor.getId());
         id.setEventoid(evento.getId());

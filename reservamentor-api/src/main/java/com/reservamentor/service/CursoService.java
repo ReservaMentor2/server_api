@@ -11,39 +11,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
-public class CursoService {
+public interface CursoService {
 
-    @Autowired
-    private DisponibilidadRepository disponibilidadRepository;
+    public List<CursoCortoDTO> obtenerCursosCortosPorMentor(Integer mentorId);
 
-    @Autowired
-    private AsignaturaRepository asignaturaRepository;
-
-    public List<CursoCortoDTO> obtenerCursosCortosPorMentor(Integer mentorId) {
-        // Obtener la disponibilidad del mentor
-        List<MentorDisponibilidadDTO> disponibilidades = disponibilidadRepository.findByMentorId(mentorId)
-                .stream()
-                .map(disponibilidad -> {
-                    MentorDisponibilidadDTO dto = new MentorDisponibilidadDTO();
-                    dto.setDia(disponibilidad.getDia());
-                    dto.setHoraInicio(disponibilidad.getHorainicio());
-                    dto.setHoraFin(disponibilidad.getHorafin());
-                    dto.setMentorId(mentorId);
-                    dto.setMentorNombre(disponibilidad.getMentor().getUsuario().getNombre());
-                    return dto;
-                }).collect(Collectors.toList());
-
-        // Obtener asignaturas
-        List<Asignatura> asignaturas = asignaturaRepository.findAll();
-
-        // Combinar asignaturas con disponibilidad
-        return asignaturas.stream().map(asignatura -> {
-            CursoCortoDTO curso = new CursoCortoDTO();
-            curso.setNombreCurso(asignatura.getNombre());
-            curso.setDescripcionCurso(asignatura.getDescripcion());
-            curso.setDisponibilidad(disponibilidades.isEmpty() ? null : disponibilidades.get(0));
-            return curso;
-        }).collect(Collectors.toList());
-    }
 }
