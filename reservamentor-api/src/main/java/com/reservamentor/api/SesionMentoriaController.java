@@ -60,5 +60,11 @@ public class SesionMentoriaController {
         Page<SesionMentoria> sesionesMentoria = sesionMentoriaService.paginate(pageable);
         return new ResponseEntity<Page<SesionMentoria>>(sesionesMentoria, HttpStatus.OK);
     }
+    //Retroalimentacion 
+    @PostMapping("/feedback")
+    public ResponseEntity<SesionMentoria> agendarSesionFeedback(@RequestBody SesionMentoriaFeedbackDTO dto){
+        SesionMentoria sesion = sesionMentoriaService.programarSesionConFeedback(dto);
+    	return ResponseEntity.ok(sesion);
+    }
 
 }
