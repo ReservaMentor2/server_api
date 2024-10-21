@@ -22,8 +22,6 @@ VALUES
     (2, 'Smith', 'password456', 'janesmith@example.com', 'Peru', 'Jane', '987654322', 2),
     (3, 'Carlos', 'Garcia', 'carlos.garcia@example.com', 'passCarlos', 'Spain', '123123123', 1);
 
-
-
 -- Fake Data for Mentor
 INSERT INTO Mentor (mentorID, usuarioID, valoracionPromedio, tarifaHora, biografia) VALUES
                                                                                         (1, 1, 4.80, 30, 'Experienced Math tutor with 5 years of experience.'),
