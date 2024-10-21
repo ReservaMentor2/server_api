@@ -1,5 +1,5 @@
 package com.reservamentor.service;
-
+import com.reservamentor.dto.SesionMentoriaFeedbackDTO;
 import com.reservamentor.model.entity.SesionMentoria;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,4 +15,6 @@ public interface SesionMentoriaService {
     SesionMentoria create(SesionMentoria sesionMentoria);
     SesionMentoria update(Integer id, SesionMentoria sesionMentoria);
     void delete(Integer id);
+
+    SesionMentoria programarSesionConFeedback(SesionMentoriaFeedbackDTO dto);
 }
