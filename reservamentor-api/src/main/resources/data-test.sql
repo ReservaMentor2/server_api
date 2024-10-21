@@ -10,10 +10,10 @@ INSERT INTO turno (turnoID, turno) VALUES
                                        (2, 2);
 
 -- Fake Data for Usuario
-INSERT INTO Usuario (usuarioID, nombre, apellido, correo, contrasenia, nacionalidad, telefono, rol) VALUES
-                                                                                                        (1, 'John', 'Doe', 'john.doe@example.com', 'password123', 'USA', '123456789', 'M'),
-                                                                                                        (2, 'Jane', 'Smith', 'jane.smith@example.com', 'securepass', 'Canada', '987654321', 'E'),
-                                                                                                        (3, 'Carlos', 'Garcia', 'carlos.garcia@example.com', 'passCarlos', 'Spain', '123123123', 'M');
+INSERT INTO Usuario (usuarioID, nombre, apellido, correo, contrasenia, nacionalidad, telefono, roleID) VALUES
+                                                                                                        (1, 'John', 'Doe', 'john.doe@example.com', 'password123', 'USA', '123456789', 2),
+                                                                                                        (2, 'Jane', 'Smith', 'jane.smith@example.com', 'securepass', 'Canada', '987654321', 3),
+                                                                                                        (3, 'Carlos', 'Garcia', 'carlos.garcia@example.com', 'passCarlos', 'Spain', '123123123', 2);
 
 -- Fake Data for Mentor
 INSERT INTO Mentor (mentorID, usuarioID, valoracionPromedio, tarifaHora, biografia) VALUES
