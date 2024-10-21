@@ -57,4 +57,8 @@ public class SesionMentoria {
     @NotNull
     @Column(name = "precio", nullable = false)
     private BigDecimal precio;
+
+    @Column(name = "progreso", length = 500)
+    private String progreso;
+
 }
