@@ -115,4 +115,3 @@ public class SesionMentoriaServiceImpl implements SesionMentoriaService {
         return sesionMentoriaRepository.save(sesion);
     }
 }
-

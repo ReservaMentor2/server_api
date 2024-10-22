@@ -7,7 +7,8 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface SesionMentoriaService {
-
+    SesionMentoria programarSesionConFeedback(SesionMentoriaFeedbackDTO dto);
+   
     List<SesionMentoria> getAll();
     SesionMentoria searchById(Integer id);
 
@@ -15,6 +16,5 @@ public interface SesionMentoriaService {
     SesionMentoria create(SesionMentoria sesionMentoria);
     SesionMentoria update(Integer id, SesionMentoria sesionMentoria);
     void delete(Integer id);
-
-    SesionMentoria programarSesionConFeedback(SesionMentoriaFeedbackDTO dto);
 }
+

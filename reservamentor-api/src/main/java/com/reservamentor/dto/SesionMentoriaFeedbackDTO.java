@@ -18,5 +18,5 @@ public class SesionMentoriaFeedbackDTO {
     private LocalTime horaFinal;
     private String weblink;
     private BigDecimal precio;
-    private String progreso; 
+    private String progreso; // Campo para registrar el seguimiento del progreso
 }
