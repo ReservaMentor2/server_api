@@ -2,7 +2,7 @@ package com.reservamentor.service.impl;
 
 import com.reservamentor.exception.ResourceNotFoundException;
 import com.reservamentor.model.entity.SesionMentoria;
-import com.reservamentor.repository.SesionMentoriaRepository;
+import com.reservamentor.repository.*;
 import com.reservamentor.service.SesionMentoriaService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,9 +15,18 @@ import java.util.List;
 public class SesionMentoriaServiceServiceImpl implements SesionMentoriaService {
 
     private final SesionMentoriaRepository sesionMentoriaRepository;
+    private final EstudianteRepository estudianteRepository;
+    private final MentorRepository mentorRepository;
+    private final AsignaturaRepository asignaturaRepository;
+    private final TurnoRepository turnoRepository;
 
-    public SesionMentoriaServiceServiceImpl(SesionMentoriaRepository sesionMentoriaRepository) {
-        this.sesionMentoriaRepository = sesionMentoriaRepository;
+
+    public SesionMentoriaServiceServiceImpl(SesionMentoriaRepository sesionMentoriaRepository1, EstudianteRepository estudianteRepository1, MentorRepository mentorRepository1, AsignaturaRepository asignaturaRepository1, TurnoRepository turnoRepository1) {
+        this.sesionMentoriaRepository = sesionMentoriaRepository1;
+        this.estudianteRepository = estudianteRepository1;
+        this.mentorRepository = mentorRepository1;
+        this.asignaturaRepository = asignaturaRepository1;
+        this.turnoRepository = turnoRepository1;
     }
 
     @Transactional
@@ -58,10 +67,10 @@ public class SesionMentoriaServiceServiceImpl implements SesionMentoriaService {
         sesionMentoria.setWeblink(sesionMentoriaUpdated.getWeblink());
         sesionMentoria.setHorainicio(sesionMentoriaUpdated.getHorainicio());
         sesionMentoria.setHorafinal(sesionMentoriaUpdated.getHorafinal());
-        sesionMentoria.setMentorid(sesionMentoriaUpdated.getMentor());
-        sesionMentoria.setEstudianteid(sesionMentoriaUpdated.getEstudiante());
-        sesionMentoria.setAsignaturaid(sesionMentoriaUpdated.getAsignatura());
-        sesionMentoria.setTurnoid(sesionMentoriaUpdated.getTurno());
+        sesionMentoria.setMentorid(sesionMentoriaUpdated.getMentorid());
+        sesionMentoria.setEstudianteid(sesionMentoriaUpdated.getEstudianteid());
+        sesionMentoria.setTurnoid(sesionMentoriaUpdated.getTurnoid());
+        sesionMentoria.setAsignaturaid(sesionMentoriaUpdated.getAsignaturaid());
 
         return sesionMentoriaRepository.save(sesionMentoria);
     }

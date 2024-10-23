@@ -19,7 +19,7 @@ public class SesionMentoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "sesionmentoriaid", nullable = false)
-    private Integer sesionmentoriaid;
+    private Integer id;
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
@@ -65,21 +65,4 @@ public class SesionMentoria {
     @NotNull
     @Column(name = "precio", nullable = false)
     private BigDecimal precio;
-
-    // Métodos getter adicionales
-    public @NotNull Mentor getMentor() {
-        return this.mentorid;
-    }
-
-    public @NotNull Estudiante getEstudiante() {
-        return this.estudianteid;
-    }
-
-    public @NotNull Asignatura getAsignatura() {
-        return this.asignaturaid;
-    }
-
-    public @NotNull Turno getTurno() {
-        return this.turnoid;
-    }
 }

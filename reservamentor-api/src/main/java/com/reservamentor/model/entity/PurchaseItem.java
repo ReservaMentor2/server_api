@@ -9,21 +9,21 @@ import lombok.Data;
 @Table(name = "purchase_items")
 public class PurchaseItem {
     @Id
+    @Column(name ="purchaseid", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private Float price;
 
     @Column(name = "quantity")
     private Integer quantity;
 
     @ManyToOne
-    @JoinColumn(name = "book_id", referencedColumnName = "id"
-            , foreignKey = @ForeignKey(name = "FK_purchase_item_book"))
-    private SesionMentoria book;
+    @JoinColumn(name = "sesionmentoriaid", nullable = false)
+    private SesionMentoria sesionMentoriaid;
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "purchase_id", referencedColumnName = "id"
-            , foreignKey = @ForeignKey(name = "FK_purchase_item_purchase"))
+    @JoinColumn(name = "purchase")
     public Purchase purchase;
 }

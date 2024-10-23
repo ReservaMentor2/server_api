@@ -15,8 +15,8 @@ import java.util.Set;
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id") // Corregido de usuarioId a id
-    private Long id;
+    @Column(name = "usuarioid", nullable = false)
+    private Integer id;
 
     @Column(name = "nombre", nullable = false)
     private String nombre;
@@ -37,26 +37,6 @@ public class Usuario {
     private String telefono;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "rol_id", nullable = false)
+    @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)
     private Role rol;
-
-    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
-    private Mentor mentor;
-
-    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
-    private Estudiante estudiante;
-
-    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Favorito> favoritos = new HashSet<>();
-
-    // Constructor vacío necesario por JPA
-    public Usuario() {}
-
-    public String getNacionalidad() {
-        return nacionalidad;
-    }
-
-    public void setNacionalidad(String nacionalidad) {
-        this.nacionalidad = nacionalidad;
-    }
 }

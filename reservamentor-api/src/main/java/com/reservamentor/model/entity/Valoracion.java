@@ -19,12 +19,12 @@ public class Valoracion {
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "estudianteid", nullable = false)
-    private Estudiante estudiante;
+    private Estudiante estudianteid;
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "mentorid", nullable = false)
-    private Mentor mentor;
+    private Mentor mentorid;
 
     @Size(max = 200)
     @NotNull
