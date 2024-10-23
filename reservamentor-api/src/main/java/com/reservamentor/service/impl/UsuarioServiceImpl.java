@@ -62,7 +62,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public AuthResponseDTO login(LoginUsuarioDTO loginUsuarioDTO) {
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginUsuarioDTO.getEmail(), loginUsuarioDTO.getPassword())
+                new UsernamePasswordAuthenticationToken(loginUsuarioDTO.getCorreo(), loginUsuarioDTO.getContrasenia())
         );
 
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
