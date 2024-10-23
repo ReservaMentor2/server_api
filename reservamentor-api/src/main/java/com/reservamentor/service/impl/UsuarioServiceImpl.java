@@ -44,13 +44,13 @@ public class UsuarioServiceImpl implements UsuarioService {
     //Registro de usuario
     @Override
     public PerfilUsuarioDTO registrarEstudiante(RegistroUsuarioDTO registroUsuarioDTO) {
-        return registroUsuarioConRol(registroUsuarioDTO, ERol.E);
+        return registroUsuarioConRol(registroUsuarioDTO, ERol.ESTUDIANTE);
     }
 
     //Registro de mentor
     @Override
     public PerfilUsuarioDTO registrarMentor(RegistroUsuarioDTO registroUsuarioDTO) {
-        return registroUsuarioConRol(registroUsuarioDTO, ERol.M);
+        return registroUsuarioConRol(registroUsuarioDTO, ERol.MENTOR);
     }
 
     // Actualizar el perfil del usuario
@@ -104,7 +104,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         usuario.setRol(role);
         Usuario usuarioGuardado = usuarioRepository.save(usuario);
 
-        if(rol == ERol.M) {
+        if(rol == ERol.MENTOR) {
             Mentor mentor = new Mentor();
             mentor.setUsuarioId(usuarioGuardado);
             mentor.setBiografia(registroUsuarioDTO.getBiografia());
@@ -114,7 +114,7 @@ public class UsuarioServiceImpl implements UsuarioService {
             Mentor mentorGuardado = mentorRepository.save(mentor);
         }
 
-        else if(rol == ERol.E) {
+        else if(rol == ERol.ESTUDIANTE) {
             Estudiante estudiante = new Estudiante();
             estudiante.setUsuarioid(usuarioGuardado);
 
