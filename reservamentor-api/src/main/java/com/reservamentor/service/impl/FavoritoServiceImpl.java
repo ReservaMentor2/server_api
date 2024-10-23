@@ -3,6 +3,7 @@ package com.reservamentor.service.impl;
 import com.reservamentor.dto.MentorPerfilDTO;
 import com.reservamentor.exception.ResourceNotFoundException;
 import com.reservamentor.model.entity.Estudiante;
+import com.reservamentor.model.entity.Usuario;
 import com.reservamentor.model.entity.Favorito;
 import com.reservamentor.model.entity.Mentor;
 import com.reservamentor.repository.EstudianteRepository;

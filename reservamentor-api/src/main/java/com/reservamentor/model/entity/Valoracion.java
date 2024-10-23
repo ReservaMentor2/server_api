@@ -12,18 +12,19 @@ import lombok.Setter;
 @Table(name = "valoracion")
 public class Valoracion {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Asegúrate de generar el ID automáticamente si es necesario
     @Column(name = "valoracionid", nullable = false)
     private Integer id;
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "estudianteid", nullable = false)
-    private Estudiante estudianteid;
+    private Estudiante estudiante;
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "mentorid", nullable = false)
-    private Mentor mentorid;
+    private Mentor mentor;
 
     @Size(max = 200)
     @NotNull
@@ -33,5 +34,4 @@ public class Valoracion {
     @NotNull
     @Column(name = "estrellas", nullable = false)
     private Integer estrellas;
-
 }

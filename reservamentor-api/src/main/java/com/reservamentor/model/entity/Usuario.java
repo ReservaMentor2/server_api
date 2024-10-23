@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -12,42 +14,49 @@ import lombok.Setter;
 @Table(name = "usuario")
 public class Usuario {
     @Id
-    @Column(name = "usuarioid", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(name = "id") // Corregido de usuarioId a id
+    private Long id;
 
-    @Size(max = 100)
-    @NotNull
-    @Column(name = "nombre", nullable = false, length = 100)
+    @Column(name = "nombre", nullable = false)
     private String nombre;
 
-    @Size(max = 100)
-    @NotNull
-    @Column(name = "apellido", nullable = false, length = 100)
+    @Column(name = "apellido", nullable = false)
     private String apellido;
 
-    @Size(max = 100)
-    @NotNull
-    @Column(name = "correo", nullable = false, length = 100, unique = true)
+    @Column(name = "correo", unique = true, nullable = false)
     private String correo;
 
-    @Size(max = 60)
-    @NotNull
-    @Column(name = "contrasenia", nullable = false, length = 60)
+    @Column(name = "contrasenia", nullable = false)
     private String contrasenia;
 
-    @Size(max = 20)
-    @NotNull
-    @Column(name = "nacionalidad", nullable = false, length = 20)
+    @Column(name = "nacionalidad", nullable = true)
     private String nacionalidad;
 
-    @Size(max = 9)
-    @NotNull
-    @Column(name = "telefono", nullable = false, length = 9)
+    @Column(name = "telefono", nullable = true)
     private String telefono;
 
-    @ManyToOne
-    @JoinColumn(name = "role_id", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "rol_id", nullable = false)
     private Role rol;
 
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
+    private Mentor mentor;
+
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
+    private Estudiante estudiante;
+
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Favorito> favoritos = new HashSet<>();
+
+    // Constructor vacío necesario por JPA
+    public Usuario() {}
+
+    public String getNacionalidad() {
+        return nacionalidad;
+    }
+
+    public void setNacionalidad(String nacionalidad) {
+        this.nacionalidad = nacionalidad;
+    }
 }

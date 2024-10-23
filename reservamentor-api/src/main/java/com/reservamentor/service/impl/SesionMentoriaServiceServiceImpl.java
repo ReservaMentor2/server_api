@@ -14,22 +14,24 @@ import java.util.List;
 @Service
 public class SesionMentoriaServiceServiceImpl implements SesionMentoriaService {
 
-    SesionMentoriaRepository sesionMentoriaRepository;
+    private final SesionMentoriaRepository sesionMentoriaRepository;
+
+    public SesionMentoriaServiceServiceImpl(SesionMentoriaRepository sesionMentoriaRepository) {
+        this.sesionMentoriaRepository = sesionMentoriaRepository;
+    }
 
     @Transactional
     @Override
-    public List<SesionMentoria> getAll(){
-        List<SesionMentoria> sesionMentorias = sesionMentoriaRepository.findAll();
-        return sesionMentorias;
+    public List<SesionMentoria> getAll() {
+        return sesionMentoriaRepository.findAll();
     }
 
     @Transactional
     @Override
     public SesionMentoria searchById(Integer id) {
-        SesionMentoria sesionMentoria = sesionMentoriaRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("La sesion de mentoria con el ID " + id + " no fue encontrado")
+        return sesionMentoriaRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("La sesión de mentoría con el ID " + id + " no fue encontrada")
         );
-        return sesionMentoria;
     }
 
     @Transactional
@@ -37,7 +39,6 @@ public class SesionMentoriaServiceServiceImpl implements SesionMentoriaService {
     public Page<SesionMentoria> paginate(Pageable pageable) {
         return sesionMentoriaRepository.findAll(pageable);
     }
-
 
     @Transactional
     @Override
@@ -49,17 +50,18 @@ public class SesionMentoriaServiceServiceImpl implements SesionMentoriaService {
     @Override
     public SesionMentoria update(Integer id, SesionMentoria sesionMentoriaUpdated) {
         SesionMentoria sesionMentoria = sesionMentoriaRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("La sesion de mentoria con el ID " + id + " no fue encontrado")
+                () -> new ResourceNotFoundException("La sesión de mentoría con el ID " + id + " no fue encontrada")
         );
+
         sesionMentoria.setPrecio(sesionMentoriaUpdated.getPrecio());
         sesionMentoria.setDia(sesionMentoriaUpdated.getDia());
         sesionMentoria.setWeblink(sesionMentoriaUpdated.getWeblink());
         sesionMentoria.setHorainicio(sesionMentoriaUpdated.getHorainicio());
         sesionMentoria.setHorafinal(sesionMentoriaUpdated.getHorafinal());
-        sesionMentoria.setMentorid(sesionMentoriaUpdated.getMentorid());
-        sesionMentoria.setEstudianteid(sesionMentoriaUpdated.getEstudianteid());
-        sesionMentoria.setAsignaturaid(sesionMentoriaUpdated.getAsignaturaid());
-        sesionMentoria.setTurnoid(sesionMentoriaUpdated.getTurnoid());
+        sesionMentoria.setMentorid(sesionMentoriaUpdated.getMentor());
+        sesionMentoria.setEstudianteid(sesionMentoriaUpdated.getEstudiante());
+        sesionMentoria.setAsignaturaid(sesionMentoriaUpdated.getAsignatura());
+        sesionMentoria.setTurnoid(sesionMentoriaUpdated.getTurno());
 
         return sesionMentoriaRepository.save(sesionMentoria);
     }
@@ -67,13 +69,9 @@ public class SesionMentoriaServiceServiceImpl implements SesionMentoriaService {
     @Transactional
     public void delete(Integer id) {
         SesionMentoria sesionMentoria = sesionMentoriaRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("La sesion de mentoria con el ID " + id + " no fue encontrado")
+                () -> new ResourceNotFoundException("La sesión de mentoría con el ID " + id + " no fue encontrada")
         );
 
         sesionMentoriaRepository.delete(sesionMentoria);
     }
-
-
-
 }
-
