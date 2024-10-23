@@ -14,10 +14,14 @@ import lombok.Setter;
 @Entity
 @Table(name = "mentor")
 public class Mentor {
-  @Id @Column(name = "mentorid", nullable = false) private Integer id;
+
+  @Id
+  @Column(name = "mentorid", nullable = false)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
+
   @NotNull
   @ManyToOne(fetch = FetchType.EAGER, optional = false)
-  // Cambia a EAGER para cargar usuario automáticamente
   @JoinColumn(name = "usuarioid", nullable = false)
   @JsonIgnore
   private Usuario usuarioId;
