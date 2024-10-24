@@ -4,8 +4,7 @@ INSERT INTO Asignatura (asignaturaid, nombre, descripcion) VALUES
                                                                (2, 'Physics', 'Introduction to mechanics, thermodynamics, and quantum physics'),
                                                                (3, 'Chemistry', 'Study of elements, compounds, and chemical reactions');
 
-INSERT INTO roles (id, name)
-VALUES
+INSERT INTO Roles (id, name) VALUES
     (1, 'ADMIN'),
     (2, 'MENTOR'),
     (3, 'ESTUDIANTE');

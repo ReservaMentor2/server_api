@@ -47,7 +47,7 @@ public class Usuario {
     private String telefono;
 
     @ManyToOne
-    @JoinColumn(name = "roleid", referencedColumnName = "name")
+    @JoinColumn(name = "role_id", referencedColumnName = "id")
     private Role rol;
 
 }
