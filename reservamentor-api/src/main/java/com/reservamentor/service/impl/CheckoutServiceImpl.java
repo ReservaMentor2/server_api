@@ -3,8 +3,9 @@ package com.reservamentor.service.impl;
 import com.reservamentor.dto.PaymentCaptureResponse;
 import com.reservamentor.dto.PaymentOrderResponse;
 import com.reservamentor.dto.PurchaseDTO;
-//import com.reservamentor.integration.notification.email.dto.Mail;
-//import com.reservamentor.integration.notification.email.service.EmailService;
+import com.reservamentor.integration.notification.email.dto.Mail;
+import com.reservamentor.integration.notification.email.service.EmailService;
+import com.reservamentor.integration.notification.email.service.EmailService;
 import com.reservamentor.integration.payment.paypal.dto.OrderCaptureResponse;
 import com.reservamentor.integration.payment.paypal.dto.OrderResponse;
 import com.reservamentor.integration.payment.paypal.service.PayPalService;
@@ -26,10 +27,10 @@ public class CheckoutServiceImpl implements CheckoutService {
 
     private final PayPalService payPalService;
     private final PurchaseService purchaseService;
-   // private final EmailService emailService;
+    private final EmailService emailService;
 
-    //@Value("${spring.mail.username}")
-  //  private String mailFrom;
+    @Value("${spring.mail.username}")
+    private String mailFrom;
 
     @Override
     public PaymentOrderResponse createPayment(Integer purchaseId, String returnUrl, String cancelUrl) {
@@ -47,7 +48,7 @@ public class CheckoutServiceImpl implements CheckoutService {
     }
 
     @Override
-    public PaymentCaptureResponse capturePayment(String orderId) {
+    public PaymentCaptureResponse capturePayment(String orderId) throws MessagingException {
         OrderCaptureResponse orderCaptureResponse = payPalService.captureOrder(orderId);
         boolean completed = orderCaptureResponse.getStatus().equals("COMPLETED");
 
@@ -59,12 +60,12 @@ public class CheckoutServiceImpl implements CheckoutService {
             PurchaseDTO purchaseDTO = purchaseService.confirmPurchase(Integer.parseInt(purchaseIdStr));
             paypalCaptureResponse.setPurchaseId(purchaseDTO.getId());
 
-          //  sendPurchaseConfirmationEmail(purchaseDTO);
+            sendPurchaseConfirmationEmail(purchaseDTO);
 
         }
         return paypalCaptureResponse;
     }
- /*
+
     private void sendPurchaseConfirmationEmail(PurchaseDTO purchaseDTO) throws MessagingException {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -85,6 +86,4 @@ public class CheckoutServiceImpl implements CheckoutService {
         );
         emailService.sendEmail(mail,"email/purchase-confirmation-template");
     }
-
-     */
 }
