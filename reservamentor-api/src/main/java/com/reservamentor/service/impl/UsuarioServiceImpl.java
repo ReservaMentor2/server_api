@@ -106,10 +106,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 
         if(rol == ERol.MENTOR) {
             Mentor mentor = new Mentor();
-            mentor.setUsuarioId(usuarioGuardado);
             mentor.setBiografia(registroUsuarioDTO.getBiografia());
             mentor.setTarifahora(registroUsuarioDTO.getTarifaHora());
             mentor.setValoracionpromedio(BigDecimal.valueOf(0.0));
+            mentor.setUsuarioId(usuarioGuardado);
 
             Mentor mentorGuardado = mentorRepository.save(mentor);
         }
