@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Getter
@@ -65,4 +66,14 @@ public class SesionMentoria {
     @NotNull
     @Column(name = "precio", nullable = false)
     private BigDecimal precio;
+
+    @NotNull
+    @Column
+    private String titulo;
+
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
+
+    private String slug;
+
 }

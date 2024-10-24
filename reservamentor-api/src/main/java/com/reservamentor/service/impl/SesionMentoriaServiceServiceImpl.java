@@ -1,7 +1,7 @@
 package com.reservamentor.service.impl;
 
 import com.reservamentor.exception.ResourceNotFoundException;
-import com.reservamentor.model.entity.SesionMentoria;
+import com.reservamentor.model.entity.*;
 import com.reservamentor.repository.*;
 import com.reservamentor.service.SesionMentoriaService;
 import org.springframework.data.domain.Page;
@@ -20,13 +20,16 @@ public class SesionMentoriaServiceServiceImpl implements SesionMentoriaService {
     private final AsignaturaRepository asignaturaRepository;
     private final TurnoRepository turnoRepository;
 
-
-    public SesionMentoriaServiceServiceImpl(SesionMentoriaRepository sesionMentoriaRepository1, EstudianteRepository estudianteRepository1, MentorRepository mentorRepository1, AsignaturaRepository asignaturaRepository1, TurnoRepository turnoRepository1) {
-        this.sesionMentoriaRepository = sesionMentoriaRepository1;
-        this.estudianteRepository = estudianteRepository1;
-        this.mentorRepository = mentorRepository1;
-        this.asignaturaRepository = asignaturaRepository1;
-        this.turnoRepository = turnoRepository1;
+    public SesionMentoriaServiceServiceImpl(SesionMentoriaRepository sesionMentoriaRepository,
+                                            EstudianteRepository estudianteRepository,
+                                            MentorRepository mentorRepository,
+                                            AsignaturaRepository asignaturaRepository,
+                                            TurnoRepository turnoRepository) {
+        this.sesionMentoriaRepository = sesionMentoriaRepository;
+        this.estudianteRepository = estudianteRepository;
+        this.mentorRepository = mentorRepository;
+        this.asignaturaRepository = asignaturaRepository;
+        this.turnoRepository = turnoRepository;
     }
 
     @Transactional
@@ -62,15 +65,32 @@ public class SesionMentoriaServiceServiceImpl implements SesionMentoriaService {
                 () -> new ResourceNotFoundException("La sesión de mentoría con el ID " + id + " no fue encontrada")
         );
 
+        // Validación y seteo de Mentor
+        Mentor mentor = mentorRepository.findById(sesionMentoriaUpdated.getMentorid().getId())
+                .orElseThrow(() -> new ResourceNotFoundException("El mentor con el ID " + sesionMentoriaUpdated.getMentorid().getId() + " no fue encontrado"));
+        sesionMentoria.setMentorid(mentor);
+
+        // Validación y seteo de Estudiante
+        Estudiante estudiante = estudianteRepository.findById(sesionMentoriaUpdated.getEstudianteid().getId())
+                .orElseThrow(() -> new ResourceNotFoundException("El estudiante con el ID " + sesionMentoriaUpdated.getEstudianteid().getId() + " no fue encontrado"));
+        sesionMentoria.setEstudianteid(estudiante);
+
+        // Validación y seteo de Asignatura
+        Asignatura asignatura = asignaturaRepository.findById(sesionMentoriaUpdated.getAsignaturaid().getId())
+                .orElseThrow(() -> new ResourceNotFoundException("La asignatura con el ID " + sesionMentoriaUpdated.getAsignaturaid().getId() + " no fue encontrada"));
+        sesionMentoria.setAsignaturaid(asignatura);
+
+        // Validación y seteo de Turno
+        Turno turno = turnoRepository.findById(sesionMentoriaUpdated.getTurnoid().getId())
+                .orElseThrow(() -> new ResourceNotFoundException("El turno con el ID " + sesionMentoriaUpdated.getTurnoid().getId() + " no fue encontrado"));
+        sesionMentoria.setTurnoid(turno);
+
+        // Otros atributos
         sesionMentoria.setPrecio(sesionMentoriaUpdated.getPrecio());
         sesionMentoria.setDia(sesionMentoriaUpdated.getDia());
         sesionMentoria.setWeblink(sesionMentoriaUpdated.getWeblink());
         sesionMentoria.setHorainicio(sesionMentoriaUpdated.getHorainicio());
         sesionMentoria.setHorafinal(sesionMentoriaUpdated.getHorafinal());
-        sesionMentoria.setMentorid(sesionMentoriaUpdated.getMentorid());
-        sesionMentoria.setEstudianteid(sesionMentoriaUpdated.getEstudianteid());
-        sesionMentoria.setTurnoid(sesionMentoriaUpdated.getTurnoid());
-        sesionMentoria.setAsignaturaid(sesionMentoriaUpdated.getAsignaturaid());
 
         return sesionMentoriaRepository.save(sesionMentoria);
     }
@@ -83,4 +103,20 @@ public class SesionMentoriaServiceServiceImpl implements SesionMentoriaService {
 
         sesionMentoriaRepository.delete(sesionMentoria);
     }
+
+    @Transactional
+    @Override
+    public void setMentorias(Integer id, List<SesionMentoria> sesiones) {
+        // Verifica si el mentor, estudiante o asignatura existe (según la lógica de tu negocio)
+        Mentor mentor = mentorRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Mentor con el ID " + id + " no fue encontrado"));
+
+        // Itera sobre las sesiones de mentoría y asócialas al mentor
+        for (SesionMentoria sesion : sesiones) {
+            sesion.setMentorid(mentor);  // Asigna el mentor a cada sesión
+            sesionMentoriaRepository.save(sesion);  // Guarda la sesión
+        }
+    }
+
+
 }
