@@ -1,6 +1,5 @@
 package com.reservamentor.security;
 
-
 import com.reservamentor.exception.ResourceNotFoundException;
 import com.reservamentor.model.entity.Usuario;
 import com.reservamentor.repository.UsuarioRepository;
@@ -29,14 +28,11 @@ public class CustomUserDetailsService implements UserDetailsService {
         GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().getName().name());
 
         return new UserPrincipal(
-                usuario.getId(),
+                usuario.getId().intValue(),  // Cambio de getUsuarioId() a getId()
                 usuario.getCorreo(),
                 usuario.getContrasenia(),
                 Collections.singletonList(authority),
                 usuario
         );
     }
-
-
-
 }

@@ -84,15 +84,14 @@ public class UsuarioServiceImpl implements UsuarioService {
         //Si este existe obtiene el id
         if (existsByEmail) {
             Optional<Usuario> usuario = usuarioRepository.findByCorreo(registroUsuarioDTO.getCorreo());
-            Integer usuarioId = usuario.get().getId();
+            Integer usuarioId = usuario.get().getId().intValue(); // Cambio de getUsuarioId() a getId()
 
             boolean existsAsMentor = mentorRepository.existsById(usuarioId);
             boolean existsAsEstudiante = estudianteRepository.existsById(usuarioId);
 
-            if(existsAsMentor || existsAsEstudiante) {
+            if (existsAsMentor || existsAsEstudiante) {
                 throw new IllegalArgumentException("Ya existe un mentor o estudiante con el mismo correo");
             }
-
         }
 
         Role role = rolRepository.findByName(rol)
