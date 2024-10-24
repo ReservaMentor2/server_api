@@ -1,5 +1,4 @@
-spring:
-  mail:
+spring.mail:
     default-encoding: UTF-8
     host: smtp.gmail.com
     username: reservamentor@gmail.com
