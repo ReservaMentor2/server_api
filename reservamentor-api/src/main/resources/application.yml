@@ -13,4 +13,3 @@ spring.mail:
             required: true
     protocol: smtp
     test-connection: false
-
