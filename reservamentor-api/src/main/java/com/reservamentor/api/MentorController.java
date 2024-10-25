@@ -36,7 +36,7 @@ public class MentorController {
     //Busqueda de todos los mentores
 
     @GetMapping
-    public ResponseEntity<List<InformacionMentorDTO>> getAllMentors() {
+    public ResponseEntity<List<InformacionMentorDTO>> WgetAllMentors() {
         List<InformacionMentorDTO> mentors = mentorService.getAll();
         return new ResponseEntity<>(mentors, HttpStatus.OK);
     }

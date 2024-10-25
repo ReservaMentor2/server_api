@@ -15,4 +15,7 @@ public interface SesionMentoriaService {
     SesionMentoria create(SesionMentoria sesionMentoria);
     SesionMentoria update(Integer id, SesionMentoria sesionMentoria);
     void delete(Integer id);
+    void setMentorias(Integer id, List<SesionMentoria> sesionMentorias);
+
+
 }
