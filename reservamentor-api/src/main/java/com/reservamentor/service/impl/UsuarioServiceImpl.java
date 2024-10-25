@@ -4,6 +4,7 @@ import com.reservamentor.dto.AuthResponseDTO;
 import com.reservamentor.dto.LoginUsuarioDTO;
 import com.reservamentor.dto.PerfilUsuarioDTO;
 import com.reservamentor.dto.RegistroUsuarioDTO;
+import com.reservamentor.exception.ResourceNotFoundException;
 import com.reservamentor.mapper.UsuarioMapper;
 import com.reservamentor.model.entity.Estudiante;
 import com.reservamentor.model.entity.Mentor;
@@ -90,12 +91,12 @@ public class UsuarioServiceImpl implements UsuarioService {
             boolean existsAsEstudiante = estudianteRepository.existsById(usuarioId);
 
             if (existsAsMentor || existsAsEstudiante) {
-                throw new IllegalArgumentException("Ya existe un mentor o estudiante con el mismo correo");
+                throw new ResourceNotFoundException("Ya existe un mentor o estudiante con el mismo correo");
             }
         }
 
         Role role = rolRepository.findByName(rol)
-                .orElseThrow(() -> new RuntimeException("Error: Rol no encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Error: Rol no encontrado"));
 
         registroUsuarioDTO.setContrasenia(passwordEncoder.encode(registroUsuarioDTO.getContrasenia()));
 

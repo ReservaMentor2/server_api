@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -22,6 +23,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/mentor")
+@PreAuthorize("hasAnyRole('ESTUDIANTE', 'ADMIN')")
 public class MentorController {
 
     private final MentorService mentorService;
