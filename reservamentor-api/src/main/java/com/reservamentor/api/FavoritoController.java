@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/favoritos")
-@PreAuthorize("hasRole('ESTUDIANTE', 'ADMIN')")
+@PreAuthorize("hasAnyRole('ESTUDIANTE', 'ADMIN')")
 public class FavoritoController {
 
     @Autowired

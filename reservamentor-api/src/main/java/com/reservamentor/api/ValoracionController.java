@@ -4,6 +4,7 @@ import com.reservamentor.model.entity.Valoracion;
 import com.reservamentor.service.MentorValoracionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/reviews")
 @RequiredArgsConstructor
+@PreAuthorize("hasAnyRole('ESTUDIANTE', 'ADMIN')")
 public class ValoracionController {
 
     private final MentorValoracionService mentorValoracionService;
