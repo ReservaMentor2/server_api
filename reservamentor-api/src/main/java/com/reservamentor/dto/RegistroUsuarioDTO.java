@@ -18,7 +18,7 @@ public class RegistroUsuarioDTO {
 
     @Email(message = "El correo no es valido")
     @NotBlank(message = "El correo es obligatorio")
-    private String email;
+    private String correo;
 
     @NotBlank(message = "La constraseña es obligatorio")
     private String contrasenia;

@@ -62,7 +62,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public AuthResponseDTO login(LoginUsuarioDTO loginUsuarioDTO) {
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginUsuarioDTO.getEmail(), loginUsuarioDTO.getPassword())
+                new UsernamePasswordAuthenticationToken(loginUsuarioDTO.getCorreo(), loginUsuarioDTO.getContrasenia())
         );
 
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
@@ -79,20 +79,19 @@ public class UsuarioServiceImpl implements UsuarioService {
     private PerfilUsuarioDTO registroUsuarioConRol(RegistroUsuarioDTO registroUsuarioDTO, ERol rol) {
 
         //Verifica si existe el correo en la base de datos
-        boolean existsByEmail = usuarioRepository.existsByCorreo(registroUsuarioDTO.getEmail());
+        boolean existsByEmail = usuarioRepository.existsByCorreo(registroUsuarioDTO.getCorreo());
 
         //Si este existe obtiene el id
         if (existsByEmail) {
-            Optional<Usuario> usuario = usuarioRepository.findByCorreo(registroUsuarioDTO.getEmail());
-            Integer usuarioId = usuario.get().getId();
+            Optional<Usuario> usuario = usuarioRepository.findByCorreo(registroUsuarioDTO.getCorreo());
+            Integer usuarioId = usuario.get().getId().intValue(); // Cambio de getUsuarioId() a getId()
 
             boolean existsAsMentor = mentorRepository.existsById(usuarioId);
             boolean existsAsEstudiante = estudianteRepository.existsById(usuarioId);
 
-            if(existsAsMentor || existsAsEstudiante) {
+            if (existsAsMentor || existsAsEstudiante) {
                 throw new IllegalArgumentException("Ya existe un mentor o estudiante con el mismo correo");
             }
-
         }
 
         Role role = rolRepository.findByName(rol)
@@ -102,25 +101,25 @@ public class UsuarioServiceImpl implements UsuarioService {
 
         Usuario usuario = usuarioMapper.toUserEntity(registroUsuarioDTO);
         usuario.setRol(role);
+        Usuario usuarioGuardado = usuarioRepository.save(usuario);
 
         if(rol == ERol.MENTOR) {
             Mentor mentor = new Mentor();
-            mentor.setUsuarioId(usuario);
             mentor.setBiografia(registroUsuarioDTO.getBiografia());
             mentor.setTarifahora(registroUsuarioDTO.getTarifaHora());
             mentor.setValoracionpromedio(BigDecimal.valueOf(0.0));
+            mentor.setUsuarioId(usuarioGuardado);
 
             Mentor mentorGuardado = mentorRepository.save(mentor);
         }
 
         else if(rol == ERol.ESTUDIANTE) {
             Estudiante estudiante = new Estudiante();
-            estudiante.setUsuarioid(usuario);
+            estudiante.setUsuarioid(usuarioGuardado);
 
             Estudiante estudianteGuardado = estudianteRepository.save(estudiante);
         }
 
-        Usuario usuarioGuardado = usuarioRepository.save(usuario);
 
         return usuarioMapper.toPerfilUsuarioDTO(usuarioGuardado);
     }
