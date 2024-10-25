@@ -54,6 +54,7 @@ public class WebSecurityConfig {
                         .requestMatchers(antMatcher("/auth/register/mentor")).permitAll()
                         .requestMatchers(antMatcher("/auth/register/estudiante")).permitAll()
                         .requestMatchers(antMatcher("/auth/login")).permitAll()
+                        .requestMatchers(antMatcher("*")).permitAll()
                         .requestMatchers("/api/v1/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**", "/webjars/**").permitAll()
                         .anyRequest().authenticated()
                 )
@@ -76,7 +77,7 @@ public class WebSecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         var corsConfiguration = new org.springframework.web.cors.CorsConfiguration();
 
-        corsConfiguration.setAllowedOrigins(List.of("http://localhost:4200")); // Permite el frontend en localhost
+        corsConfiguration.setAllowedOrigins(List.of("http://localhost:51528")); // Permite el frontend en localhost
 
         corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 
