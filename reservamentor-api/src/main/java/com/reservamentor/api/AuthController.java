@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final UsuarioService usuarioService;
+
     @CrossOrigin
     @PostMapping("/register/estudiante")
     public ResponseEntity<PerfilUsuarioDTO> registroEstudiante(@Valid @RequestBody RegistroUsuarioDTO registroUsuarioDTO) {
@@ -29,7 +30,6 @@ public class AuthController {
     public ResponseEntity<PerfilUsuarioDTO> registroMentor(@Valid @RequestBody RegistroUsuarioDTO registroUsuarioDTO) {
         PerfilUsuarioDTO perfilUsuario = usuarioService.registrarMentor(registroUsuarioDTO);
         return new ResponseEntity<>(perfilUsuario, HttpStatus.CREATED);
-
     }
 
     @PostMapping("/login")

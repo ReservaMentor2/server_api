@@ -4,6 +4,7 @@ import com.reservamentor.dto.AuthResponseDTO;
 import com.reservamentor.dto.LoginUsuarioDTO;
 import com.reservamentor.dto.PerfilUsuarioDTO;
 import com.reservamentor.dto.RegistroUsuarioDTO;
+import com.reservamentor.exception.MentorNotFound;
 import com.reservamentor.exception.ResourceNotFoundException;
 import com.reservamentor.mapper.UsuarioMapper;
 import com.reservamentor.model.entity.Estudiante;
@@ -61,6 +62,17 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
+    public Usuario getUsuario(String token) {
+        String email = tokenProvider.getCorreo(token);
+
+        Usuario usuario = usuarioRepository.findByCorreo(email).orElseThrow(
+                () -> new ResourceNotFoundException("Usuario con correo " + email + " no fue encontrado")
+        );
+
+        return usuario;
+    }
+
+    @Override
     public AuthResponseDTO login(LoginUsuarioDTO loginUsuarioDTO) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginUsuarioDTO.getCorreo(), loginUsuarioDTO.getContrasenia())
@@ -75,7 +87,6 @@ public class UsuarioServiceImpl implements UsuarioService {
 
         return authResponseDTO;
     }
-
 
     private PerfilUsuarioDTO registroUsuarioConRol(RegistroUsuarioDTO registroUsuarioDTO, ERol rol) {
 

@@ -36,6 +36,9 @@ public class Usuario {
     @Column(name = "telefono", nullable = true)
     private String telefono;
 
+    @Column(name = "imageProfile", nullable = true)
+    private String imagePath;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)
     private Role rol;
