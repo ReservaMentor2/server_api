@@ -62,7 +62,6 @@ public class TokenProvider {
                 .signWith(key, SignatureAlgorithm.HS512)
                 .setExpiration(new Date(System.currentTimeMillis() + jwtValidityInSeconds * 1000))
                 .compact();
-
     }
 
     public Authentication getAuthentication(String token) {
@@ -75,6 +74,22 @@ public class TokenProvider {
         User principal = new User(claims.getSubject(), "", authorities);
 
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);
+    }
+
+    public String getCorreo(String token) {
+        if (token.startsWith("Bearer ")) {
+            token = token.substring(7);
+        }
+
+        Claims claims = jwtParser.parseClaimsJws(token).getBody();
+
+        String role = claims.get("sub").toString();
+
+        List<GrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority(role));
+
+        User user = new User(claims.getSubject(), "", authorities);
+
+        return user.getUsername();
     }
 
     public boolean validateToken(String authToken) {
