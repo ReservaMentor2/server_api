@@ -37,7 +37,8 @@ public class FavoritoServiceImpl implements FavoritoService {
                 mentor.getUsuarioId().getTelefono(),
                 mentor.getValoracionpromedio(),
                 mentor.getTarifahora(),
-                mentor.getBiografia()
+                mentor.getBiografia(),
+                ""
         );
     }
 

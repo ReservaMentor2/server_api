@@ -45,13 +45,24 @@ public class MediaController {
     }
 
     @GetMapping("/image")
-    public ResponseEntity<Resource> getResource(@RequestHeader("Authorization") String bearerToken) throws IOException {
+    public ResponseEntity<Resource> getProfilePicture(@RequestHeader("Authorization") String bearerToken) throws IOException {
         Usuario usuario = usuarioService.getUsuario(bearerToken);
 
         String filename = usuario.getImagePath();
         System.out.println(filename);
 
         Resource resource = storageService.loadAsResource(filename);
+        String contentType = Files.probeContentType(resource.getFile().toPath());
+
+        return ResponseEntity
+                .ok()
+                .header(HttpHeaders.CONTENT_TYPE, contentType)
+                .body(resource);
+    }
+
+    @GetMapping("/image/{path}")
+    public ResponseEntity<Resource> getImage(@PathVariable String path) throws IOException {
+        Resource resource = storageService.loadAsResource(path);
         String contentType = Files.probeContentType(resource.getFile().toPath());
 
         return ResponseEntity
