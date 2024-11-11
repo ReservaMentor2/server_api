@@ -20,47 +20,14 @@ import java.io.IOException;
 import java.nio.file.Files;
 
 @RequiredArgsConstructor
-@RequestMapping("/profile")
+@RequestMapping("/image")
 @RestController
 @PreAuthorize("hasAnyRole('ESTUDIANTE', 'ADMIN','MENTOR')")
 public class MediaController {
 
     private final StorageService storageService;
-    private final UsuarioService usuarioService;
-    private final UsuarioRepository usuarioRepository;
 
-    @PutMapping("/image")
-    public ResponseEntity<Void> upload(@RequestParam("file") MultipartFile multipartFile, @RequestHeader("Authorization") String bearerToken) {
-        Usuario usuario = usuarioService.getUsuario(bearerToken);
-        String path = storageService.store(multipartFile);
-
-        usuario.setImagePath(path);
-        usuarioRepository.save(usuario);
-        System.out.println(path);
-
-        Usuario usuario1 = usuarioService.getUsuario(bearerToken);
-        System.out.println(usuario1.getCorreo());
-
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @GetMapping("/image")
-    public ResponseEntity<Resource> getProfilePicture(@RequestHeader("Authorization") String bearerToken) throws IOException {
-        Usuario usuario = usuarioService.getUsuario(bearerToken);
-
-        String filename = usuario.getImagePath();
-        System.out.println(filename);
-
-        Resource resource = storageService.loadAsResource(filename);
-        String contentType = Files.probeContentType(resource.getFile().toPath());
-
-        return ResponseEntity
-                .ok()
-                .header(HttpHeaders.CONTENT_TYPE, contentType)
-                .body(resource);
-    }
-
-    @GetMapping("/image/{path}")
+    @GetMapping("/{path}")
     public ResponseEntity<Resource> getImage(@PathVariable String path) throws IOException {
         Resource resource = storageService.loadAsResource(path);
         String contentType = Files.probeContentType(resource.getFile().toPath());
