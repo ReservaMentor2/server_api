@@ -33,4 +33,5 @@ public class InformacionMentorDTO {
   private BigDecimal valoracion;
 
   private List<DisponibilidadDTO> horariosDisponibles;
+  private String ImagePath;
 }
