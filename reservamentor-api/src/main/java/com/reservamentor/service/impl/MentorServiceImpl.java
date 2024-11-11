@@ -7,6 +7,7 @@ import com.reservamentor.exception.BadRequestException;
 import com.reservamentor.exception.MentorNotFound;
 import com.reservamentor.mapper.MentorMapper;
 import com.reservamentor.model.entity.Mentor;
+import com.reservamentor.model.entity.Usuario;
 import com.reservamentor.repository.DisponibilidadRepository;
 import com.reservamentor.repository.MentorRepository;
 import com.reservamentor.service.MentorService;
@@ -32,6 +33,15 @@ public class MentorServiceImpl implements MentorService {
     public List<InformacionMentorDTO> getAll() {
         List<Mentor> mentors = mentorRepository.findAll();
         return  mentors.stream().map(mentorMapper::IMtoDTO).toList();
+    }
+
+    @Transactional
+    public Mentor searchByUsuarioId(Usuario usuario) {
+        Mentor mentor = mentorRepository.findByUsuarioId(usuario).orElseThrow(
+                () -> new MentorNotFound("El mentor no fue encontrado")
+        );
+
+        return mentor;
     }
 
     @Transactional

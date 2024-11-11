@@ -29,8 +29,11 @@ public class MentorMapper {
   public InformacionMentorDTO IMtoDTO(Mentor mentor) {
     InformacionMentorDTO informacionMentorDTO =
         modelMapper.map(mentor, InformacionMentorDTO.class);
+    informacionMentorDTO.setIdMentor(mentor.getId());
+    informacionMentorDTO.setTarifahora(mentor.getTarifahora());
     informacionMentorDTO.setNombre(mentor.getUsuarioId().getNombre());
     informacionMentorDTO.setApellido(mentor.getUsuarioId().getApellido());
+    informacionMentorDTO.setValoracion(mentor.getValoracionpromedio());
 
     List<DisponibilidadDTO> disponibilidades =
         mentor.getHorarioDisponible()
