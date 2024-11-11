@@ -37,4 +37,9 @@ public class MentorPerfilDTO {
     @NotBlank(message = "La biografia es obligatoria")
     @Size(max = 250, message = "La biografia debe tener 250 caracteres o menos")
     private String biografia;
+
+    private String imagePath;
+
+    public MentorPerfilDTO() {
+    }
 }
