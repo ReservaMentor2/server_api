@@ -3,6 +3,8 @@ package com.reservamentor.repository;
 import com.reservamentor.model.entity.Mentor;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -28,4 +30,5 @@ public interface MentorRepository extends JpaRepository<Mentor, Integer> {
       @Param("horaInicioPreferida") LocalTime horaInicioPreferida,
       @Param("horaFinPreferida") LocalTime horaFinPreferida);
 
+  Optional<Mentor> findByUsuario_Id(Integer id);
 }

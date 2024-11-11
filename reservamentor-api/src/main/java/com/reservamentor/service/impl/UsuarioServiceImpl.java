@@ -1,9 +1,6 @@
 package com.reservamentor.service.impl;
 
-import com.reservamentor.dto.AuthResponseDTO;
-import com.reservamentor.dto.LoginUsuarioDTO;
-import com.reservamentor.dto.PerfilUsuarioDTO;
-import com.reservamentor.dto.RegistroUsuarioDTO;
+import com.reservamentor.dto.*;
 import com.reservamentor.exception.MentorNotFound;
 import com.reservamentor.exception.ResourceNotFoundException;
 import com.reservamentor.mapper.UsuarioMapper;
@@ -141,4 +138,31 @@ public class UsuarioServiceImpl implements UsuarioService {
         return null;
     }
 
+    @Override
+    public MentorPerfilResponseDTO getPerfilUsuario(String token) {
+        String email = tokenProvider.getCorreo(token);
+
+        Usuario usuario = usuarioRepository.findByCorreo(email)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario con correo " + email + " no fue encontrado"));
+
+        if (usuario.getRol().getName() == ERol.MENTOR) {
+            Mentor mentor = (Mentor) mentorRepository.findByUsuario_Id(usuario.getId())
+                    .orElseThrow(() -> new MentorNotFound("Mentor no encontrado"));
+
+            return new MentorPerfilResponseDTO(
+                    usuario.getNombre() + " " + usuario.getApellido(),
+                    usuario.getImagePath(),
+                    mentor.getBiografia(),
+                    mentor.getValoracionpromedio().doubleValue(),
+                    mentor.getTarifahora().doubleValue()
+            );
+        } else if (usuario.getRol().getName() == ERol.ESTUDIANTE) {
+            return new EstudiantePerfilResponseDTO(
+                    usuario.getNombre() + " " + usuario.getApellido(),
+                    usuario.getImagePath()
+            );
+        } else {
+            throw new ResourceNotFoundException("Sin informacion");
+        }
+    }
 }

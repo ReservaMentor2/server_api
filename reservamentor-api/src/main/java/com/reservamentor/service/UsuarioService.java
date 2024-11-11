@@ -1,9 +1,6 @@
 package com.reservamentor.service;
 
-import com.reservamentor.dto.AuthResponseDTO;
-import com.reservamentor.dto.LoginUsuarioDTO;
-import com.reservamentor.dto.PerfilUsuarioDTO;
-import com.reservamentor.dto.RegistroUsuarioDTO;
+import com.reservamentor.dto.*;
 import com.reservamentor.model.entity.Usuario;
 
 public interface UsuarioService {
@@ -26,4 +23,5 @@ public interface UsuarioService {
     //Obtiene el usuario
     Usuario getUsuario(String token);
 
+    MentorPerfilResponseDTO getPerfilUsuario(String token);
 }
