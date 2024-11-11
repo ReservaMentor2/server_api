@@ -39,6 +39,15 @@ public class MentorServiceImpl implements MentorService {
     }
 
     @Transactional
+    public Mentor searchByUsuarioId(Usuario usuario) {
+        Mentor mentor = mentorRepository.findByUsuarioId(usuario).orElseThrow(
+                () -> new MentorNotFound("El mentor no fue encontrado")
+        );
+
+        return mentor;
+    }
+
+    @Transactional
     public MentorPerfilDTO searchById(Integer id) {
         Mentor mentor = mentorRepository.findById(id).orElseThrow(
                 () -> new MentorNotFound("El mentor con ID " + id + " no fue encontrado")
