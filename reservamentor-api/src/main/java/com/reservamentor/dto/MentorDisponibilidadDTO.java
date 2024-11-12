@@ -1,10 +1,15 @@
 package com.reservamentor.dto;
 
-import java.time.LocalTime;
+import lombok.Data;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Date;
+
+@Data
 public class MentorDisponibilidadDTO {
 
-    private String dia;
+    private LocalDate dia;
 
     private LocalTime horaInicio;
 
@@ -15,8 +20,8 @@ public class MentorDisponibilidadDTO {
     private String mentorNombre;
 
     // Getters and Setters
-    public String getDia() { return dia; }
-    public void setDia(String dia) { this.dia = dia; }
+    public LocalDate getDia() { return dia; }
+    public void setDia(LocalDate dia) { this.dia = dia; }
 
     public LocalTime getHoraInicio() { return horaInicio; }
     public void setHoraInicio(LocalTime horaInicio) { this.horaInicio = horaInicio; }

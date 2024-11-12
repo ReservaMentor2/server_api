@@ -1,7 +1,12 @@
 package com.reservamentor.api;
 
+import com.reservamentor.dto.DisponibilidadDTO;
 import com.reservamentor.model.entity.Disponibilidad;
+import com.reservamentor.model.entity.Mentor;
+import com.reservamentor.model.entity.Usuario;
 import com.reservamentor.service.DisponibilidadService;
+import com.reservamentor.service.MentorService;
+import com.reservamentor.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,9 +21,11 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/disponibilidad")
-@PreAuthorize("hasAnyRole('ESTUDIANTE', 'ADMIN')")
+@PreAuthorize("hasAnyRole('ESTUDIANTE','MENTOR', 'ADMIN')")
 public class DisponibilidadController {
     private final DisponibilidadService disponibilidadService;
+    private final MentorService mentorService;
+    private final UsuarioService usuarioService;
 
     @GetMapping
     public ResponseEntity<List<Disponibilidad>> getAllDisponibilidades() {
@@ -39,10 +46,25 @@ public class DisponibilidadController {
     }
 
 
+    //@PostMapping
+    //public ResponseEntity<Disponibilidad> createDisponibilidad(@RequestBody Disponibilidad disponibility) {
+    //    Disponibilidad newDisponibilidad = disponibilidadService.create(disponibility);
+    //    return new ResponseEntity<Disponibilidad>(newDisponibilidad, HttpStatus.CREATED);
+    //}
     @PostMapping
-    public ResponseEntity<Disponibilidad> createDisponibilidad(@RequestBody Disponibilidad disponibility) {
-        Disponibilidad newDisponibilidad = disponibilidadService.create(disponibility);
-        return new ResponseEntity<Disponibilidad>(newDisponibilidad, HttpStatus.CREATED);
+    public ResponseEntity<Disponibilidad> createDisponibilidad(@RequestBody DisponibilidadDTO disponibilityResponse, @RequestHeader("Authorization") String bearerToken) {
+        Usuario usuario = usuarioService.getUsuario(bearerToken);
+        Mentor mentor = mentorService.searchByUsuarioId(usuario);
+
+        Disponibilidad disponibilidad = new Disponibilidad();
+        disponibilidad.setMentor(mentor);
+        disponibilidad.setDia(disponibilityResponse.getDia());
+        disponibilidad.setHorainicio(disponibilityResponse.getHorainicio());
+        disponibilidad.setHorafin(disponibilityResponse.getHorafin());
+
+        disponibilidadService.create(disponibilidad);
+
+        return new ResponseEntity<Disponibilidad>(disponibilidad, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")

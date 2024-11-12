@@ -15,4 +15,6 @@ public class PerfilUsuarioDTO {
     private String apellido;
 
     private String nacionalidad;
+
+    private String imagePath;
 }

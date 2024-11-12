@@ -5,10 +5,13 @@ import com.reservamentor.dto.MentorPerfilDTO;
 import com.reservamentor.dto.MentorUpdateRequestDTO;
 import com.reservamentor.exception.BadRequestException;
 import com.reservamentor.exception.MentorNotFound;
+import com.reservamentor.exception.ResourceNotFoundException;
 import com.reservamentor.mapper.MentorMapper;
 import com.reservamentor.model.entity.Mentor;
+import com.reservamentor.model.entity.Usuario;
 import com.reservamentor.repository.DisponibilidadRepository;
 import com.reservamentor.repository.MentorRepository;
+import com.reservamentor.repository.UsuarioRepository;
 import com.reservamentor.service.MentorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -27,6 +30,7 @@ public class MentorServiceImpl implements MentorService {
     private final MentorMapper mentorMapper;
     private final MentorRepository mentorRepository;
     private final DisponibilidadRepository disponibilidadRepository;
+    private final UsuarioRepository usuarioRepository;
 
     @Transactional(readOnly = true)
     public List<InformacionMentorDTO> getAll() {
@@ -35,12 +39,35 @@ public class MentorServiceImpl implements MentorService {
     }
 
     @Transactional
+    public Mentor searchByUsuarioId(Usuario usuario) {
+        Mentor mentor = mentorRepository.findByUsuarioId(usuario).orElseThrow(
+                () -> new MentorNotFound("El mentor no fue encontrado")
+        );
+
+        return mentor;
+    }
+
+    @Transactional
     public MentorPerfilDTO searchById(Integer id) {
         Mentor mentor = mentorRepository.findById(id).orElseThrow(
                 () -> new MentorNotFound("El mentor con ID " + id + " no fue encontrado")
         );
 
-        return mentorMapper.MPtoDTO(mentor);
+        Integer usuarioId = mentor.getUsuarioId().getId();
+
+        Usuario usuario = usuarioRepository.findById(usuarioId).orElseThrow(
+                () -> new ResourceNotFoundException("El usuario con ID " + usuarioId + " no fue encontrado")
+        );
+
+        MentorPerfilDTO mentorPerfilDTO = new MentorPerfilDTO();
+        mentorPerfilDTO = mentorMapper.MPtoDTO(mentor);
+        mentorPerfilDTO.setNombre(usuario.getNombre());
+        mentorPerfilDTO.setApellido(usuario.getApellido());
+        mentorPerfilDTO.setTarifaHora(mentor.getTarifahora());
+        mentorPerfilDTO.setValoracionPromedio(mentor.getValoracionpromedio());
+        mentorPerfilDTO.setImagePath(usuario.getImagePath());
+
+        return mentorPerfilDTO;
     }
 
     @Transactional(readOnly = true)

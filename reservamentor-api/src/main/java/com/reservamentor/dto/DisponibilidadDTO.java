@@ -6,7 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -14,11 +16,11 @@ import java.time.LocalTime;
 public class DisponibilidadDTO {
 
     @NotBlank(message = "El día es obligatorio.")
-    private String dia;
+    private LocalDate dia;
 
     @NotNull(message = "La hora de inicio es obligatoria.")
-    private LocalTime horaInicio;
+    private LocalTime horainicio;
 
     @NotNull(message = "La hora de fin es obligatoria.")
-    private LocalTime horaFin;
+    private LocalTime horafin;
 }
