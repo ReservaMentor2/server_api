@@ -1,5 +1,6 @@
 package com.reservamentor.repository;
 
+import com.reservamentor.model.entity.Estudiante;
 import com.reservamentor.model.entity.Mentor;
 import com.reservamentor.model.entity.Valoracion;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,4 +19,6 @@ public interface MentorValoracionRepository extends JpaRepository<Valoracion, In
 
     @Query("SELECT AVG(val.estrellas) FROM Valoracion val WHERE val.mentorid = :mentor")
     Double calculateAverageRating(@Param("mentor") Mentor mentor);
+
+    Boolean existsByMentoridAndEstudianteid(Mentor mentor, Estudiante estudianteid);
 }
