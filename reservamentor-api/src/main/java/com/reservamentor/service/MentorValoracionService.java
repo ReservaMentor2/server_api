@@ -11,5 +11,4 @@ public interface MentorValoracionService {
     Double calculateAverageRating(Integer mentorId);
     Valoracion createValoracionMentor(Integer estudianteId, Integer mentorId, ValoracionDTO valoracionDTO);
 
-
 }
