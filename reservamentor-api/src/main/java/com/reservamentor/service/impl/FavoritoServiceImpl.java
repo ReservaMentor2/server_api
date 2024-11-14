@@ -3,6 +3,7 @@ package com.reservamentor.service.impl;
 import com.reservamentor.dto.MentorPerfilDTO;
 import com.reservamentor.exception.ResourceNotFoundException;
 import com.reservamentor.model.entity.Estudiante;
+import com.reservamentor.model.entity.Usuario;
 import com.reservamentor.model.entity.Favorito;
 import com.reservamentor.model.entity.Mentor;
 import com.reservamentor.repository.EstudianteRepository;
@@ -29,14 +30,15 @@ public class FavoritoServiceImpl implements FavoritoService {
 
     private MentorPerfilDTO convertirAMentorPublicoDTO(Mentor mentor) {
         return new MentorPerfilDTO(
-                mentor.getUsuario().getNombre(),
-                mentor.getUsuario().getApellido(),
-                mentor.getUsuario().getCorreo(),
-                mentor.getUsuario().getNacionalidad(),
-                mentor.getUsuario().getTelefono(),
+                mentor.getUsuarioId().getNombre(),
+                mentor.getUsuarioId().getApellido(),
+                mentor.getUsuarioId().getCorreo(),
+                mentor.getUsuarioId().getNacionalidad(),
+                mentor.getUsuarioId().getTelefono(),
                 mentor.getValoracionpromedio(),
                 mentor.getTarifahora(),
-                mentor.getBiografia()
+                mentor.getBiografia(),
+                ""
         );
     }
 

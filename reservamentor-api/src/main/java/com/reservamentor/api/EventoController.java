@@ -2,13 +2,12 @@ package com.reservamentor.api;
 
 import com.reservamentor.model.entity.Evento;
 import com.reservamentor.model.entity.AsistenciaEvento;
-import com.reservamentor.model.entity.Mentor;
 import com.reservamentor.service.EventoService;
 import com.reservamentor.service.MentorService;
-import jdk.jfr.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/eventos")
+@PreAuthorize("hasAnyRole('MENTOR', 'ADMIN')")
 public class EventoController {
 
     @Autowired
@@ -56,18 +56,8 @@ public class EventoController {
             @PathVariable Integer mentorId,
             @PathVariable boolean confirmada) {
 
-        Optional<Evento> eventoOpt = eventoService.getEventoById(eventoId);
-        if (eventoOpt.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        Optional<Mentor> mentorOpt = mentorService.getMentorById(mentorId);
-        if (mentorOpt.isEmpty()) {
-            return ResponseEntity.notFound().build(); // Mentor no encontrado
-        }
-
         AsistenciaEvento asistenciaEvento = eventoService.actualizarAsistencia(
-                mentorOpt.get(), eventoOpt.get(), confirmada);
+                mentorId, eventoId, confirmada);
 
         return ResponseEntity.ok(asistenciaEvento);
     }
