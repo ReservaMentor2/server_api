@@ -12,6 +12,7 @@ import lombok.Setter;
 @Table(name = "valoracion")
 public class Valoracion {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Asegúrate de generar el ID automáticamente si es necesario
     @Column(name = "valoracionid", nullable = false)
     private Integer id;
 
@@ -33,5 +34,4 @@ public class Valoracion {
     @NotNull
     @Column(name = "estrellas", nullable = false)
     private Integer estrellas;
-
 }

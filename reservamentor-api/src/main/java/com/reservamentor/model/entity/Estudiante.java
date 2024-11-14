@@ -12,11 +12,12 @@ import lombok.Setter;
 public class Estudiante {
     @Id
     @Column(name = "estudianteid", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "usuarioid", nullable = false)
-    private com.reservamentor.model.entity.Usuario usuarioid;
+    private Usuario usuarioid;
 
 }

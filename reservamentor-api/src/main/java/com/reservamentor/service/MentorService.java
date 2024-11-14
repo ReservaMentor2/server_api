@@ -1,53 +1,34 @@
 package com.reservamentor.service;
 
+import com.reservamentor.dto.InformacionMentorDTO;
+import com.reservamentor.dto.MentorPerfilDTO;
+import com.reservamentor.dto.MentorUpdateRequestDTO;
 import com.reservamentor.model.entity.Mentor;
-import com.reservamentor.repository.MentorRepository;
-import org.springframework.stereotype.Service;
+import com.reservamentor.model.entity.Usuario;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
+import java.time.LocalTime;
 import java.util.List;
-import java.util.Optional;
 
-@Service
-public class MentorService {
 
-    private final MentorRepository mentorRepository;
+public interface MentorService {
 
-    public MentorService(MentorRepository mentorRepository) {
-        this.mentorRepository = mentorRepository;
-    }
+    public List<InformacionMentorDTO> getAll();
+    public MentorPerfilDTO searchById(Integer id);
+    public Mentor searchByUsuarioId(Usuario usuario);
+    public List<InformacionMentorDTO> searchByDia(String dia);
+    public List<InformacionMentorDTO> searchByHora(LocalTime horaInicio, LocalTime horaFin);
+    public List<InformacionMentorDTO> searchByDiaAndHora(String dia, LocalTime horaInicio, LocalTime horaFin);
 
-    // Obtener todos los mentores
-    public List<Mentor> getAllMentors() {
-        return mentorRepository.findAll();
-    }
+    public List<InformacionMentorDTO> sortAllByRating();
 
-    // Obtener un mentor por ID
-    public Mentor getMentorById(Integer id) {
-        Optional<Mentor> mentor = mentorRepository.findById(id);
-        return mentor.orElse(null);
-    }
+    public Page<InformacionMentorDTO> getMentorsByPage(Pageable pageable);
 
-    // Crear un nuevo mentor
-    public Mentor createMentor(Mentor mentor) {
-        return mentorRepository.save(mentor);
-    }
+    public InformacionMentorDTO create(InformacionMentorDTO informacionMentorDTO);
+    public InformacionMentorDTO update(MentorUpdateRequestDTO updateMentor, Integer id);
+    public void delete(Integer id);
 
-    // Actualizar un mentor
-    public Mentor updateMentor(Integer id, Mentor mentorDetails) {
-        return mentorRepository.findById(id).map(mentor -> {
-            mentor.setBiografia(mentorDetails.getBiografia());
-            mentor.setTarifahora(mentorDetails.getTarifahora());
-            mentor.setValoracionpromedio(mentorDetails.getValoracionpromedio());
-            return mentorRepository.save(mentor);
-        }).orElse(null);
-    }
 
-    // Eliminar un mentor
-    public boolean deleteMentor(Integer id) {
-        if (mentorRepository.existsById(id)) {
-            mentorRepository.deleteById(id);
-            return true;
-        }
-        return false;
-    }
+
 }

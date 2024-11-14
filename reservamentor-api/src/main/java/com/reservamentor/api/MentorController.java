@@ -1,62 +1,133 @@
 package com.reservamentor.api;
 
-import java.util.List;
+import com.reservamentor.dto.InformacionMentorDTO;
+import com.reservamentor.dto.InformacionMentorDTO1;
+import com.reservamentor.dto.MentorPerfilDTO;
+import com.reservamentor.dto.MentorUpdateRequestDTO;
+import com.reservamentor.model.entity.Asignatura;
+import com.reservamentor.service.AsignaturaService;
 
+import com.reservamentor.service.MentorService;
+import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
-import com.reservamentor.model.entity.Mentor;
-import com.reservamentor.service.MentorService;
+
+import java.time.LocalTime;
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/mentors")
+@RequestMapping("/mentor")
+@PreAuthorize("hasAnyRole('ESTUDIANTE', 'ADMIN')")
 public class MentorController {
 
     private final MentorService mentorService;
+    private final AsignaturaService asignaturaService;
 
-    public MentorController(MentorService mentorService) {
+    // Constructor con inyección de dependencia
+    public MentorController(MentorService mentorService, AsignaturaService asignaturaService) {
+        this.asignaturaService = asignaturaService;
         this.mentorService = mentorService;
     }
 
-    // Obtener todos los mentores
+    //Busqueda de todos los mentores
+
     @GetMapping
-    public List<Mentor> getAllMentors() {
-        return mentorService.getAllMentors();
+    public ResponseEntity<List<InformacionMentorDTO>> getAllMentors() {
+        List<InformacionMentorDTO> mentors = mentorService.getAll();
+        return new ResponseEntity<>(mentors, HttpStatus.OK);
     }
 
-    // Obtener un mentor por ID
-    @GetMapping("/{id}")
-    public ResponseEntity<Mentor> getMentorById(@PathVariable Integer id) {
-        Mentor mentor = mentorService.getMentorById(id);
-        return mentor != null ? ResponseEntity.ok(mentor) : ResponseEntity.notFound().build();
+    //Busqueda de todos los mentores y ordenar por valoracion
+    @GetMapping("/sort/rating")
+    public ResponseEntity<List<InformacionMentorDTO>> sortAllByRating() {
+        List<InformacionMentorDTO> mentors = mentorService.sortAllByRating();
+        return new ResponseEntity<>(mentors, HttpStatus.OK);
     }
 
-    // Crear un nuevo mentor
+    //Busqueda de mentores por ID
+
+    @GetMapping("/profile/{id}")
+    public ResponseEntity<MentorPerfilDTO> findMentor(@PathVariable Integer id) {
+        MentorPerfilDTO mentor = mentorService.searchById(id);
+        return new ResponseEntity<>(mentor, HttpStatus.OK);
+    }
+
+    //Busqueda de mentores por dia
+    @GetMapping("/search/dia")
+    public ResponseEntity<List<InformacionMentorDTO>> searchMentorsByDia(@RequestParam("dia") String dia) {
+        List<InformacionMentorDTO> mentors = mentorService.searchByDia(dia);
+        return new ResponseEntity<>(mentors, HttpStatus.OK);
+    }
+
+    //Busqueda de mentores por hora
+    @GetMapping("/search/hora")
+    public ResponseEntity<List<InformacionMentorDTO>> searchMentorsByHora(@RequestParam("horaInicio") String horaInicioStr, @RequestParam("horaFin") String horaFinStr) {
+        LocalTime horaInicio = LocalTime.parse(horaInicioStr);
+        LocalTime horaFinal = LocalTime.parse(horaFinStr);
+
+        List<InformacionMentorDTO> mentors = mentorService.searchByHora(horaInicio, horaFinal);
+        return new ResponseEntity<>(mentors, HttpStatus.OK);
+    }
+
+    //Busqueda de mentores por dia y hora
+    @GetMapping("/search/hora-y-dia")
+    public ResponseEntity<List<InformacionMentorDTO>> searchMentorsByDiaAndHora(@RequestParam("dia") String dia, @RequestParam("horaInicio") String horaInicioStr, @RequestParam("horaFin") String horaFinStr) {
+        LocalTime horaInicio = LocalTime.parse(horaInicioStr);
+        LocalTime horaFinal = LocalTime.parse(horaFinStr);
+
+        List<InformacionMentorDTO> mentors = mentorService.searchByDiaAndHora(dia, horaInicio, horaFinal);
+        return new ResponseEntity<>(mentors, HttpStatus.OK);
+    }
+
+    //Busqueda de todas area de conocimiento
+    @GetMapping("/search/asignatura")
+    public ResponseEntity<List<Asignatura>> getAsignaturas() {
+        List<Asignatura> asignaturas = asignaturaService.getAllAsignaturas();
+        return new ResponseEntity<>(asignaturas, HttpStatus.OK);
+    }
+
+    //Busqueda de mentores por area de conocimiento
+    @GetMapping("/search/asignatura/{id}")
+    public ResponseEntity<List<InformacionMentorDTO1>> searchMentoresByAsignatura(@PathVariable Integer id) {
+        List<InformacionMentorDTO1> mentors = asignaturaService.getMentoresByAsignaturaId(id);
+        return new ResponseEntity<>(mentors, HttpStatus.OK);
+    }
+
+    //Creacion de mentores
     @PostMapping
-    public ResponseEntity<Mentor> createMentor(@RequestBody Mentor mentor) {
-        Mentor createdMentor = mentorService.createMentor(mentor);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdMentor);
+    public ResponseEntity<InformacionMentorDTO> createMentor(@Valid @RequestBody InformacionMentorDTO mentorDTO) {
+        InformacionMentorDTO newMentor = mentorService.create(mentorDTO);
+        return new ResponseEntity<>(newMentor, HttpStatus.CREATED);
     }
 
-    // Actualizar un mentor existente
+    //Actualizacion de mentores
+    //Solo actualiza la bibliografia o la tarifaHora
+
     @PutMapping("/{id}")
-    public ResponseEntity<Mentor> updateMentor(@PathVariable Integer id, @RequestBody Mentor mentor) {
-        Mentor updatedMentor = mentorService.updateMentor(id, mentor);
-        return updatedMentor != null ? ResponseEntity.ok(updatedMentor) : ResponseEntity.notFound().build();
+    public ResponseEntity<InformacionMentorDTO> updateMentor(@PathVariable Integer id, @Valid @RequestBody MentorUpdateRequestDTO mentorUpdateRequestDTO) {
+        InformacionMentorDTO informacionMentorDTo = mentorService.update(mentorUpdateRequestDTO, id);
+        return new ResponseEntity<>(informacionMentorDTo, HttpStatus.OK);
     }
 
-    // Eliminar un mentor por ID
+    //Eliminacion de mentores
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMentor(@PathVariable Integer id) {
-        boolean deleted = mentorService.deleteMentor(id);
-        return deleted ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
+        mentorService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    //Obtener mentores por pagina
+    @GetMapping("/page")
+    public ResponseEntity<Page<InformacionMentorDTO>> paginateMentors(@PageableDefault(size = 5, sort = "name") Pageable pageable) {
+        Page<InformacionMentorDTO> mentors = mentorService.getMentorsByPage(pageable);
+        return new ResponseEntity<>(mentors, HttpStatus.OK);
+    }
+
 }
