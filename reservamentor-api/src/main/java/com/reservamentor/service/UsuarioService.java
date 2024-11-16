@@ -23,6 +23,7 @@ public interface UsuarioService {
     //Obtener el perfil del usuario por ID
     PerfilUsuarioDTO getPerfilById(Integer id);
 
-
+    //Obtiene el usuario
+    Usuario getUsuario(String token);
 
 }

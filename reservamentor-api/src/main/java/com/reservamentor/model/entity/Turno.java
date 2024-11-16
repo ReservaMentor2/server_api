@@ -1,9 +1,6 @@
 package com.reservamentor.model.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,6 +11,7 @@ import lombok.Setter;
 @Table(name = "turno")
 public class Turno {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "turnoid", nullable = false)
     private Integer id;
 

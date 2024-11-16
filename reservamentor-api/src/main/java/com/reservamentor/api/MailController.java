@@ -20,7 +20,7 @@ public class MailController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("reset/check/{token}")
+    @GetMapping("/reset/check/{token}")
     public ResponseEntity<Boolean> checkTokenValidity(@PathVariable("token") String token){
         boolean isValid = passwordResetTokenService.isValidToken(token);
         return new ResponseEntity<>(isValid, HttpStatus.OK);
