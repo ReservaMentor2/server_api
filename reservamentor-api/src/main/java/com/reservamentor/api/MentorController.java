@@ -23,7 +23,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/mentor")
-@PreAuthorize("hasAnyRole('ESTUDIANTE', 'ADMIN')")
 public class MentorController {
 
     private final MentorService mentorService;

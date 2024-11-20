@@ -20,60 +20,60 @@ public class SesionMentoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "sesionmentoriaid", nullable = false)
-    private Integer id;
+    private Integer id; // ok
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "mentorid", nullable = false)
     @JsonIgnore
-    private Mentor mentorid;
+    private Mentor mentorid; // ok
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "estudianteid", nullable = false)
     @JsonIgnore
-    private Estudiante estudianteid;
+    private Estudiante estudianteid; // ok
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "asignaturaid", nullable = false)
     @JsonIgnore
-    private Asignatura asignaturaid;
+    private Asignatura asignaturaid; // en duda
 
     @NotNull
     @Column(name = "dia", nullable = false)
-    private LocalDate dia;
+    private LocalDate dia; // ok
 
     @NotNull
     @Column(name = "horainicio", nullable = false)
-    private LocalTime horainicio;
+    private LocalTime horainicio; // ok
 
     @NotNull
     @Column(name = "horafinal", nullable = false)
-    private LocalTime horafinal;
+    private LocalTime horafinal; // ok
 
     @Size(max = 200)
     @NotNull
     @Column(name = "weblink", nullable = false, length = 200)
-    private String weblink;
+    private String weblink; // ok
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "turnoid", nullable = false)
     @JsonIgnore
-    private Turno turnoid;
+    private Turno turnoid; // en duda
 
     @NotNull
     @Column(name = "precio", nullable = false)
-    private BigDecimal precio;
+    private Integer precio; // ok
 
     @NotNull
     @Column
-    private String titulo;
+    private String titulo; // ok
 
     @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt; // no necesario
 
-    private String slug;
+    private String slug; // no necesario
 
 }
