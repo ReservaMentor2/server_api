@@ -62,17 +62,6 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public Usuario getUsuario(String token) {
-        String email = tokenProvider.getCorreo(token);
-
-        Usuario usuario = usuarioRepository.findByCorreo(email).orElseThrow(
-                () -> new ResourceNotFoundException("Usuario con correo " + email + " no fue encontrado")
-        );
-
-        return usuario;
-    }
-
-    @Override
     public AuthResponseDTO login(LoginUsuarioDTO loginUsuarioDTO) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginUsuarioDTO.getCorreo(), loginUsuarioDTO.getContrasenia())

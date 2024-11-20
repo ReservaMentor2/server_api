@@ -100,20 +100,4 @@ public class TokenProvider {
             return false;
         }
     }
-
-    public String getCorreo(String token) {
-        if (token.startsWith("Bearer ")) {
-            token = token.substring(7);
-        }
-
-        Claims claims = jwtParser.parseClaimsJws(token).getBody();
-
-        String role = claims.get("sub").toString();
-
-        List<GrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority(role));
-
-        User user = new User(claims.getSubject(), "", authorities);
-
-        return user.getUsername();
-    }
 }
