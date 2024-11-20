@@ -1,18 +1,23 @@
 package com.reservamentor.service.impl;
 
+import com.reservamentor.dto.CrearSesionMentoriaRequestDTO;
 import com.reservamentor.exception.ResourceNotFoundException;
 import com.reservamentor.model.entity.*;
 import com.reservamentor.repository.*;
 import com.reservamentor.service.SesionMentoriaService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
-public class SesionMentoriaServiceServiceImpl implements SesionMentoriaService {
+public class SesionMentoriaServiceImpl implements SesionMentoriaService {
 
     private final SesionMentoriaRepository sesionMentoriaRepository;
     private final EstudianteRepository estudianteRepository;
@@ -20,11 +25,11 @@ public class SesionMentoriaServiceServiceImpl implements SesionMentoriaService {
     private final AsignaturaRepository asignaturaRepository;
     private final TurnoRepository turnoRepository;
 
-    public SesionMentoriaServiceServiceImpl(SesionMentoriaRepository sesionMentoriaRepository,
-                                            EstudianteRepository estudianteRepository,
-                                            MentorRepository mentorRepository,
-                                            AsignaturaRepository asignaturaRepository,
-                                            TurnoRepository turnoRepository) {
+    public SesionMentoriaServiceImpl(SesionMentoriaRepository sesionMentoriaRepository,
+                                     EstudianteRepository estudianteRepository,
+                                     MentorRepository mentorRepository,
+                                     AsignaturaRepository asignaturaRepository,
+                                     TurnoRepository turnoRepository) {
         this.sesionMentoriaRepository = sesionMentoriaRepository;
         this.estudianteRepository = estudianteRepository;
         this.mentorRepository = mentorRepository;
@@ -118,5 +123,51 @@ public class SesionMentoriaServiceServiceImpl implements SesionMentoriaService {
         }
     }
 
+
+
+    @Override
+    public SesionMentoria crearSesionMentoria(CrearSesionMentoriaRequestDTO requestDTO) {
+        // Verifica si existe el mentor
+        Mentor mentor = mentorRepository.findById(requestDTO.getIdMentor())
+                .orElseThrow(() -> new EntityNotFoundException("Mentor no encontrado."));
+
+        // Verifica si existe el estudiante
+        Estudiante estudiante = estudianteRepository.findById(requestDTO.getIdEstudiante())
+                .orElseThrow(() -> new EntityNotFoundException("Estudiante no encontrado."));
+
+        // Verificar que la asignatura exista
+        Asignatura asignatura = asignaturaRepository.findByNombre(requestDTO.getTituloDelCurso())
+                .orElseThrow(() -> new IllegalArgumentException("La asignatura con el título '"
+                        + requestDTO.getTituloDelCurso() + "' no existe."));
+
+        // Verificar si la asignatura está al alcance del mentor
+        boolean asignaturaValida = asignaturaRepository.existsAsignaturaForMentor(mentor, asignatura);
+        if (!asignaturaValida) {
+            throw new IllegalArgumentException("La asignatura '" + requestDTO.getTituloDelCurso()
+                    + "' no está al alcance del mentor.");
+        }
+
+        // Crear el Turno
+        Turno turno = new Turno();
+        turno.setTurno(1);
+        turno = turnoRepository.save(turno);
+
+        // Crear nueva SesionMentoria
+        SesionMentoria sesionMentoria = new SesionMentoria();
+        sesionMentoria.setMentorid(mentor);
+        sesionMentoria.setEstudianteid(estudiante);
+        sesionMentoria.setTitulo(requestDTO.getTituloDeSesionMentoria());
+        sesionMentoria.setDia(LocalDate.parse(requestDTO.getDia())); // Conversión a LocalDate
+        sesionMentoria.setHorainicio(LocalTime.parse(requestDTO.getHoraInicio())); // Conversión a LocalTime
+        sesionMentoria.setHorafinal(LocalTime.parse(requestDTO.getHoraFin())); // Conversión a LocalTime
+        sesionMentoria.setPrecio(mentor.getTarifahora()); // Asigna la tarifa del mentor como precio
+        sesionMentoria.setWeblink("https://meet.google.com/" + mentor.getId()); // Generación de enlace automático
+        sesionMentoria.setAsignaturaid(asignatura);
+        sesionMentoria.setTurnoid(turno);  // Asignar el Turno a la SesionMentoria
+        sesionMentoria.setCreatedAt(LocalDateTime.now());
+
+
+        return sesionMentoriaRepository.save(sesionMentoria);
+    }
 
 }

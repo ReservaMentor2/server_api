@@ -19,8 +19,8 @@ public class MailController {
         passwordResetTokenService.createAndSendPasswordResetToken(email);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-// Verifivasr la validez del token de restablecimiento de passwrd
-    @GetMapping("reset/check/{token}")
+
+    @GetMapping("/reset/check/{token}")
     public ResponseEntity<Boolean> checkTokenValidity(@PathVariable("token") String token){
         boolean isValid = passwordResetTokenService.isValidToken(token);
         return new ResponseEntity<>(isValid, HttpStatus.OK);

@@ -42,7 +42,7 @@ public class PasswordResetTokenServiceImpl implements PasswordResetTokenService 
         passwordResetTokenRepository.save(passwordResetToken);
 
         Map<String, Object> model =new  HashMap<>();
-        String resetUrl = "http://localhost:4200/#/forgot/" + passwordResetToken.getToken();
+        String resetUrl = "http://localhost:4200/forgot/" + passwordResetToken.getToken();
         model.put("user", user.getCorreo());
         model.put("resetUrl", resetUrl);
 

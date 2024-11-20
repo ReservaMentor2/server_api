@@ -1,0 +1,464 @@
+{
+	"info": {
+		"_postman_id": "703e2657-5597-49a5-9e29-c9c03bd7ef04",
+		"name": "projectReservaMentor",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38137369"
+	},
+	"item": [
+		{
+			"name": "mentor",
+			"item": [
+				{
+					"name": "Obtener todos los mentores",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdHJpbmdAc3RyaW5nNi5jb20iLCJyb2xlIjoiUk9MRV9NRU5UT1IiLCJleHAiOjE3MzIzMzE0MjZ9.qma_sjt2E8vs-Ls6dkf1uY7B5kD4MZMDNDw_AzLspLllG17xm7z-68HE77Oh3-v3J6CzTwcVKLfIhPNLFjmqiw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/mentor",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"mentor"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener mentores ordenados por valoracion",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/admin/mentor/sorted-by-rating",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admin",
+								"mentor",
+								"sorted-by-rating"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener mentores por disponibilidad solo de dia",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/admin/mentor/by-dia?dia=",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admin",
+								"mentor",
+								"by-dia"
+							],
+							"query": [
+								{
+									"key": "dia",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener mentores por disponibilidad solo de horas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/admin/mentor/by-hora?horaInicio=11:00&horaFin=12:00",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admin",
+								"mentor",
+								"by-hora"
+							],
+							"query": [
+								{
+									"key": "horaInicio",
+									"value": "11:00"
+								},
+								{
+									"key": "horaFin",
+									"value": "12:00"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener mentores por disponibilidad general",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/admin/mentor/by-dia-y-hora?dia=Lunes&horaInicio=10:00&horaFin=13:00",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admin",
+								"mentor",
+								"by-dia-y-hora"
+							],
+							"query": [
+								{
+									"key": "dia",
+									"value": "Lunes"
+								},
+								{
+									"key": "horaInicio",
+									"value": "10:00"
+								},
+								{
+									"key": "horaFin",
+									"value": "13:00"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "sesionMentoria",
+			"item": [
+				{
+					"name": "Reprogramación de sesión de mentoría",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"dia\": \"2024-09-13\",\r\n    \"horainicio\": \"11:00:00\",\r\n    \"horafinal\": \"13:00:00\",\r\n    \"weblink\": \"http://googlemeet.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/admin/sesionmentoria/2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admin",
+								"sesionmentoria",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreacionSesionMentoria",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "valoracion",
+			"item": [
+				{
+					"name": "Comentario del mentor al alumno",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Restablecimiento de contraseña",
+			"item": [
+				{
+					"name": "Enviado de correo de restablecimiento",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "joeturpo@gmail.com",
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/mail/sendMail",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"mail",
+								"sendMail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verificado de validez de token",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/mail/reset/check/7a20a935-0a3c-412b-9622-41c6907607b0",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"mail",
+								"reset",
+								"check",
+								"7a20a935-0a3c-412b-9622-41c6907607b0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Restablecimiento de contraseña usando token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "HOla123",
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/mail/reset/7a20a935-0a3c-412b-9622-41c6907607b0",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"mail",
+								"reset",
+								"7a20a935-0a3c-412b-9622-41c6907607b0"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Autenticacion",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"correo\": \"joeturpo@gmail.com\",\r\n  \"contrasenia\": \"HOla123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registrar usuario(como mentor))",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombre\": \"string\",\r\n  \"apellido\": \"string\",\r\n  \"correo\": \"joeturpo@gmail.com\",\r\n  \"contrasenia\": \"string\",\r\n  \"nacionalidad\": \"string\",\r\n  \"telefono\": 0,\r\n  \"biografia\": \"string\",\r\n  \"tarifaHora\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/register/mentor",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"register",
+								"mentor"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registrar usuario(como estudiante)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombre\": \"string\",\r\n  \"apellido\": \"string\",\r\n  \"correo\": \"joeturpo@gmail.com\",\r\n  \"contrasenia\": \"string\",\r\n  \"nacionalidad\": \"string\",\r\n  \"telefono\": 0,\r\n  \"biografia\": \"string\",\r\n  \"tarifaHora\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/register/mentor",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"register",
+								"mentor"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Payment",
+			"item": [
+				{
+					"name": "Crear orden de pago",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/checkout/create?purchaseId=1&returnUrl=https://google.com",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"checkout",
+								"create"
+							],
+							"query": [
+								{
+									"key": "purchaseId",
+									"value": "1"
+								},
+								{
+									"key": "returnUrl",
+									"value": "https://google.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Capturar orden de pago",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/checkout/capture?orderId=",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"checkout",
+								"capture"
+							],
+							"query": [
+								{
+									"key": "orderId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8080/api/v1",
+			"type": "string"
+		}
+	]
+}

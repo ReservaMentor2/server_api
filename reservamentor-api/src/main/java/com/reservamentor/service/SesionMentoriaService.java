@@ -1,6 +1,8 @@
 package com.reservamentor.service;
 
+import com.reservamentor.dto.CrearSesionMentoriaRequestDTO;
 import com.reservamentor.model.entity.SesionMentoria;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -16,6 +18,6 @@ public interface SesionMentoriaService {
     SesionMentoria update(Integer id, SesionMentoria sesionMentoria);
     void delete(Integer id);
     void setMentorias(Integer id, List<SesionMentoria> sesionMentorias);
-
+    SesionMentoria crearSesionMentoria(CrearSesionMentoriaRequestDTO requestDTO);
 
 }

@@ -141,4 +141,15 @@ public class UsuarioServiceImpl implements UsuarioService {
         return null;
     }
 
+    @Override
+    public Usuario getUsuario(String token) {
+        String email = tokenProvider.getCorreo(token);
+
+        Usuario usuario = usuarioRepository.findByCorreo(email).orElseThrow(
+                () -> new ResourceNotFoundException("Usuario con correo " + email + " no fue encontrado")
+        );
+
+        return usuario;
+    }
+
 }

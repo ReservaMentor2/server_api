@@ -1,7 +1,14 @@
 package com.reservamentor.api;
 
-import com.reservamentor.model.entity.SesionMentoria;
+import com.reservamentor.dto.CrearSesionMentoriaRequestDTO;
+import com.reservamentor.model.entity.*;
+import com.reservamentor.repository.AsignaturaRepository;
+import com.reservamentor.repository.EstudianteRepository;
+import com.reservamentor.repository.MentorRepository;
+import com.reservamentor.repository.SesionMentoriaRepository;
 import com.reservamentor.service.SesionMentoriaService;
+import com.reservamentor.service.UsuarioService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,6 +19,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
@@ -20,6 +28,11 @@ import java.util.List;
 public class SesionMentoriaController {
 
     private final SesionMentoriaService sesionMentoriaService;
+    private final UsuarioService usuarioService;
+    private final EstudianteRepository estudianteRepository;
+    private final MentorRepository mentorRepository;
+    private final AsignaturaRepository asignaturaRepository;
+    private final SesionMentoriaRepository sesionMentoriaRepository;
 
     //Obtener todas las sesiones de mentoria
     @GetMapping
@@ -31,6 +44,7 @@ public class SesionMentoriaController {
     //Crea una nueva sesion de mentoria
     @PutMapping
     public ResponseEntity<SesionMentoria> createSesionMentoria(@RequestBody SesionMentoria sesionMentoria) {
+
         SesionMentoria sesionMentoria1 = sesionMentoriaService.create(sesionMentoria);
         return new ResponseEntity<SesionMentoria>(sesionMentoria1, HttpStatus.CREATED);
     }
@@ -61,6 +75,25 @@ public class SesionMentoriaController {
     public ResponseEntity<Page<SesionMentoria>> paginateSesionesMentoria(@PageableDefault(size = 5, sort = "name")Pageable pageable) {
         Page<SesionMentoria> sesionesMentoria = sesionMentoriaService.paginate(pageable);
         return new ResponseEntity<Page<SesionMentoria>>(sesionesMentoria, HttpStatus.OK);
+    }
+
+
+    @PostMapping("/crear")
+    public ResponseEntity<?> crearSesionMentoria(
+            @RequestBody CrearSesionMentoriaRequestDTO requestDTO,
+            @RequestHeader("Authorization") String bearerToken) {
+
+            // Obtener el ID del estudiante desde el token
+            Usuario usuario = usuarioService.getUsuario(bearerToken);
+            Estudiante estudiante = estudianteRepository.findByUsuarioid(usuario);
+
+            // Completar el DTO con el ID del estudiante
+            requestDTO.setIdEstudiante(estudiante.getId());
+
+            // Delegar la creación al servicio
+            SesionMentoria nuevaSesion = sesionMentoriaService.crearSesionMentoria(requestDTO);
+
+            return ResponseEntity.ok(nuevaSesion);
     }
 
 }
