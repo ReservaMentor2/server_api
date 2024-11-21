@@ -1,11 +1,17 @@
 package com.reservamentor.integration.payment.paypal.service.Impl;
 
 
+import com.reservamentor.dto.PurchaseItemCreateUpdateDTO;
 import com.reservamentor.exception.ResourceNotFoundException;
 import com.reservamentor.integration.payment.paypal.dto.*;
 import com.reservamentor.integration.payment.paypal.service.PayPalService;
 import com.reservamentor.model.entity.Purchase;
-import com.reservamentor.repository.PurchaseRepository;
+import com.reservamentor.model.entity.PurchaseItem;
+import com.reservamentor.model.entity.SesionMentoria;
+import com.reservamentor.model.entity.Usuario;
+import com.reservamentor.model.entity.enums.PaymentStatus;
+import com.reservamentor.repository.*;
+import com.reservamentor.service.SesionMentoriaService;
 import jakarta.annotation.PostConstruct;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +23,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestClient;
 
+import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.Collections;
 import java.util.Objects;
@@ -37,6 +44,9 @@ public class PayPalServiceImpl implements PayPalService {
     @NonNull
     private PurchaseRepository purchaseRepository;
     private RestClient paypalClient;
+
+    @NonNull
+    private PurchaseItemRepository purchaseItemRepository;
 
     @PostConstruct
     public void init(){
@@ -109,5 +119,30 @@ public class PayPalServiceImpl implements PayPalService {
                 .retrieve()
                 .toEntity(OrderCaptureResponse.class)
                 .getBody();
+    }
+
+    public PurchaseItem createPurchaseItem(SesionMentoria sesionMentoria) {
+        PurchaseItem purchaseItem = new PurchaseItem();
+        float price = (float) sesionMentoria.getPrecio();
+
+        purchaseItem.setPrice(price);
+        purchaseItem.setQuantity(1);
+        purchaseItem.setSesionMentoriaid(sesionMentoria);
+
+        PurchaseItem purchasedItem = purchaseItemRepository.save(purchaseItem);
+        return purchasedItem;
+    }
+
+    public Purchase createPurchase(PurchaseItem purchaseItem, Usuario usuario) {
+        Purchase purchase = new Purchase();
+
+        purchase.setTotal(purchaseItem.getPrice());
+        purchase.setUser(usuario);
+        purchase.setCreatedAt(LocalDateTime.now());
+        purchase.setPaymentStatus(PaymentStatus.PENDING);
+        purchase.setItems(Collections.singletonList(purchaseItem));
+
+        Purchase purchased = purchaseRepository.save(purchase);
+        return purchased;
     }
 }

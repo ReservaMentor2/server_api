@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class PurchaseItemCreateUpdateDTO {
-    private Integer bookId;
+    private Integer sesionMentoriaId;
     private Integer quantity;
     private Float price;
 }

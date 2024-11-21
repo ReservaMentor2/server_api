@@ -1,5 +1,6 @@
 package com.reservamentor.mapper;
 
+import com.reservamentor.dto.AsignaturaDelMentorDTO;
 import com.reservamentor.dto.DisponibilidadDTO;
 import com.reservamentor.dto.InformacionMentorDTO;
 import com.reservamentor.dto.MentorPerfilDTO;
@@ -9,6 +10,7 @@ import com.reservamentor.model.entity.Mentor;
 import java.util.List;
 
 import com.reservamentor.model.entity.Usuario;
+import com.reservamentor.repository.AsignaturaRepository;
 import com.reservamentor.repository.MentorRepository;
 import com.reservamentor.repository.UsuarioRepository;
 import org.modelmapper.ModelMapper;
@@ -20,11 +22,13 @@ public class MentorMapper {
   private final ModelMapper modelMapper;
   private final MentorRepository mentorRepository;
   private final UsuarioRepository usuarioRepository;
+  private final AsignaturaRepository asignaturaRepository;
 
-  public MentorMapper(ModelMapper modelMapper, MentorRepository mentorRepository, UsuarioRepository usuarioRepository) {
+  public MentorMapper(ModelMapper modelMapper, MentorRepository mentorRepository1, UsuarioRepository usuarioRepository1, AsignaturaRepository asignaturaRepository1) {
     this.modelMapper = modelMapper;
-    this.mentorRepository = mentorRepository;
-    this.usuarioRepository = usuarioRepository;
+    this.mentorRepository = mentorRepository1;
+    this.usuarioRepository = usuarioRepository1;
+    this.asignaturaRepository = asignaturaRepository1;
   }
 
   public MentorPerfilDTO MPtoDTO(Mentor mentor) {
@@ -40,6 +44,10 @@ public class MentorMapper {
             () -> new ResourceNotFoundException("El usuario no fue encontrado")
     );
 
+    List<AsignaturaDelMentorDTO> asignaturasQueManeja = asignaturaRepository.findAsignaturasByMentor(mentor).stream()
+            .map(asignatura -> new AsignaturaDelMentorDTO(asignatura.getId(), asignatura.getNombre()))
+            .toList();
+
     InformacionMentorDTO informacionMentorDTO =
         modelMapper.map(mentor, InformacionMentorDTO.class);
     informacionMentorDTO.setIdMentor(mentor.getId());
@@ -48,6 +56,9 @@ public class MentorMapper {
     informacionMentorDTO.setApellido(mentor.getUsuarioId().getApellido());
     informacionMentorDTO.setValoracion(mentor.getValoracionpromedio());
     informacionMentorDTO.setImagePath(usuario.getImagePath());
+    informacionMentorDTO.setListaAsignaturas(asignaturasQueManeja);
+
+
 
     List<DisponibilidadDTO> disponibilidades =
         mentor.getHorarioDisponible()
