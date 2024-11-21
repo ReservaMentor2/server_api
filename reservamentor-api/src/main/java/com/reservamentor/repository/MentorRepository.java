@@ -22,6 +22,9 @@ public interface MentorRepository extends JpaRepository<Mentor, Integer> {
   List<Mentor> findAllOrderByValoracionpromedio();
   List<Mentor> findMentorById(Integer mentorId);
 
+  @Query("SELECT m FROM Mentor m WHERE m.id = :mentorId")
+  Mentor findMentorWithDetails(@Param("mentorId") Integer mentorId);
+
   @Query("SELECT m FROM Mentor m "
          + "WHERE m.tarifahora <= :tarifaMaxima "
          + "AND m.valoracionpromedio >= :valoracionMinima "

@@ -34,4 +34,6 @@ public class InformacionMentorDTO {
 
   private List<DisponibilidadDTO> horariosDisponibles;
   private String ImagePath;
+
+  private List<AsignaturaDelMentorDTO> listaAsignaturas;
 }
