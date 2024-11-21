@@ -1,9 +1,6 @@
 package com.reservamentor.api;
 
-import com.reservamentor.dto.InformacionMentorDTO;
-import com.reservamentor.dto.InformacionMentorDTO1;
-import com.reservamentor.dto.MentorPerfilDTO;
-import com.reservamentor.dto.MentorUpdateRequestDTO;
+import com.reservamentor.dto.*;
 import com.reservamentor.model.entity.Asignatura;
 import com.reservamentor.service.AsignaturaService;
 
@@ -127,6 +124,12 @@ public class MentorController {
     public ResponseEntity<Page<InformacionMentorDTO>> paginateMentors(@PageableDefault(size = 5, sort = "name") Pageable pageable) {
         Page<InformacionMentorDTO> mentors = mentorService.getMentorsByPage(pageable);
         return new ResponseEntity<>(mentors, HttpStatus.OK);
+    }
+
+    @GetMapping("/{mentorId}")
+    public ResponseEntity<MentorDetallesDTO> obtenerDetallesMentor(@PathVariable Integer mentorId) {
+        MentorDetallesDTO mentorDetalles = mentorService.obtenerDetallesMentor(mentorId);
+        return ResponseEntity.ok(mentorDetalles);
     }
 
 }

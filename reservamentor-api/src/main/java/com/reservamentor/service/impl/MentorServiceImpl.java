@@ -1,14 +1,15 @@
 package com.reservamentor.service.impl;
 
-import com.reservamentor.dto.InformacionMentorDTO;
-import com.reservamentor.dto.MentorPerfilDTO;
-import com.reservamentor.dto.MentorUpdateRequestDTO;
+import com.reservamentor.dto.*;
 import com.reservamentor.exception.BadRequestException;
 import com.reservamentor.exception.MentorNotFound;
 import com.reservamentor.exception.ResourceNotFoundException;
 import com.reservamentor.mapper.MentorMapper;
 import com.reservamentor.model.entity.Mentor;
 import com.reservamentor.model.entity.Usuario;
+
+import com.reservamentor.model.entity.Asignatura;
+import com.reservamentor.repository.AsignaturaRepository;
 import com.reservamentor.repository.DisponibilidadRepository;
 import com.reservamentor.repository.MentorRepository;
 import com.reservamentor.repository.UsuarioRepository;
@@ -22,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -31,6 +33,7 @@ public class MentorServiceImpl implements MentorService {
     private final MentorRepository mentorRepository;
     private final DisponibilidadRepository disponibilidadRepository;
     private final UsuarioRepository usuarioRepository;
+    private final AsignaturaRepository asignaturaRepository;
 
     @Transactional(readOnly = true)
     public List<InformacionMentorDTO> getAll() {
@@ -176,5 +179,42 @@ public class MentorServiceImpl implements MentorService {
         );
         mentorRepository.delete(mentor);
     }
+
+
+    @Override
+    @Transactional(readOnly = true)
+    public MentorDetallesDTO obtenerDetallesMentor(Integer mentorId) {
+        Mentor mentor = mentorRepository.findById(mentorId)
+                .orElseThrow(() -> new RuntimeException("Mentor no encontrado con ID: " + mentorId));
+
+        // Usuario asociado al mentor
+        Usuario usuario = mentor.getUsuarioId();
+
+        // Lista de objetos de Disponibilidad del mentor
+        List<DisponibilidadDTO> horariosDisponibles = mentor.getHorarioDisponible().stream()
+                .map(disponibilidad -> new DisponibilidadDTO(
+                        disponibilidad.getDia(),
+                        disponibilidad.getHorainicio(),
+                        disponibilidad.getHorafin()
+                ))
+                .toList();
+
+        // Asignaturas manejadas por el mentor
+        List<AsignaturaDelMentorDTO> asignaturasQueManeja = asignaturaRepository.findAsignaturasByMentor(mentor).stream()
+                .map(asignatura -> new AsignaturaDelMentorDTO(asignatura.getId(), asignatura.getNombre()))
+                .toList();
+
+        // Asignacion y retorno
+        return new MentorDetallesDTO(
+                usuario.getNombre(),
+                usuario.getApellido(),
+                horariosDisponibles,
+                usuario.getImagePath(),
+                mentor.getTarifahora(),
+                mentor.getValoracionpromedio(),
+                asignaturasQueManeja
+        );
+    }
+
 
 }
