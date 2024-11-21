@@ -130,7 +130,7 @@ public class MentorController {
     @GetMapping("/{mentorId}")
     public ResponseEntity<MentorDetallesDTO> obtenerDetallesMentor(@PathVariable Integer mentorId) {
         MentorDetallesDTO mentorDetalles = mentorService.obtenerDetallesMentor(mentorId);
-        return ResponseEntity.ok(mentorDetalles);  // Devuelve 200 OK con el DTO
+        return ResponseEntity.ok(mentorDetalles);
     }
 
 }
