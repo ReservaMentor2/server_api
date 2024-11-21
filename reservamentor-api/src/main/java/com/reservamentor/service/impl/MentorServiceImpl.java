@@ -177,7 +177,7 @@ public class MentorServiceImpl implements MentorService {
                 .map(asignatura -> new AsignaturaDelMentorDTO(asignatura.getId(), asignatura.getNombre()))
                 .toList();
 
-        // Asignacion y devolucion al DTO
+        // Asignacion y retorno
         return new MentorDetallesDTO(
                 usuario.getNombre(),
                 usuario.getApellido(),
