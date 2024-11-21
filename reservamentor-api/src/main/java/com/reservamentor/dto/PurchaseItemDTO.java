@@ -7,5 +7,5 @@ public class PurchaseItemDTO {
     private Integer id;
     private Float price;
     private Integer quantity;
-    private String bookTitle;
+    private String sesionMentoriaTitle;
 }

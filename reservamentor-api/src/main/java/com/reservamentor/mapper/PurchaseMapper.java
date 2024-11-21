@@ -50,14 +50,14 @@ public class PurchaseMapper {
     private PurchaseItem toPurchaseItemEntity(PurchaseItemCreateUpdateDTO itemDTO) {
         PurchaseItem item = modelMapper.map(itemDTO, PurchaseItem.class);
         SesionMentoria sesionMentoria = new SesionMentoria();
-        sesionMentoria.setId(itemDTO.getBookId());
+        sesionMentoria.setId(itemDTO.getSesionMentoriaId());
         item.setSesionMentoriaid(sesionMentoria);
         return item;
     }
 
     private PurchaseItemDTO toPurchaseItemDTO(PurchaseItem item) {
         PurchaseItemDTO itemDTO = modelMapper.map(item, PurchaseItemDTO.class);
-        itemDTO.setBookTitle(item.getSesionMentoriaid().getTitulo() + "USER");
+        itemDTO.setSesionMentoriaTitle(item.getSesionMentoriaid().getTitulo() + "USER");
         return itemDTO;
     }
 
