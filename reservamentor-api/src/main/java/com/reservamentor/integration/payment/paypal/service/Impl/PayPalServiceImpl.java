@@ -10,8 +10,7 @@ import com.reservamentor.model.entity.PurchaseItem;
 import com.reservamentor.model.entity.SesionMentoria;
 import com.reservamentor.model.entity.Usuario;
 import com.reservamentor.model.entity.enums.PaymentStatus;
-import com.reservamentor.repository.PurchaseItemRepository;
-import com.reservamentor.repository.PurchaseRepository;
+import com.reservamentor.repository.*;
 import com.reservamentor.service.SesionMentoriaService;
 import jakarta.annotation.PostConstruct;
 import lombok.NonNull;
@@ -45,6 +44,8 @@ public class PayPalServiceImpl implements PayPalService {
     @NonNull
     private PurchaseRepository purchaseRepository;
     private RestClient paypalClient;
+
+    @NonNull
     private PurchaseItemRepository purchaseItemRepository;
 
     @PostConstruct
@@ -128,8 +129,8 @@ public class PayPalServiceImpl implements PayPalService {
         purchaseItem.setQuantity(1);
         purchaseItem.setSesionMentoriaid(sesionMentoria);
 
-        purchaseItem = purchaseItemRepository.save(purchaseItem);
-        return purchaseItem;
+        PurchaseItem purchasedItem = purchaseItemRepository.save(purchaseItem);
+        return purchasedItem;
     }
 
     public Purchase createPurchase(PurchaseItem purchaseItem, Usuario usuario) {
@@ -141,7 +142,7 @@ public class PayPalServiceImpl implements PayPalService {
         purchase.setPaymentStatus(PaymentStatus.PENDING);
         purchase.setItems(Collections.singletonList(purchaseItem));
 
-        purchase = purchaseRepository.save(purchase);
-        return purchase;
+        Purchase purchased = purchaseRepository.save(purchase);
+        return purchased;
     }
 }
