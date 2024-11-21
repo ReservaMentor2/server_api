@@ -24,7 +24,6 @@ public class Asignatura {
     private String nombre;
 
     @Size(max = 150)
-    @NotNull
     @Column(name = "descripcion", nullable = false, length = 150)
     private String descripcion;
 

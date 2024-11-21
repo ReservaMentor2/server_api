@@ -5,6 +5,10 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 @Data
 @Getter
 @Setter
@@ -25,12 +29,12 @@ public class CrearSesionMentoriaRequestDTO {
     private String tituloDeSesionMentoria;// F
 
     @NotNull
-    private String horaInicio; // F
+    private LocalTime horaInicio; // F
 
     @NotNull
-    private String horaFin; // F
+    private LocalTime horaFin; // F
 
     @NotNull
-    private String dia; // F
+    private LocalDate dia; // F
 
 }
