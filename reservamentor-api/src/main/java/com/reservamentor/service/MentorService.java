@@ -1,6 +1,7 @@
 package com.reservamentor.service;
 
 import com.reservamentor.dto.InformacionMentorDTO;
+import com.reservamentor.dto.MentorDetallesDTO;
 import com.reservamentor.dto.MentorPerfilDTO;
 import com.reservamentor.dto.MentorUpdateRequestDTO;
 import org.springframework.data.domain.Page;
@@ -17,7 +18,7 @@ public interface MentorService {
     public List<InformacionMentorDTO> searchByDia(String dia);
     public List<InformacionMentorDTO> searchByHora(LocalTime horaInicio, LocalTime horaFin);
     public List<InformacionMentorDTO> searchByDiaAndHora(String dia, LocalTime horaInicio, LocalTime horaFin);
-
+    public MentorDetallesDTO obtenerDetallesMentor(Integer mentorId);
     public List<InformacionMentorDTO> sortAllByRating();
 
     public Page<InformacionMentorDTO> getMentorsByPage(Pageable pageable);
