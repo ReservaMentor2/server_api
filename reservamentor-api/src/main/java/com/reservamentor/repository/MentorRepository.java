@@ -3,12 +3,20 @@ package com.reservamentor.repository;
 import com.reservamentor.model.entity.Mentor;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
+
+import com.reservamentor.model.entity.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 public interface MentorRepository extends JpaRepository<Mentor, Integer> {
+  Optional<Mentor> findByUsuarioId(Usuario usuario);
+
   @Query("SELECT m FROM Mentor m JOIN FETCH m.usuarioId") List<Mentor> findAll();
+
+  @Query("SELECT m FROM Mentor m JOIN FETCH m.usuarioId") List<Mentor> findMentores();
 
   @Query("SELECT m FROM Mentor m ORDER BY m.valoracionpromedio DESC")
   List<Mentor> findAllOrderByValoracionpromedio();

@@ -20,7 +20,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/mentor")
-@PreAuthorize("hasAnyRole('ESTUDIANTE', 'ADMIN')")
 public class MentorController {
 
     private final MentorService mentorService;
@@ -35,7 +34,7 @@ public class MentorController {
     //Busqueda de todos los mentores
 
     @GetMapping
-    public ResponseEntity<List<InformacionMentorDTO>> WgetAllMentors() {
+    public ResponseEntity<List<InformacionMentorDTO>> getAllMentors() {
         List<InformacionMentorDTO> mentors = mentorService.getAll();
         return new ResponseEntity<>(mentors, HttpStatus.OK);
     }

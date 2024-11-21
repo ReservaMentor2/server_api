@@ -4,6 +4,8 @@ import com.reservamentor.dto.InformacionMentorDTO;
 import com.reservamentor.dto.MentorDetallesDTO;
 import com.reservamentor.dto.MentorPerfilDTO;
 import com.reservamentor.dto.MentorUpdateRequestDTO;
+import com.reservamentor.model.entity.Mentor;
+import com.reservamentor.model.entity.Usuario;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -15,6 +17,7 @@ public interface MentorService {
 
     public List<InformacionMentorDTO> getAll();
     public MentorPerfilDTO searchById(Integer id);
+    public Mentor searchByUsuarioId(Usuario usuario);
     public List<InformacionMentorDTO> searchByDia(String dia);
     public List<InformacionMentorDTO> searchByHora(LocalTime horaInicio, LocalTime horaFin);
     public List<InformacionMentorDTO> searchByDiaAndHora(String dia, LocalTime horaInicio, LocalTime horaFin);

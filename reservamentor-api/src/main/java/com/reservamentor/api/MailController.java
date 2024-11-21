@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public class MailController {
 
     private final PasswordResetTokenService passwordResetTokenService;
-
+ 
     @PostMapping("/sendMail")
     public ResponseEntity<Void> sendPasswordResetMail(@RequestBody String email)throws Exception{
         passwordResetTokenService.createAndSendPasswordResetToken(email);
@@ -25,7 +25,7 @@ public class MailController {
         boolean isValid = passwordResetTokenService.isValidToken(token);
         return new ResponseEntity<>(isValid, HttpStatus.OK);
     }
-
+// restablecer la password usando token
     @PostMapping("/reset/{token}")
     public ResponseEntity<Void> resetPassword(@PathVariable("token") String token, @RequestBody String newPassword){
         passwordResetTokenService.resetPassword(token, newPassword);

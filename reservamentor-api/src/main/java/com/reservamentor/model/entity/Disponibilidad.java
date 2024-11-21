@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Date;
 
 @Data
 @Entity
@@ -15,7 +16,7 @@ public class Disponibilidad {
     private Integer id;
 
     @Column(name = "dia", nullable = false)
-    private String dia;
+    private LocalDate dia;
 
     @Column(name = "horainit", nullable = false)
     private LocalTime horainicio;

@@ -4,6 +4,7 @@ import com.reservamentor.dto.AuthResponseDTO;
 import com.reservamentor.dto.LoginUsuarioDTO;
 import com.reservamentor.dto.PerfilUsuarioDTO;
 import com.reservamentor.dto.RegistroUsuarioDTO;
+import com.reservamentor.exception.MentorNotFound;
 import com.reservamentor.exception.ResourceNotFoundException;
 import com.reservamentor.mapper.UsuarioMapper;
 import com.reservamentor.model.entity.Estudiante;
@@ -75,7 +76,6 @@ public class UsuarioServiceImpl implements UsuarioService {
 
         return authResponseDTO;
     }
-
 
     private PerfilUsuarioDTO registroUsuarioConRol(RegistroUsuarioDTO registroUsuarioDTO, ERol rol) {
 
