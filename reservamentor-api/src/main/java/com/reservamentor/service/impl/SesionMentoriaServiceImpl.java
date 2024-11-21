@@ -123,8 +123,6 @@ public class SesionMentoriaServiceImpl implements SesionMentoriaService {
         }
     }
 
-
-
     @Override
     public SesionMentoria crearSesionMentoria(CrearSesionMentoriaRequestDTO requestDTO) {
         // Verifica si existe el mentor
@@ -157,15 +155,14 @@ public class SesionMentoriaServiceImpl implements SesionMentoriaService {
         sesionMentoria.setMentorid(mentor);
         sesionMentoria.setEstudianteid(estudiante);
         sesionMentoria.setTitulo(requestDTO.getTituloDeSesionMentoria());
-        sesionMentoria.setDia(LocalDate.parse(requestDTO.getDia())); // Conversión a LocalDate
-        sesionMentoria.setHorainicio(LocalTime.parse(requestDTO.getHoraInicio())); // Conversión a LocalTime
-        sesionMentoria.setHorafinal(LocalTime.parse(requestDTO.getHoraFin())); // Conversión a LocalTime
+        sesionMentoria.setDia(requestDTO.getDia()); // Conversión a LocalDate
+        sesionMentoria.setHorainicio(requestDTO.getHoraInicio()); // Conversión a LocalTime
+        sesionMentoria.setHorafinal(requestDTO.getHoraFin()); // Conversión a LocalTime
         sesionMentoria.setPrecio(mentor.getTarifahora()); // Asigna la tarifa del mentor como precio
         sesionMentoria.setWeblink("https://meet.google.com/" + mentor.getId()); // Generación de enlace automático
         sesionMentoria.setAsignaturaid(asignatura);
         sesionMentoria.setTurnoid(turno);  // Asignar el Turno a la SesionMentoria
         sesionMentoria.setCreatedAt(LocalDateTime.now());
-
 
         return sesionMentoriaRepository.save(sesionMentoria);
     }

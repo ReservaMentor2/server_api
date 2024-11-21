@@ -26,5 +26,4 @@ public class AsignaturaServiceImpl implements AsignaturaService {
                 .orElseThrow(() -> new ResourceNotFoundException("Asignatura not found"));
         return asignaturaRepository.findMentoresByAsignaturaId(asignatura.getId());
     }
-
 }
