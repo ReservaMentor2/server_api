@@ -102,6 +102,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
         Usuario usuario = usuarioMapper.toUserEntity(registroUsuarioDTO);
         usuario.setRol(role);
+        usuario.setImagePath("6b6ac684-eff1-4d5e-a440-0084d5c74c70.png");
         Usuario usuarioGuardado = usuarioRepository.save(usuario);
 
         if(rol == ERol.MENTOR) {

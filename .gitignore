@@ -31,4 +31,4 @@ build/
 
 ### VS Code ###
 .vscode/
-/reservamentor-api/mediafiles
+#/reservamentor-api/mediafiles
